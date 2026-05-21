@@ -437,12 +437,15 @@ def generate_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
       .projectDesc {{ font: 500 13px Inter, Segoe UI, Arial, sans-serif; fill: #93a4c3; }}
       .card {{ animation: float 6s ease-in-out infinite; }}
       .metricCard {{ animation: cardPulse 4.5s ease-in-out infinite; }}
-      .projectCard {{ animation: floatSoft 7s ease-in-out infinite; }}
-      .socialButton {{ animation: glowPulse 5s ease-in-out infinite; }}
-      @keyframes float {{ 0%,100% {{ transform: translateY(0px); }} 50% {{ transform: translateY(-8px); }} }}
-      @keyframes floatSoft {{ 0%,100% {{ transform: translateY(0px); }} 50% {{ transform: translateY(-4px); }} }}
-      @keyframes cardPulse {{ 0%,100% {{ opacity: 0.96; }} 50% {{ opacity: 1; }} }}
-      @keyframes glowPulse {{ 0%,100% {{ opacity: 0.92; }} 50% {{ opacity: 1; }} }}
+      .card {{ animation: float 6s ease-in-out infinite; }}
+.metricCard {{ animation: cardPulse 4.5s ease-in-out infinite; }}
+.projectCard {{ animation: projectGlow 5s ease-in-out infinite; }}
+.socialButton {{ animation: glowPulse 5s ease-in-out infinite; }}
+
+@keyframes float {{ 0%,100% {{ transform: translateY(0px); }} 50% {{ transform: translateY(-8px); }} }}
+@keyframes projectGlow {{ 0%,100% {{ opacity: 0.94; }} 50% {{ opacity: 1; }} }}
+@keyframes cardPulse {{ 0%,100% {{ opacity: 0.96; }} 50% {{ opacity: 1; }} }}
+@keyframes glowPulse {{ 0%,100% {{ opacity: 0.92; }} 50% {{ opacity: 1; }} }}
     </style>
   </defs>
 
