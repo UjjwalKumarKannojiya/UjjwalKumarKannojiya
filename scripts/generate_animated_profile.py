@@ -312,6 +312,7 @@ def project_cards(repos: List[Dict[str, Any]], x: int, y: int) -> str:
     public_repos = [r for r in repos if not r.get("isFork")]
     if not public_repos:
         public_repos = repos
+
     for i, repo in enumerate(public_repos[:4]):
         col = i % 2
         row = i // 2
@@ -323,6 +324,7 @@ def project_cards(repos: List[Dict[str, Any]], x: int, y: int) -> str:
         forks = repo.get("forkCount") or 0
         lang = (repo.get("primaryLanguage") or {}).get("name") or "Code"
         color = (repo.get("primaryLanguage") or {}).get("color") or "#58a6ff"
+
         cards.append(f"""
 <g transform="translate({px},{py})" class="projectCard">
   <rect width="420" height="106" rx="18" fill="#121b2a" stroke="#263652"/>
@@ -333,7 +335,53 @@ def project_cards(repos: List[Dict[str, Any]], x: int, y: int) -> str:
   <text x="280" y="87" class="tiny">★ {stars}</text>
   <text x="340" y="87" class="tiny">⑂ {forks}</text>
 </g>""")
+
     return "\n".join(cards)
+
+
+def build_quote_animation(x: int, y: int, w: int = 856, h: int = 92) -> str:
+    quotes = [
+        ("Code is like humor. When you have to explain it, it’s bad.", "Cory House"),
+        ("First, solve the problem. Then, write the code.", "John Johnson"),
+        ("Make it work, make it right, make it fast.", "Kent Beck"),
+    ]
+
+    parts = [f"""
+<g transform="translate({x},{y})">
+  <rect width="{w}" height="{h}" rx="20" fill="#121b2a" stroke="#263652"/>
+  <rect x="16" y="16" width="{w-32}" height="{h-32}" rx="15" fill="#0b1220" opacity="0.72"/>
+"""]
+
+    timings = [
+        ("1;1;0;0;0;1", "0;0.25;0.34;0.68;0.92;1"),
+        ("0;0;1;1;0;0", "0;0.28;0.36;0.58;0.68;1"),
+        ("0;0;0;0;1;1", "0;0.55;0.64;0.72;0.80;1"),
+    ]
+
+    for i, (quote, author) in enumerate(quotes):
+        values, keytimes = timings[i]
+        base_opacity = "1" if i == 0 else "0"
+        parts.append(f"""
+  <g opacity="{base_opacity}">
+    <text x="34" y="44" class="small" fill="#d7e2f7">“{esc(short(quote, 84))}”</text>
+    <text x="34" y="67" class="tiny">— {esc(author)}</text>
+    <animate attributeName="opacity" values="{values}" keyTimes="{keytimes}" dur="12s" repeatCount="indefinite"/>
+  </g>
+""")
+
+    parts.append(f"""
+  <rect x="-900" y="0" width="900" height="{h}" fill="#121b2a" opacity="0.92">
+    <animate attributeName="x" values="-900;900;900;-900" keyTimes="0;0.18;0.78;1" dur="4s" repeatCount="indefinite"/>
+  </rect>
+
+  <rect x="0" y="0" width="5" height="{h}" fill="#39d5ff" opacity="0.8">
+    <animate attributeName="x" values="0;850;0" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.1;0.9;0.1" dur="4s" repeatCount="indefinite"/>
+  </rect>
+</g>
+""")
+
+    return "".join(parts)
 
 
 def generate_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
@@ -357,10 +405,11 @@ def generate_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
 
     live_stack = collect_live_stack(repos)
     ordered_stack = config.get("tech_stack_original_order") or DEFAULT_CONFIG["tech_stack_original_order"]
-    stack_svg, _stack_bottom = wrap_pills(ordered_stack, live_stack, 72, 1008, 900, max_rows=6)
 
+    stack_svg, _stack_bottom = wrap_pills(ordered_stack, live_stack, 72, 1008, 900, max_rows=6)
     heatmap_svg = build_heatmap(weeks, 78, 704)
-    projects_svg = project_cards(repos, 72, 1320)
+    projects_svg = project_cards(repos, 72, 1380)
+    quote_svg = build_quote_animation(72, 1684)
 
     social_parts = []
     sx = 72
@@ -383,11 +432,12 @@ def generate_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
         ("Forks", total_forks, "#fb923c"),
         ("Followers", followers, "#22c55e"),
     ]
+
     metric_parts = []
     for i, (label, value, color) in enumerate(metrics):
         px = 72 + i * 184
         metric_parts.append(f"""
-<g transform="translate({px},{548})" class="metricCard">
+<g transform="translate({px},548)" class="metricCard">
   <rect width="164" height="88" rx="18" fill="#121b2a" stroke="#263652"/>
   <text x="82" y="39" text-anchor="middle" class="metricValue" fill="{color}">{esc(value)}</text>
   <text x="82" y="65" text-anchor="middle" class="metricLabel">{esc(label)}</text>
@@ -395,22 +445,25 @@ def generate_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
 
     updated = dt.datetime.utcnow().strftime("%d %b %Y, %H:%M UTC")
 
-    svg = f"""<svg width="1000" height="1660" viewBox="0 0 1000 1660" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{esc(name)} animated GitHub profile">
+    svg = f"""<svg width="1000" height="1880" viewBox="0 0 1000 1880" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{esc(name)} animated GitHub profile">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1000" y2="1660" gradientUnits="userSpaceOnUse">
+    <linearGradient id="bg" x1="0" y1="0" x2="1000" y2="1880" gradientUnits="userSpaceOnUse">
       <stop stop-color="#07111f"/>
       <stop offset="0.46" stop-color="#0b1020"/>
       <stop offset="1" stop-color="#080b14"/>
     </linearGradient>
+
     <linearGradient id="heroText" x1="0" y1="0" x2="440" y2="120" gradientUnits="userSpaceOnUse">
       <stop stop-color="#ffffff"/>
       <stop offset="0.48" stop-color="#58a6ff"/>
       <stop offset="1" stop-color="#a855f7"/>
     </linearGradient>
+
     <linearGradient id="pillActive" x1="0" y1="0" x2="170" y2="34" gradientUnits="userSpaceOnUse">
       <stop stop-color="#0ea5e9"/>
       <stop offset="1" stop-color="#8b5cf6"/>
     </linearGradient>
+
     <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
       <feGaussianBlur stdDeviation="10" result="blur"/>
       <feMerge>
@@ -418,6 +471,7 @@ def generate_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
+
     <filter id="glowSmall" x="-30%" y="-30%" width="160%" height="160%">
       <feGaussianBlur stdDeviation="3" result="blur"/>
       <feMerge>
@@ -425,6 +479,7 @@ def generate_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
+
     <style>
       .label {{ font: 700 15px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; letter-spacing: 4px; fill: #39d5ff; }}
       .tiny {{ font: 500 13px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; fill: #8fa3c8; }}
@@ -435,28 +490,44 @@ def generate_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
       .metricLabel {{ font: 600 12px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; fill: #8fa3c8; }}
       .projectName {{ font: 800 18px Inter, Segoe UI, Arial, sans-serif; fill: #f8fbff; }}
       .projectDesc {{ font: 500 13px Inter, Segoe UI, Arial, sans-serif; fill: #93a4c3; }}
+
       .card {{ animation: float 6s ease-in-out infinite; }}
       .metricCard {{ animation: cardPulse 4.5s ease-in-out infinite; }}
-      .card {{ animation: float 6s ease-in-out infinite; }}
-.metricCard {{ animation: cardPulse 4.5s ease-in-out infinite; }}
-.projectCard {{ animation: projectGlow 5s ease-in-out infinite; }}
-.socialButton {{ animation: glowPulse 5s ease-in-out infinite; }}
+      .projectCard {{ animation: projectGlow 5s ease-in-out infinite; }}
+      .socialButton {{ animation: glowPulse 5s ease-in-out infinite; }}
 
-@keyframes float {{ 0%,100% {{ transform: translateY(0px); }} 50% {{ transform: translateY(-8px); }} }}
-@keyframes projectGlow {{ 0%,100% {{ opacity: 0.94; }} 50% {{ opacity: 1; }} }}
-@keyframes cardPulse {{ 0%,100% {{ opacity: 0.96; }} 50% {{ opacity: 1; }} }}
-@keyframes glowPulse {{ 0%,100% {{ opacity: 0.92; }} 50% {{ opacity: 1; }} }}
+      @keyframes float {{
+        0%,100% {{ transform: translateY(0px); }}
+        50% {{ transform: translateY(-8px); }}
+      }}
+
+      @keyframes projectGlow {{
+        0%,100% {{ opacity: 0.94; }}
+        50% {{ opacity: 1; }}
+      }}
+
+      @keyframes cardPulse {{
+        0%,100% {{ opacity: 0.96; }}
+        50% {{ opacity: 1; }}
+      }}
+
+      @keyframes glowPulse {{
+        0%,100% {{ opacity: 0.92; }}
+        50% {{ opacity: 1; }}
+      }}
     </style>
   </defs>
 
-  <rect width="1000" height="1660" rx="34" fill="url(#bg)"/>
+  <rect width="1000" height="1880" rx="34" fill="url(#bg)"/>
   <circle cx="840" cy="120" r="210" fill="#1d4ed8" opacity="0.11"/>
-  <circle cx="120" cy="1490" r="260" fill="#8b5cf6" opacity="0.10"/>
+  <circle cx="120" cy="1710" r="260" fill="#8b5cf6" opacity="0.10"/>
+
   <path d="M40 78 C230 28, 410 125, 612 72 S890 68, 960 38" stroke="#39d5ff" stroke-width="2" stroke-dasharray="12 18" opacity="0.55">
     <animate attributeName="stroke-dashoffset" values="0;-300" dur="12s" repeatCount="indefinite"/>
   </path>
-  <rect x="28" y="28" width="944" height="1604" rx="30" stroke="#24344e" stroke-width="1.5"/>
-  <rect x="48" y="48" width="904" height="1564" rx="26" fill="#0b1220" opacity="0.76" stroke="#1e2c43"/>
+
+  <rect x="28" y="28" width="944" height="1824" rx="30" stroke="#24344e" stroke-width="1.5"/>
+  <rect x="48" y="48" width="904" height="1784" rx="26" fill="#0b1220" opacity="0.76" stroke="#1e2c43"/>
 
   <g class="card">
     <circle cx="135" cy="155" r="64" fill="#8b8cf0" stroke="#58a6ff" stroke-width="3" filter="url(#glow)">
@@ -471,6 +542,7 @@ def generate_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
   </g>
 
   <line x1="72" y1="362" x2="928" y2="362" stroke="#263652"/>
+
   <text x="72" y="420" class="label">// SOCIALS</text>
   {''.join(social_parts)}
 
@@ -485,13 +557,16 @@ def generate_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
   <text x="72" y="942" class="tiny">Order copied from your first README. Bright pills are detected from your repos/topics.</text>
   {stack_svg}
 
-  <text x="72" y="1280" class="label">// LATEST PROJECTS</text>
-  <text x="72" y="1304" class="tiny">Automatically sorted by latest push/update time.</text>
+  <text x="72" y="1335" class="label">// LATEST PROJECTS</text>
+  <text x="72" y="1362" class="tiny">Automatically sorted by latest push/update time.</text>
   {projects_svg}
 
-  <line x1="72" y1="1590" x2="928" y2="1590" stroke="#263652"/>
-  <text x="72" y="1620" class="tiny">auto-updated: {esc(updated)}</text>
-  <text x="928" y="1620" text-anchor="end" class="tiny">Design · Code · Data · AI</text>
+  <text x="72" y="1655" class="label">// RANDOM DEV QUOTE</text>
+  {quote_svg}
+
+  <line x1="72" y1="1810" x2="928" y2="1810" stroke="#263652"/>
+  <text x="72" y="1840" class="tiny">auto-updated: {esc(updated)}</text>
+  <text x="928" y="1840" text-anchor="end" class="tiny">Design · Code · Data · AI</text>
 </svg>"""
     return svg
 
@@ -506,6 +581,7 @@ def main() -> int:
         ("SOCIAL_LINKEDIN", "LinkedIn", "in"),
         ("SOCIAL_EMAIL", "Email", "✉"),
     ]
+
     socials = []
     for env_name, label, icon in env_socials:
         value = os.getenv(env_name, "").strip()
@@ -513,6 +589,7 @@ def main() -> int:
             if env_name == "SOCIAL_EMAIL" and not value.startswith("mailto:"):
                 value = f"mailto:{value}"
             socials.append({"label": label, "url": value, "icon": icon})
+
     if socials:
         config["socials"] = socials
 
