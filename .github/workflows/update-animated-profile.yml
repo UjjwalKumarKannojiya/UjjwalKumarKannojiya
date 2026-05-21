@@ -1,4 +1,4 @@
-name: Auto Update Animated Profile
+name: Update Profile
 
 on:
   workflow_dispatch:
@@ -10,9 +10,8 @@ on:
       - master
     paths:
       - "profile_config.json"
-      - "scripts/generate_animated_profile.py"
-      - ".github/workflows/update-animated-profile.yml"
-      - "README.md"
+      - "scripts/update_profile.py"
+      - ".github/workflows/update-profile.yml"
 
 permissions:
   contents: write
@@ -30,23 +29,20 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Generate animated profile SVG
-        run: python scripts/generate_animated_profile.py
+      - name: Update profile files
+        run: python scripts/update_profile.py
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PROFILE_USERNAME: ${{ github.repository_owner }}
-          SOCIAL_INSTAGRAM: ${{ vars.SOCIAL_INSTAGRAM }}
-          SOCIAL_LINKEDIN: ${{ vars.SOCIAL_LINKEDIN }}
-          SOCIAL_EMAIL: ${{ vars.SOCIAL_EMAIL }}
 
-      - name: Commit generated profile UI
+      - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/animated-profile.svg README.md profile_config.json
+          git add README.md assets/profile-hero.svg profile_config.json scripts/update_profile.py
           if git diff --cached --quiet; then
-            echo "No changes to commit."
+            echo "No changes found."
           else
-            git commit -m "chore: auto update animated profile"
+            git commit -m "Update profile"
             git push
           fi
