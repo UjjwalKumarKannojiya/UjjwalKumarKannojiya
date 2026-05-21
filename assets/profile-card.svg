@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1120" viewBox="0 0 900 1120" role="img" aria-label="GitHub profile card for UjjwalKumarKannojiya">
-  <title>UjjwalKumarKannojiya GitHub Profile</title>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1120" viewBox="0 0 900 1120" role="img" aria-label="GitHub profile card for Ujjwal Kumar Kannojiya">
+  <title>Ujjwal Kumar Kannojiya GitHub Profile</title>
   <defs>
     <linearGradient id="nameGrad" x1="0" x2="1" y1="0" y2="1">
       <stop offset="0%" stop-color="#f0f6fc"/>
@@ -20,11 +20,11 @@
 
   <circle cx="110" cy="110" r="58" fill="url(#avatarGrad)"/>
   <circle cx="110" cy="110" r="53" fill="#8b8be8"/>
-  <text x="110" y="126" text-anchor="middle" font-size="42" font-weight="900" fill="#05070d" font-family="Arial, sans-serif">UJ</text>
+  <text x="110" y="126" text-anchor="middle" font-size="42" font-weight="900" fill="#05070d" font-family="Arial, sans-serif">UK</text>
 
   <text x="205" y="70" font-size="16" letter-spacing="2" fill="#2f81f7" font-family="monospace">const dev = &#123;</text>
-  <text x="205" y="118" font-size="42" font-weight="900" fill="url(#nameGrad)" font-family="Arial, sans-serif">UjjwalKumarKannojiya</text>
-  <text x="205" y="162" font-size="42" font-weight="900" fill="#a371f7" font-family="Arial, sans-serif"></text>
+  <text x="205" y="118" font-size="42" font-weight="900" fill="url(#nameGrad)" font-family="Arial, sans-serif">Ujjwal Kumar</text>
+  <text x="205" y="162" font-size="42" font-weight="900" fill="#a371f7" font-family="Arial, sans-serif">Kannojiya</text>
   <text x="205" y="184" font-size="16" fill="#2f81f7" font-family="monospace">&#125;</text>
   <text x="205" y="206" font-size="18" fill="#c9d1d9" font-family="Arial, sans-serif">Full-stack developer &amp; UI/UX enthusiast crafting scalable products</text><text x="205" y="230" font-size="18" fill="#c9d1d9" font-family="Arial, sans-serif">at the intersection of code and design.</text>
   <text x="205" y="276" font-size="14" fill="#8b949e" font-family="monospace">@UjjwalKumarKannojiya • Earth • 0 followers • 0 following</text>
@@ -33,29 +33,21 @@
   <text x="55" y="336" font-size="15" fill="#2f81f7" font-weight="700" letter-spacing="4" font-family="monospace">// SOCIALS</text>
   
     <g>
-      <rect x="55" y="306" width="145" height="40" rx="7" fill="#151b23" stroke="#30363d"/>
-      <text x="73" y="332" font-size="15" fill="#c9d1d9" font-family="monospace">◎  Instagram</text>
-    </g>
-    <g>
-      <rect x="214" y="306" width="135" height="40" rx="7" fill="#151b23" stroke="#30363d"/>
-      <text x="232" y="332" font-size="15" fill="#c9d1d9" font-family="monospace">in  LinkedIn</text>
-    </g>
-    <g>
-      <rect x="363" y="306" width="120" height="40" rx="7" fill="#151b23" stroke="#30363d"/>
-      <text x="381" y="332" font-size="15" fill="#c9d1d9" font-family="monospace">✉  Email</text>
+      <rect x="55" y="306" width="120" height="40" rx="7" fill="#151b23" stroke="#30363d"/>
+      <text x="73" y="332" font-size="15" fill="#c9d1d9" font-family="monospace">⌘  GitHub</text>
     </g>
 
   <text x="55" y="386" font-size="15" fill="#2f81f7" font-weight="700" letter-spacing="4" font-family="monospace">// METRICS</text>
   
     <g>
       <rect x="55" y="406" width="250" height="92" rx="10" fill="#151b23" stroke="#30363d"/>
-      <text x="180.0" y="449" text-anchor="middle" font-size="30" font-weight="800" fill="#2f81f7" font-family="Arial, sans-serif">0</text>
+      <text x="180.0" y="449" text-anchor="middle" font-size="30" font-weight="800" fill="#2f81f7" font-family="Arial, sans-serif">18</text>
       <text x="180.0" y="474" text-anchor="middle" font-size="13" fill="#c9d1d9" font-family="monospace">commits</text>
     </g>
 
     <g>
       <rect x="325" y="406" width="250" height="92" rx="10" fill="#151b23" stroke="#30363d"/>
-      <text x="450.0" y="449" text-anchor="middle" font-size="30" font-weight="800" fill="#a371f7" font-family="Arial, sans-serif">0</text>
+      <text x="450.0" y="449" text-anchor="middle" font-size="30" font-weight="800" fill="#a371f7" font-family="Arial, sans-serif">8</text>
       <text x="450.0" y="474" text-anchor="middle" font-size="13" fill="#c9d1d9" font-family="monospace">projects</text>
     </g>
 
@@ -413,7 +405,7 @@
 <rect x="801" y="716" width="10" height="10" rx="2" fill="#0e4429" opacity="0.55"/>
 <rect x="816" y="626" width="10" height="10" rx="2" fill="#0e4429" opacity="0.55"/>
 <rect x="816" y="641" width="10" height="10" rx="2" fill="#0e4429" opacity="0.55"/>
-<rect x="816" y="656" width="10" height="10" rx="2" fill="#0e4429" opacity="0.55"/>
+<rect x="816" y="656" width="10" height="10" rx="2" fill="#26a641" opacity="1"/>
 <rect x="816" y="671" width="10" height="10" rx="2" fill="#0e4429" opacity="0.55"/>
 <rect x="816" y="686" width="10" height="10" rx="2" fill="#0e4429" opacity="0.55"/>
 <rect x="816" y="701" width="10" height="10" rx="2" fill="#0e4429" opacity="0.55"/>
@@ -436,33 +428,56 @@
   <text x="55" y="825" font-size="15" fill="#2f81f7" font-weight="700" letter-spacing="4" font-family="monospace">// DETECTED TECH STACK</text>
   
         <g>
-          <rect x="55" y="850" width="82" height="28" rx="7" fill="#2f81f7" opacity="0.9"/>
-          <text x="96.0" y="869" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff" font-family="Arial, sans-serif">PYTHON</text>
+          <rect x="55" y="850" width="162" height="28" rx="7" fill="#2f81f7" opacity="0.9"/>
+          <text x="136.0" y="869" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff" font-family="Arial, sans-serif">JUPYTER NOTEBOOK</text>
         </g>
 
         <g>
-          <rect x="147" y="850" width="114" height="28" rx="7" fill="#a371f7" opacity="0.9"/>
-          <text x="204.0" y="869" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff" font-family="Arial, sans-serif">JAVASCRIPT</text>
+          <rect x="227" y="850" width="82" height="28" rx="7" fill="#a371f7" opacity="0.9"/>
+          <text x="268.0" y="869" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff" font-family="Arial, sans-serif">HTML</text>
         </g>
 
         <g>
-          <rect x="271" y="850" width="82" height="28" rx="7" fill="#3fb950" opacity="0.9"/>
-          <text x="312.0" y="869" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff" font-family="Arial, sans-serif">REACT</text>
+          <rect x="319" y="850" width="82" height="28" rx="7" fill="#3fb950" opacity="0.9"/>
+          <text x="360.0" y="869" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff" font-family="Arial, sans-serif">CSS</text>
         </g>
 
         <g>
-          <rect x="363" y="850" width="82" height="28" rx="7" fill="#238636" opacity="0.9"/>
-          <text x="404.0" y="869" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff" font-family="Arial, sans-serif">UI/UX</text>
+          <rect x="411" y="850" width="82" height="28" rx="7" fill="#238636" opacity="0.9"/>
+          <text x="452.0" y="869" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff" font-family="Arial, sans-serif">PYTHON</text>
         </g>
 
         <g>
-          <rect x="455" y="850" width="130" height="28" rx="7" fill="#8957e5" opacity="0.9"/>
-          <text x="520.0" y="869" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff" font-family="Arial, sans-serif">DATA SCIENCE</text>
+          <rect x="503" y="850" width="114" height="28" rx="7" fill="#8957e5" opacity="0.9"/>
+          <text x="560.0" y="869" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff" font-family="Arial, sans-serif">JAVASCRIPT</text>
         </g>
 
   <text x="55" y="960" font-size="15" fill="#2f81f7" font-weight="700" letter-spacing="4" font-family="monospace">// LATEST PROJECTS</text>
   
+        <g>
+          <rect x="55" y="985" width="246" height="130" rx="10" fill="#151b23" stroke="#30363d"/>
+          <text x="73" y="1015" font-size="16" fill="#79c0ff" font-weight="700" font-family="Arial, sans-serif">UjjwalKumarKannojiya</text>
+          <text x="73" y="1035" font-size="12" fill="#c9d1d9" font-family="monospace">Python</text>
+          <text x="73" y="1055" font-size="12" fill="#8b949e" font-family="Arial, sans-serif">Recently updated repository</text>
+          <text x="73" y="1097" font-size="12" fill="#8b949e" font-family="monospace">★ 0   ⑂ 0</text>
+        </g>
 
-  <text x="845" y="1080" text-anchor="end" font-size="12" fill="#8b949e" font-family="monospace">stars 0 • forks 0 • top: Code, Design, Data</text>
-  <text x="55" y="1080" font-size="12" fill="#8b949e" font-family="monospace">auto-updated: 21 May 2026, 18:24 UTC</text>
+        <g>
+          <rect x="321" y="985" width="246" height="130" rx="10" fill="#151b23" stroke="#30363d"/>
+          <text x="339" y="1015" font-size="16" fill="#79c0ff" font-weight="700" font-family="Arial, sans-serif">AI-Powered-Cyberattacks-</text>
+          <text x="339" y="1035" font-size="12" fill="#c9d1d9" font-family="monospace">Code</text>
+          <text x="339" y="1055" font-size="12" fill="#8b949e" font-family="Arial, sans-serif">How Artificial Intelligence</text><text x="339" y="1073" font-size="12" fill="#8b949e" font-family="Arial, sans-serif">is Reshaping the Battlefield</text><text x="339" y="1091" font-size="12" fill="#8b949e" font-family="Arial, sans-serif">of Cybersecurity</text>
+          <text x="339" y="1097" font-size="12" fill="#8b949e" font-family="monospace">★ 0   ⑂ 0</text>
+        </g>
+
+        <g>
+          <rect x="587" y="985" width="246" height="130" rx="10" fill="#151b23" stroke="#30363d"/>
+          <text x="605" y="1015" font-size="16" fill="#79c0ff" font-weight="700" font-family="Arial, sans-serif">cognos-project</text>
+          <text x="605" y="1035" font-size="12" fill="#c9d1d9" font-family="monospace">Code</text>
+          <text x="605" y="1055" font-size="12" fill="#8b949e" font-family="Arial, sans-serif">Recently updated repository</text>
+          <text x="605" y="1097" font-size="12" fill="#8b949e" font-family="monospace">★ 0   ⑂ 0</text>
+        </g>
+
+  <text x="845" y="1080" text-anchor="end" font-size="12" fill="#8b949e" font-family="monospace">stars 0 • forks 0 • top: Jupyter Notebook, HTML, CSS, Python</text>
+  <text x="55" y="1080" font-size="12" fill="#8b949e" font-family="monospace">auto-updated: 21 May 2026, 18:36 UTC</text>
 </svg>
