@@ -22,50 +22,64 @@
       "badge": "Email-D14836?style=for-the-badge&logo=gmail&logoColor=white"
     }
   ],
-  "tech_stack_original_order": [
-    "C",
-    "HTML5",
-    "Java",
-    "JavaScript",
-    "TypeScript",
-    "R",
-    "Python",
-    "CSS3",
-    "AWS",
-    "Azure",
-    "Netlify",
-    "Apache Hadoop",
-    "Apache Hive",
-    "Bootstrap",
-    "Next JS",
-    "React",
-    "Vite",
-    "Apache",
-    "MongoDB",
-    "MySQL",
-    "Canva",
-    "Figma",
-    "Sketch",
-    "Dribbble",
-    "Adobe",
-    "Adobe Photoshop",
-    "Adobe Premiere Pro",
-    "TensorFlow",
-    "NumPy",
-    "PyTorch",
-    "scikit-learn",
-    "Pandas",
-    "GitHub",
-    "Git",
-    "Riot Games",
-    "Epic Games",
-    "Steam",
-    "nVIDIA",
-    "Power BI",
-    "Postman",
-    "Notion",
-    "NodeJS",
-    "NPM",
-    "TailwindCSS"
-  ]
+  "tech_categories": {
+    "Languages": [
+      "C",
+      "HTML5",
+      "Java",
+      "JavaScript",
+      "TypeScript",
+      "R",
+      "Python",
+      "CSS3"
+    ],
+    "Frontend": [
+      "React",
+      "Next JS",
+      "Vite",
+      "TailwindCSS",
+      "Bootstrap"
+    ],
+    "Backend & Database": [
+      "NodeJS",
+      "NPM",
+      "Apache",
+      "MongoDB",
+      "MySQL"
+    ],
+    "Cloud & Data": [
+      "AWS",
+      "Azure",
+      "Netlify",
+      "Apache Hadoop",
+      "Apache Hive",
+      "Power BI"
+    ],
+    "AI / ML": [
+      "TensorFlow",
+      "NumPy",
+      "PyTorch",
+      "scikit-learn",
+      "Pandas"
+    ],
+    "Design & Tools": [
+      "Canva",
+      "Figma",
+      "Sketch",
+      "Dribbble",
+      "Adobe",
+      "Adobe Photoshop",
+      "Adobe Premiere Pro",
+      "GitHub",
+      "Git",
+      "Postman",
+      "Notion"
+    ],
+    "Interests": [
+      "Riot Games",
+      "Epic Games",
+      "Steam",
+      "nVIDIA"
+    ]
+  }
 }

@@ -15,31 +15,8 @@ from typing import Any, Dict, List
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "assets"
 CONFIG_PATH = ROOT / "profile_config.json"
-SVG_PATH = ASSETS / "profile-hero.svg"
+SVG_PATH = ASSETS / "hero.svg"
 README_PATH = ROOT / "README.md"
-
-DEFAULT_CONFIG = {
-    "profile": {
-        "headline": "Full-Stack Developer · UI/UX Enthusiast · ML Explorer",
-        "tagline": "Crafting scalable products at the intersection of code and design.",
-        "fallback_name": "Ujjwal Kumar Kannojiya",
-        "fallback_username": "UjjwalKumarKannojiya",
-    },
-    "socials": [
-        {"label": "Instagram", "url": "https://instagram.com/ni.mi.sh.___", "badge": "Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white"},
-        {"label": "LinkedIn", "url": "https://www.linkedin.com/in/ujjwal-kannojiya-78744723a/", "badge": "LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"},
-        {"label": "Email", "url": "mailto:nk875002@gmail.com", "badge": "Email-D14836?style=for-the-badge&logo=gmail&logoColor=white"},
-    ],
-    "tech_stack_original_order": [
-        "C", "HTML5", "Java", "JavaScript", "TypeScript", "R", "Python", "CSS3",
-        "AWS", "Azure", "Netlify", "Apache Hadoop", "Apache Hive", "Bootstrap",
-        "Next JS", "React", "Vite", "Apache", "MongoDB", "MySQL", "Canva", "Figma",
-        "Sketch", "Dribbble", "Adobe", "Adobe Photoshop", "Adobe Premiere Pro",
-        "TensorFlow", "NumPy", "PyTorch", "scikit-learn", "Pandas", "GitHub", "Git",
-        "Riot Games", "Epic Games", "Steam", "nVIDIA", "Power BI", "Postman",
-        "Notion", "NodeJS", "NPM", "TailwindCSS",
-    ],
-}
 
 BADGES = {
     "C": "C-00599C?style=for-the-badge&logo=c&logoColor=white",
@@ -86,6 +63,29 @@ BADGES = {
     "NodeJS": "Node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white",
     "NPM": "NPM-CB3837?style=for-the-badge&logo=npm&logoColor=white",
     "TailwindCSS": "TailwindCSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white",
+}
+
+DEFAULT_CONFIG = {
+    "profile": {
+        "headline": "Full-Stack Developer · UI/UX Enthusiast · ML Explorer",
+        "tagline": "Crafting scalable products at the intersection of code and design.",
+        "fallback_name": "Ujjwal Kumar Kannojiya",
+        "fallback_username": "UjjwalKumarKannojiya",
+    },
+    "socials": [
+        {"label": "Instagram", "url": "https://instagram.com/ni.mi.sh.___", "badge": "Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white"},
+        {"label": "LinkedIn", "url": "https://www.linkedin.com/in/ujjwal-kannojiya-78744723a/", "badge": "LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"},
+        {"label": "Email", "url": "mailto:nk875002@gmail.com", "badge": "Email-D14836?style=for-the-badge&logo=gmail&logoColor=white"},
+    ],
+    "tech_categories": {
+        "Languages": ["C", "HTML5", "Java", "JavaScript", "TypeScript", "R", "Python", "CSS3"],
+        "Frontend": ["React", "Next JS", "Vite", "TailwindCSS", "Bootstrap"],
+        "Backend & Database": ["NodeJS", "NPM", "Apache", "MongoDB", "MySQL"],
+        "Cloud & Data": ["AWS", "Azure", "Netlify", "Apache Hadoop", "Apache Hive", "Power BI"],
+        "AI / ML": ["TensorFlow", "NumPy", "PyTorch", "scikit-learn", "Pandas"],
+        "Design & Tools": ["Canva", "Figma", "Sketch", "Dribbble", "Adobe", "Adobe Photoshop", "Adobe Premiere Pro", "GitHub", "Git", "Postman", "Notion"],
+        "Interests": ["Riot Games", "Epic Games", "Steam", "nVIDIA"],
+    },
 }
 
 GRAPHQL_QUERY = """
@@ -139,15 +139,14 @@ def esc(value: Any) -> str:
 
 
 def md_esc(value: Any) -> str:
-    text = str(value if value is not None else "")
-    return text.replace("|", "\\|").replace("\n", " ").strip()
+    return str(value if value is not None else "").replace("|", "\\|").replace("\n", " ").strip()
 
 
 def short(value: Any, length: int) -> str:
     value = re.sub(r"\s+", " ", str(value or "")).strip()
     if len(value) <= length:
         return value
-    return value[: max(0, length - 1)].rstrip() + "…"
+    return value[:max(0, length - 1)].rstrip() + "…"
 
 
 def now_utc() -> dt.datetime:
@@ -162,7 +161,7 @@ def request_graphql(username: str, token: str) -> Dict[str, Any]:
         headers={
             "Authorization": f"Bearer {token}",
             "Content-Type": "application/json",
-            "User-Agent": "clean-profile-readme",
+            "User-Agent": "premium-clean-profile",
         },
         method="POST",
     )
@@ -175,7 +174,6 @@ def request_graphql(username: str, token: str) -> Dict[str, Any]:
     user = (payload.get("data") or {}).get("user")
     if not user:
         raise RuntimeError(f"GitHub user not found: {username}")
-
     return user
 
 
@@ -189,14 +187,12 @@ def fallback_user(config: Dict[str, Any], username: str) -> Dict[str, Any]:
             count = (i * 3) % 11
         days.append({"date": d.isoformat(), "contributionCount": count})
 
-    weeks = []
-    for i in range(0, len(days), 7):
-        weeks.append({"contributionDays": days[i : i + 7]})
+    weeks = [{"contributionDays": days[i:i + 7]} for i in range(0, len(days), 7)]
 
     repos = [
         {
             "name": username,
-            "description": "GitHub profile README with animated profile UI.",
+            "description": "Personal GitHub profile repository.",
             "url": f"https://github.com/{username}/{username}",
             "stargazerCount": 0,
             "forkCount": 0,
@@ -204,7 +200,7 @@ def fallback_user(config: Dict[str, Any], username: str) -> Dict[str, Any]:
             "pushedAt": now_utc().isoformat(),
             "isFork": False,
             "primaryLanguage": {"name": "Markdown", "color": "#083fa1"},
-            "repositoryTopics": {"nodes": [{"topic": {"name": "github-profile"}}]},
+            "repositoryTopics": {"nodes": []},
         }
     ]
 
@@ -235,17 +231,13 @@ def build_heatmap(weeks: List[Dict[str, Any]], x: int, y: int) -> str:
         for di, day in enumerate(days[:7]):
             count = int(day.get("contributionCount") or 0)
             if count == 0:
-                fill = "#122033"
-                opacity = "0.70"
+                fill, opacity = "#122033", "0.68"
             elif count < 3:
-                fill = "#0e7a3f"
-                opacity = "0.95"
+                fill, opacity = "#0e7a3f", "0.95"
             elif count < 7:
-                fill = "#16a34a"
-                opacity = "1"
+                fill, opacity = "#16a34a", "1"
             else:
-                fill = "#31e981"
-                opacity = "1"
+                fill, opacity = "#31e981", "1"
             px = x + wi * (cell + gap)
             py = y + di * (cell + gap)
             delay = (wi * 0.018 + di * 0.035) % 2
@@ -263,7 +255,6 @@ def build_quote_animation(x: int, y: int, w: int = 856, h: int = 92) -> str:
         ("First, solve the problem. Then, write the code.", "John Johnson"),
         ("Make it work, make it right, make it fast.", "Kent Beck"),
     ]
-
     timings = [
         ("1;1;0;0;0;1", "0;0.25;0.34;0.68;0.92;1"),
         ("0;0;1;1;0;0", "0;0.28;0.36;0.58;0.68;1"),
@@ -318,22 +309,8 @@ def generate_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
     total_contribs = int(calendar.get("totalContributions") or 0)
     weeks = calendar.get("weeks") or []
 
-    heatmap_svg = build_heatmap(weeks, 78, 628)
-    quote_svg = build_quote_animation(72, 872)
-
-    socials = config.get("socials", DEFAULT_CONFIG["socials"])
-    social_parts = []
-    sx = 72
-    for social in socials:
-        label = social.get("label", "Link")
-        w = max(120, len(label) * 10 + 54)
-        social_parts.append(f"""
-<g transform="translate({sx},392)" class="socialButton">
-  <rect width="{w}" height="42" rx="14" fill="#121b2a" stroke="#2d3d59"/>
-  <text x="24" y="27" class="socialIcon">●</text>
-  <text x="54" y="27" class="small">{esc(label)}</text>
-</g>""")
-        sx += w + 16
+    heatmap_svg = build_heatmap(weeks, 78, 590)
+    quote_svg = build_quote_animation(72, 820)
 
     metrics = [
         ("Contributions", total_contribs, "#39d5ff"),
@@ -347,17 +324,15 @@ def generate_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
     for i, (label, value, color) in enumerate(metrics):
         px = 72 + i * 184
         metric_parts.append(f"""
-<g transform="translate({px},498)" class="metricCard">
+<g transform="translate({px},450)" class="metricCard">
   <rect width="164" height="88" rx="18" fill="#121b2a" stroke="#263652"/>
   <text x="82" y="39" text-anchor="middle" class="metricValue" fill="{color}">{esc(value)}</text>
   <text x="82" y="65" text-anchor="middle" class="metricLabel">{esc(label)}</text>
 </g>""")
 
-    updated = now_utc().strftime("%d %b %Y, %H:%M UTC")
-
-    return f"""<svg width="1000" height="1030" viewBox="0 0 1000 1030" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{esc(name)} GitHub profile">
+    return f"""<svg width="1000" height="960" viewBox="0 0 1000 960" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{esc(name)} GitHub profile">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1000" y2="1030" gradientUnits="userSpaceOnUse">
+    <linearGradient id="bg" x1="0" y1="0" x2="1000" y2="960" gradientUnits="userSpaceOnUse">
       <stop stop-color="#07111f"/>
       <stop offset="0.46" stop-color="#0b1020"/>
       <stop offset="1" stop-color="#080b14"/>
@@ -378,28 +353,25 @@ def generate_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
       .label {{ font: 700 15px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; letter-spacing: 4px; fill: #39d5ff; }}
       .tiny {{ font: 500 13px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; fill: #8fa3c8; }}
       .small {{ font: 600 15px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; fill: #c8d3ea; }}
-      .socialIcon {{ font: 800 16px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; fill: #58a6ff; }}
       .metricValue {{ font: 900 30px Inter, Segoe UI, Arial, sans-serif; }}
       .metricLabel {{ font: 600 12px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; fill: #8fa3c8; }}
       .card {{ animation: float 6s ease-in-out infinite; }}
       .metricCard {{ animation: cardPulse 4.5s ease-in-out infinite; }}
-      .socialButton {{ animation: glowPulse 5s ease-in-out infinite; }}
       @keyframes float {{ 0%,100% {{ transform: translateY(0px); }} 50% {{ transform: translateY(-8px); }} }}
       @keyframes cardPulse {{ 0%,100% {{ opacity: 0.96; }} 50% {{ opacity: 1; }} }}
-      @keyframes glowPulse {{ 0%,100% {{ opacity: 0.92; }} 50% {{ opacity: 1; }} }}
     </style>
   </defs>
 
-  <rect width="1000" height="1030" rx="34" fill="url(#bg)"/>
+  <rect width="1000" height="960" rx="34" fill="url(#bg)"/>
   <circle cx="840" cy="120" r="210" fill="#1d4ed8" opacity="0.11"/>
-  <circle cx="120" cy="930" r="250" fill="#8b5cf6" opacity="0.10"/>
+  <circle cx="120" cy="875" r="250" fill="#8b5cf6" opacity="0.10"/>
 
   <path d="M40 78 C230 28, 410 125, 612 72 S890 68, 960 38" stroke="#39d5ff" stroke-width="2" stroke-dasharray="12 18" opacity="0.55">
     <animate attributeName="stroke-dashoffset" values="0;-300" dur="12s" repeatCount="indefinite"/>
   </path>
 
-  <rect x="28" y="28" width="944" height="974" rx="30" stroke="#24344e" stroke-width="1.5"/>
-  <rect x="48" y="48" width="904" height="934" rx="26" fill="#0b1220" opacity="0.76" stroke="#1e2c43"/>
+  <rect x="28" y="28" width="944" height="904" rx="30" stroke="#24344e" stroke-width="1.5"/>
+  <rect x="48" y="48" width="904" height="864" rx="26" fill="#0b1220" opacity="0.76" stroke="#1e2c43"/>
 
   <g class="card">
     <circle cx="135" cy="145" r="64" fill="#8b8cf0" stroke="#58a6ff" stroke-width="3" filter="url(#glow)">
@@ -413,24 +385,19 @@ def generate_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
     <text x="230" y="276" style="font: 500 17px Inter, Segoe UI, Arial, sans-serif; fill:#93a4c3;">{esc(short(tagline or bio, 92))}</text>
   </g>
 
-  <line x1="72" y1="338" x2="928" y2="338" stroke="#263652"/>
+  <line x1="72" y1="365" x2="928" y2="365" stroke="#263652"/>
 
-  <text x="72" y="376" class="label">// SOCIALS</text>
-  {''.join(social_parts)}
-
-  <text x="72" y="480" class="label">// LIVE METRICS</text>
+  <text x="72" y="430" class="label">// LIVE METRICS</text>
   {''.join(metric_parts)}
 
-  <text x="72" y="610" class="label">// CONTRIBUTION HEATMAP</text>
-  <rect x="64" y="620" width="870" height="154" rx="18" fill="#121b2a" stroke="#263652"/>
+  <text x="72" y="572" class="label">// CONTRIBUTION HEATMAP</text>
+  <rect x="64" y="582" width="870" height="154" rx="18" fill="#121b2a" stroke="#263652"/>
   {heatmap_svg}
 
-  <text x="72" y="846" class="label">// RANDOM DEV QUOTE</text>
+  <text x="72" y="796" class="label">// RANDOM DEV QUOTE</text>
   {quote_svg}
 
-  <line x1="72" y1="982" x2="928" y2="982" stroke="#263652"/>
-  <text x="72" y="1008" class="tiny">last refresh: {esc(updated)}</text>
-  <text x="928" y="1008" text-anchor="end" class="tiny">Design · Code · Data · AI</text>
+  <text x="928" y="920" text-anchor="end" class="tiny">Design · Code · Data · AI</text>
 </svg>"""
 
 
@@ -450,32 +417,31 @@ def build_social_markdown(config: Dict[str, Any]) -> str:
 
 
 def build_tech_stack_markdown(config: Dict[str, Any]) -> str:
-    ordered = config.get("tech_stack_original_order") or DEFAULT_CONFIG["tech_stack_original_order"]
-    badges = []
-    for item in ordered:
-        badge = BADGES.get(item)
-        if badge:
-            badges.append(f'<img src="{badge_url(badge)}" alt="{md_esc(item)}" />')
+    categories = config.get("tech_categories") or DEFAULT_CONFIG["tech_categories"]
+    blocks = ['<div align="center">', '', '## `// tech_stack`', '']
 
-    rows = []
-    for i in range(0, len(badges), 6):
-        rows.append(" ".join(badges[i : i + 6]))
+    for category, items in categories.items():
+        badges = []
+        for item in items:
+            badge = BADGES.get(item)
+            if badge:
+                badges.append(f'<img src="{badge_url(badge)}" alt="{md_esc(item)}" />')
+        if badges:
+            blocks.append(f'<b>{md_esc(category)}</b>')
+            blocks.append('<br/>')
+            blocks.append(" ".join(badges))
+            blocks.append('<br/><br/>')
 
-    return f"""<div align="center">
-
-## `// tech_stack`
-
-{chr(10).join(rows)}
-
-</div>"""
+    blocks.append('</div>')
+    return "\n".join(blocks)
 
 
-def build_project_markdown(repos: List[Dict[str, Any]]) -> str:
+def build_projects_markdown(username: str, repos: List[Dict[str, Any]]) -> str:
     public_repos = [r for r in repos if not r.get("isFork")]
     if not public_repos:
         public_repos = repos
 
-    public_repos = public_repos[:8]
+    public_repos = public_repos[:6]
     if not public_repos:
         return """<div align="center">
 
@@ -485,50 +451,20 @@ No public projects found yet.
 
 </div>"""
 
-    lines = [
-        '<div align="center">',
-        '',
-        '## `// latest_projects`',
-        '',
-        '</div>',
-        '',
-        '<table>',
-    ]
+    lines = ['<div align="center">', '', '## `// latest_projects`', '']
 
-    def cell(repo: Dict[str, Any] | None) -> str:
-        if repo is None:
-            return '<td width="50%" valign="top"></td>'
+    for repo in public_repos:
+        name = repo.get("name", "")
+        if not name:
+            continue
+        safe_name = md_esc(name)
+        lines.append(
+            f'<a href="https://github.com/{username}/{safe_name}">'
+            f'<img width="48%" src="https://github-readme-stats.vercel.app/api/pin/?username={username}&repo={safe_name}&theme=github_dark&hide_border=true&bg_color=0d1117&title_color=58a6ff&text_color=e6edf3&icon_color=a855f7" />'
+            f'</a>'
+        )
 
-        name = md_esc(short(repo.get("name", "project"), 42))
-        url = repo.get("url", "#")
-        desc = md_esc(short(repo.get("description") or "No description added yet.", 120))
-        lang = md_esc(((repo.get("primaryLanguage") or {}).get("name")) or "Code")
-        stars = repo.get("stargazerCount") or 0
-        forks = repo.get("forkCount") or 0
-
-        return f"""<td width="50%" valign="top">
-
-<a href="{url}"><strong>{name}</strong></a>
-
-<br/>
-
-<sub>{desc}</sub>
-
-<br/><br/>
-
-<code>{lang}</code> &nbsp; ⭐ <code>{stars}</code> &nbsp; 🍴 <code>{forks}</code>
-
-</td>"""
-
-    for i in range(0, len(public_repos), 2):
-        left = public_repos[i]
-        right = public_repos[i + 1] if i + 1 < len(public_repos) else None
-        lines.append("<tr>")
-        lines.append(cell(left))
-        lines.append(cell(right))
-        lines.append("</tr>")
-
-    lines.append("</table>")
+    lines += ['', '</div>']
     return "\n".join(lines)
 
 
@@ -553,7 +489,7 @@ def build_readme(user: Dict[str, Any], config: Dict[str, Any]) -> str:
 
     return f"""<div align="center">
 
-<img src="./assets/profile-hero.svg" width="100%" alt="{md_esc(username)} profile banner" />
+<img src="./assets/hero.svg" width="100%" alt="{md_esc(username)} profile banner" />
 
 <br/>
 <br/>
@@ -568,7 +504,7 @@ def build_readme(user: Dict[str, Any], config: Dict[str, Any]) -> str:
 
 <br/>
 
-{build_project_markdown(repos)}
+{build_projects_markdown(username, repos)}
 
 <br/>
 
@@ -593,8 +529,7 @@ def main() -> int:
     SVG_PATH.write_text(generate_svg(user, config), encoding="utf-8")
     README_PATH.write_text(build_readme(user, config), encoding="utf-8")
 
-    print(f"Updated {SVG_PATH}")
-    print(f"Updated {README_PATH}")
+    print("Profile updated")
     return 0
 
 
