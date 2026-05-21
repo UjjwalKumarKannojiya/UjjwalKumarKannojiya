@@ -9,7 +9,8 @@ on:
       - main
       - master
     paths:
-      - "scripts/**"
+      - "profile_config.json"
+      - "scripts/generate_animated_profile.py"
       - ".github/workflows/update-animated-profile.yml"
       - "README.md"
 
@@ -17,11 +18,11 @@ permissions:
   contents: write
 
 jobs:
-  update-profile-ui:
+  update-profile:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout profile repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -29,7 +30,7 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Generate animated GitHub profile SVG
+      - name: Generate animated profile SVG
         run: python scripts/generate_animated_profile.py
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -37,17 +38,15 @@ jobs:
           SOCIAL_INSTAGRAM: ${{ vars.SOCIAL_INSTAGRAM }}
           SOCIAL_LINKEDIN: ${{ vars.SOCIAL_LINKEDIN }}
           SOCIAL_EMAIL: ${{ vars.SOCIAL_EMAIL }}
-          PROFILE_ROLE: ${{ vars.PROFILE_ROLE }}
-          PROFILE_TAGLINE: ${{ vars.PROFILE_TAGLINE }}
 
-      - name: Commit updated animated profile
+      - name: Commit generated profile UI
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/animated-profile.svg README.md
+          git add assets/animated-profile.svg README.md profile_config.json
           if git diff --cached --quiet; then
-            echo "No visual changes to commit."
+            echo "No changes to commit."
           else
-            git commit -m "chore: refresh animated profile UI"
+            git commit -m "chore: auto update animated profile"
             git push
           fi
