@@ -1,4 +1,108 @@
-#!/usr/bin/env python3
+from pathlib import Path
+import zipfile, shutil, json, textwrap
+
+base = Path("/mnt/data/fixed_dynamic_profile_final")
+if base.exists():
+    shutil.rmtree(base)
+
+(base / "scripts").mkdir(parents=True)
+(base / "assets").mkdir(parents=True)
+(base / ".github" / "workflows").mkdir(parents=True)
+
+config = {
+    "profile": {
+        "fallback_name": "Ujjwal Kumar Kannojiya",
+        "fallback_username": "UjjwalKumarKannojiya",
+        "headline": "Full-stack developer & UI/UX enthusiast crafting",
+        "highlight": "scalable products",
+        "tagline_suffix": "at the intersection of code and design.",
+        "open_status": "open to opportunities"
+    },
+    "socials": [
+        {"label": "Instagram", "url": "https://instagram.com/ni.mi.sh.___"},
+        {"label": "LinkedIn", "url": "https://www.linkedin.com/in/ujjwal-kannojiya-78744723a/"},
+        {"label": "Email", "url": "mailto:nk875002@gmail.com"}
+    ],
+    "tech_groups": {
+        "blue": ["Python", "JavaScript", "TypeScript", "Java", "C", "R"],
+        "purple": ["React", "Next.js", "Node.js", "TailwindCSS", "Bootstrap", "Vite"],
+        "green": ["TensorFlow", "PyTorch", "scikit-learn", "NumPy", "Pandas"],
+        "orange": ["MongoDB", "MySQL", "AWS", "Azure", "Apache Hadoop"],
+        "red": ["Figma", "Adobe PS", "Premiere Pro", "Power BI"]
+    }
+}
+(base / "profile_config.json").write_text(json.dumps(config, indent=2), encoding="utf-8")
+
+workflow = """name: Update Profile Card
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */6 * * *"
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - "profile_config.json"
+      - "scripts/update_profile_card.py"
+      - ".github/workflows/update-profile-card.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  update-profile-card:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Generate dynamic profile card
+        run: python scripts/update_profile_card.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PROFILE_USERNAME: ${{ github.repository_owner }}
+
+      - name: Commit updated profile files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md assets/profile-card.svg profile_config.json scripts/update_profile_card.py
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Update dynamic profile card"
+            git push
+          fi
+"""
+(base / ".github" / "workflows" / "update-profile-card.yml").write_text(workflow, encoding="utf-8")
+(base / "WORKFLOW_CODE_COPY_PASTE.txt").write_text(workflow, encoding="utf-8")
+
+readme = """<div align="center">
+
+<img src="./assets/profile-card.svg" width="100%" alt="Ujjwal Kumar Kannojiya GitHub profile" />
+
+<br/>
+<br/>
+
+<a href="https://instagram.com/ni.mi.sh.___"><img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram" /></a>
+<a href="https://www.linkedin.com/in/ujjwal-kannojiya-78744723a/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
+<a href="mailto:nk875002@gmail.com"><img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" /></a>
+
+</div>
+"""
+(base / "README.md").write_text(readme, encoding="utf-8")
+
+script = r'''#!/usr/bin/env python3
 from __future__ import annotations
 
 import html
@@ -94,12 +198,15 @@ NORMALIZE = {
     "python": "Python",
     "java": "Java",
     "c": "C",
+    "c++": "C++",
     "r": "R",
     "html": "HTML5",
     "html5": "HTML5",
     "css": "CSS3",
     "css3": "CSS3",
+    "jupyter notebook": "Jupyter Notebook",
     "react": "React",
+    "next": "Next.js",
     "nextjs": "Next.js",
     "next.js": "Next.js",
     "node": "Node.js",
@@ -153,12 +260,7 @@ def load_config() -> Dict[str, Any]:
 
 
 def request_github(username: str, token: str) -> Dict[str, Any]:
-    body = json.dumps(
-        {
-            "query": GRAPHQL_QUERY,
-            "variables": {"login": username},
-        }
-    ).encode("utf-8")
+    body = json.dumps({"query": GRAPHQL_QUERY, "variables": {"login": username}}).encode("utf-8")
 
     req = urllib.request.Request(
         "https://api.github.com/graphql",
@@ -180,11 +282,11 @@ def request_github(username: str, token: str) -> Dict[str, Any]:
     user = (payload.get("data") or {}).get("user")
     if not user:
         raise RuntimeError(f"GitHub user not found: {username}")
-
     return user
 
 
 def fallback_user(config: Dict[str, Any], username: str) -> Dict[str, Any]:
+    # Local preview only. GitHub Actions uses live GitHub data.
     demo_levels = [0, 0, 1, 1, 2, 2, 1, 3, 3, 2, 1, 0, 1, 2, 3, 4, 4, 3]
     days = [{"contributionCount": demo_levels[i % len(demo_levels)]} for i in range(371)]
     weeks = [{"contributionDays": days[i : i + 7]} for i in range(0, 371, 7)]
@@ -193,25 +295,14 @@ def fallback_user(config: Dict[str, Any], username: str) -> Dict[str, Any]:
         "login": username,
         "name": config["profile"].get("fallback_name", username),
         "repositories": {"totalCount": 0, "nodes": []},
-        "contributionsCollection": {
-            "contributionCalendar": {
-                "totalContributions": 0,
-                "weeks": weeks,
-            }
-        },
+        "contributionsCollection": {"contributionCalendar": {"totalContributions": 0, "weeks": weeks}},
     }
 
 
 def get_repos(user: Dict[str, Any]) -> List[Dict[str, Any]]:
     login = user.get("login", "")
     all_repos = ((user.get("repositories") or {}).get("nodes")) or []
-
-    visible = [
-        repo
-        for repo in all_repos
-        if not repo.get("isFork") and repo.get("name") != login
-    ]
-
+    visible = [repo for repo in all_repos if not repo.get("isFork") and repo.get("name") != login]
     return visible or [repo for repo in all_repos if not repo.get("isFork")] or all_repos
 
 
@@ -223,12 +314,10 @@ def normalize_stack_name(name: str) -> str:
 def repo_topics(repo: Dict[str, Any]) -> set[str]:
     topic_nodes = ((repo.get("repositoryTopics") or {}).get("nodes")) or []
     topics = set()
-
     for node in topic_nodes:
         raw = (((node or {}).get("topic") or {}).get("name")) or ""
         if raw:
             topics.add(raw.strip().lower())
-
     return topics
 
 
@@ -256,7 +345,6 @@ def detected_stack(user: Dict[str, Any]) -> set[str]:
 def ordered_tech_groups(user: Dict[str, Any], config: Dict[str, Any]) -> Dict[str, List[str]]:
     found = detected_stack(user)
     groups = config.get("tech_groups") or DEFAULT_CONFIG["tech_groups"]
-
     return {
         color: sorted(items, key=lambda item: (item not in found, items.index(item)))
         for color, items in groups.items()
@@ -284,32 +372,24 @@ def language_stats(user: Dict[str, Any]) -> List[Tuple[str, int, str]]:
         for repo in get_repos(user):
             lang = ((repo.get("primaryLanguage") or {}).get("name")) or ""
             color = ((repo.get("primaryLanguage") or {}).get("color")) or "#58A6FF"
-
             if not lang:
                 continue
-
             sizes[lang] = sizes.get(lang, 0) + 1
             colors[lang] = color
 
-    fallback = [
-        ("Python", 72, "#3572A5"),
-        ("JavaScript", 60, "#F1E05A"),
-        ("TypeScript", 45, "#2B7489"),
-        ("Java", 30, "#B07219"),
-    ]
-
     if not sizes:
-        return fallback
+        return [
+            ("Python", 72, "#3572A5"),
+            ("JavaScript", 60, "#F1E05A"),
+            ("TypeScript", 45, "#2B7489"),
+            ("Java", 30, "#B07219"),
+        ]
 
     total_size = sum(sizes.values()) or 1
     result = []
-
     for lang, size in sorted(sizes.items(), key=lambda item: item[1], reverse=True)[:4]:
-        percent = max(6, round((size / total_size) * 100))
+        percent = max(3, round((size / total_size) * 100))
         result.append((lang, percent, colors.get(lang, "#58A6FF")))
-
-    while len(result) < 4:
-        result.append(fallback[len(result)])
 
     return result
 
@@ -324,7 +404,6 @@ def latest_projects_svg(user: Dict[str, Any]) -> str:
         <rect x="18" y="66" width="90" height="6" rx="3" fill="#A371F7"/>'''
 
     rows = []
-
     for index, repo in enumerate(latest):
         y = 52 + index * 21
         name = short(repo.get("name", "project"), 25)
@@ -353,7 +432,6 @@ def contribution_levels(user: Dict[str, Any]) -> List[int]:
     for week in weeks[-53:]:
         for day in (week.get("contributionDays") or [])[:7]:
             count = int(day.get("contributionCount") or 0)
-
             if count == 0:
                 level = 0
             elif count < 3:
@@ -364,7 +442,6 @@ def contribution_levels(user: Dict[str, Any]) -> List[int]:
                 level = 3
             else:
                 level = 4
-
             levels.append(level)
 
     return levels
@@ -387,7 +464,6 @@ def contribution_grid_svg(user: Dict[str, Any]) -> str:
             data_index = week_index * 7 + day_index
             level = levels[data_index] if data_index < len(levels) else 0
             fill, stroke = colors[level]
-
             x = 54 + week_index * 14
             y = 610 + day_index * 14
             delay = (week_index * 0.018 + day_index * 0.03) % 2.4
@@ -412,9 +488,9 @@ def bar_rows_svg(stats: List[Tuple[str, int, str]], x: int, y: int) -> str:
 
         rows.append(
             f'''
-            <text x="{x}" y="{yy + 8}" class="barLabel">{esc(short(label, 10))}</text>
-            <rect x="{x + 86}" y="{yy}" width="204" height="6" rx="3" fill="#21262D"/>
-            <rect x="{x + 86}" y="{yy}" width="{bar_width}" height="6" rx="3" fill="{esc(color)}">
+            <text x="{x}" y="{yy + 8}" class="barLabel">{esc(short(label, 12))}</text>
+            <rect x="{x + 96}" y="{yy}" width="194" height="6" rx="3" fill="#21262D"/>
+            <rect x="{x + 96}" y="{yy}" width="{bar_width}" height="6" rx="3" fill="{esc(color)}">
               <animate attributeName="width" values="0;{bar_width}" dur="1.2s" fill="freeze"/>
             </rect>
             <text x="{x + 322}" y="{yy + 8}" class="barPct">{percent}%</text>'''
@@ -457,12 +533,10 @@ def tech_pills_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
     for group in ["blue", "purple", "green", "orange", "red"]:
         for label in groups.get(group, []):
             item, width = pill_svg(label, group, x, y)
-
             if x + width > 828:
                 x = 32
                 y += 34
                 item, width = pill_svg(label, group, x, y)
-
             parts.append(item)
             x += width + 8
 
@@ -501,28 +575,6 @@ SVG_TEMPLATE = """<svg width="860" height="1140" viewBox="0 0 860 1140" fill="no
       .barPct { font: 400 11px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; fill: #8B949E; }
       .quoteText { font: italic 13px Inter, Segoe UI, Arial, sans-serif; fill: #8B949E; }
       .quoteAttr { font: 700 11px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; fill: #A371F7; }
-
-      @keyframes typing {
-        0% { clip-path: inset(0 100% 0 0); }
-        50% { clip-path: inset(0 0 0 0); }
-        70% { clip-path: inset(0 0 0 0); }
-        100% { clip-path: inset(0 100% 0 0); }
-      }
-
-      @keyframes blink {
-        0%, 49% { opacity: 1; }
-        50%, 100% { opacity: 0; }
-      }
-
-      @keyframes wipe {
-        0% { transform: translateX(-820px); opacity: 0.95; }
-        24% { transform: translateX(820px); opacity: 0.95; }
-        25%, 100% { transform: translateX(820px); opacity: 0; }
-      }
-
-      .typingText { animation: typing 3s steps(30) infinite; }
-      .cursor { animation: blink .7s step-end infinite; }
-      .wipeBlock { animation: wipe 4s ease-in-out infinite; }
     </style>
   </defs>
 
@@ -540,8 +592,19 @@ SVG_TEMPLATE = """<svg width="860" height="1140" viewBox="0 0 860 1140" fill="no
       <animate attributeName="cy" values="1040;1028;1040" dur="8s" repeatCount="indefinite"/>
     </circle>
 
+    <path d="M500 44 C600 20 720 20 826 55"
+          fill="none"
+          stroke="#58A6FF"
+          stroke-width="1.2"
+          stroke-dasharray="8 16"
+          opacity="0.28">
+      <animate attributeName="stroke-dashoffset" values="0;-260" dur="8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.18;0.50;0.18" dur="8s" repeatCount="indefinite"/>
+    </path>
+
     <g transform="translate(32 40)">
       <g>
+        <animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="6s" repeatCount="indefinite" additive="sum"/>
         <circle cx="45" cy="45" r="45" fill="url(#avatarGrad)">
           <animate attributeName="r" values="45;48;45" dur="4s" repeatCount="indefinite"/>
         </circle>
@@ -551,12 +614,15 @@ SVG_TEMPLATE = """<svg width="860" height="1140" viewBox="0 0 860 1140" fill="no
         <text x="45" y="58" text-anchor="middle" style="font-weight:800;font-size:32px;fill:#0D1117;font-family:Inter,Segoe UI,Arial,sans-serif;">UK</text>
       </g>
 
-      <text x="122" y="13" class="muted"><tspan fill="#58A6FF">const</tspan> dev = {</text>
-      <text x="122" y="52" style="font-weight:800;font-size:32px;fill:#E6EDF3;font-family:Inter,Segoe UI,Arial,sans-serif;">__FIRST_LINE__</text>
-      <text x="122" y="88" style="font-weight:800;font-size:32px;fill:#A371F7;font-family:Inter,Segoe UI,Arial,sans-serif;">__SECOND_LINE__</text>
-      <text x="122" y="116" class="muted">}</text>
-      <text x="122" y="150" class="body">__HEADLINE__</text>
-      <text x="122" y="172" class="body"><tspan fill="#58A6FF" font-weight="700">__HIGHLIGHT__</tspan> __TAGLINE__</text>
+      <g>
+        <animateTransform attributeName="transform" type="translate" values="0 0;0 -4;0 0" dur="6s" repeatCount="indefinite" additive="sum"/>
+        <text x="122" y="13" class="muted"><tspan fill="#58A6FF">const</tspan> dev = {</text>
+        <text x="122" y="52" style="font-weight:800;font-size:32px;fill:#E6EDF3;font-family:Inter,Segoe UI,Arial,sans-serif;">__FIRST_LINE__</text>
+        <text x="122" y="88" style="font-weight:800;font-size:32px;fill:#A371F7;font-family:Inter,Segoe UI,Arial,sans-serif;">__SECOND_LINE__</text>
+        <text x="122" y="116" class="muted">}</text>
+        <text x="122" y="150" class="body">__HEADLINE__</text>
+        <text x="122" y="172" class="body"><tspan fill="#58A6FF" font-weight="700">__HIGHLIGHT__</tspan> __TAGLINE__</text>
+      </g>
 
       <animate attributeName="opacity" values="0.96;1;0.96" dur="5.8s" repeatCount="indefinite"/>
     </g>
@@ -664,12 +730,17 @@ SVG_TEMPLATE = """<svg width="860" height="1140" viewBox="0 0 860 1140" fill="no
         <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.28;0.38;0.66;0.76" dur="12s" repeatCount="indefinite"/>
       </g>
 
-      <rect x="-820" y="0" width="820" height="42" fill="#161B22" opacity="0.92" class="wipeBlock"/>
+      <rect x="-820" y="0" width="820" height="42" fill="#161B22" opacity="0.92">
+        <animate attributeName="x" values="-820;820;820;-820" keyTimes="0;0.24;0.25;1" dur="4s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.92;0.92;0;0" keyTimes="0;0.24;0.25;1" dur="4s" repeatCount="indefinite"/>
+      </rect>
     </g>
 
     <g transform="translate(32 1092)">
-      <text class="muted typingText">building the future, one commit at a time...</text>
-      <rect x="304" y="-13" width="2" height="17" fill="#58A6FF" class="cursor"/>
+      <text class="muted">building the future, one commit at a time...</text>
+      <rect x="304" y="-13" width="2" height="17" fill="#58A6FF">
+        <animate attributeName="opacity" values="1;0;1" dur=".7s" repeatCount="indefinite"/>
+      </rect>
       <circle cx="650" cy="-7" r="4" fill="#3FB950"/>
       <text x="664" y="-3" class="muted">__OPEN_STATUS__</text>
     </g>
@@ -686,14 +757,10 @@ def generate_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
     second_line = " ".join(name_parts[2:]) if len(name_parts) > 2 else username
 
     repo_total = len(get_repos(user))
-    contribution_total = int(
-        (((user.get("contributionsCollection") or {}).get("contributionCalendar") or {}).get("totalContributions"))
-        or 0
-    )
+    contribution_total = int((((user.get("contributionsCollection") or {}).get("contributionCalendar") or {}).get("totalContributions")) or 0)
 
     found_stack = detected_stack(user)
     tech_count = len(found_stack)
-
     if tech_count == 0:
         tech_count = sum(len(items) for items in (config.get("tech_groups") or {}).values())
 
@@ -734,10 +801,7 @@ def generate_readme(config: Dict[str, Any]) -> str:
         label = item.get("label", "Link")
         url = item.get("url", "#")
         badge = badge_map.get(label, f"{label}-161B22?style=for-the-badge")
-
-        links.append(
-            f'<a href="{url}"><img src="https://img.shields.io/badge/{badge}" alt="{esc(label)}" /></a>'
-        )
+        links.append(f'<a href="{url}"><img src="https://img.shields.io/badge/{badge}" alt="{esc(label)}" /></a>')
 
     return (
         '<div align="center">\n\n'
@@ -751,12 +815,7 @@ def generate_readme(config: Dict[str, Any]) -> str:
 def main() -> int:
     config = load_config()
 
-    username = (
-        os.getenv("PROFILE_USERNAME")
-        or os.getenv("GITHUB_REPOSITORY_OWNER")
-        or config["profile"].get("fallback_username")
-    )
-
+    username = os.getenv("PROFILE_USERNAME") or os.getenv("GITHUB_REPOSITORY_OWNER") or config["profile"].get("fallback_username")
     token = os.getenv("GITHUB_TOKEN", "")
 
     try:
@@ -768,7 +827,6 @@ def main() -> int:
         user = fallback_user(config, username)
 
     ASSETS_DIR.mkdir(parents=True, exist_ok=True)
-
     SVG_PATH.write_text(generate_svg(user, config), encoding="utf-8")
     README_PATH.write_text(generate_readme(config), encoding="utf-8")
 
@@ -778,3 +836,37 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+'''
+
+(base / "scripts" / "update_profile_card.py").write_text(script, encoding="utf-8")
+
+setup = """Use these files:
+
+1. Replace scripts/update_profile_card.py with the included file.
+2. Replace .github/workflows/update-profile-card.yml with the included workflow.
+3. Keep README.md and profile_config.json.
+
+Important:
+Settings -> Actions -> General -> Workflow permissions -> Read and write permissions
+
+Run:
+Actions -> Update Profile Card -> Run workflow
+
+If GitHub still shows old SVG:
+Refresh with Ctrl + F5 or add ?v=2 to the README image once.
+"""
+(base / "SETUP.md").write_text(setup, encoding="utf-8")
+
+# create initial preview svg and readme with fallback by executing the script locally
+import subprocess
+subprocess.run(["python", str(base / "scripts" / "update_profile_card.py")], cwd=base, check=True)
+
+zip_path = Path("/mnt/data/fixed_dynamic_profile_final.zip")
+if zip_path.exists():
+    zip_path.unlink()
+
+with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as z:
+    for p in base.rglob("*"):
+        z.write(p, p.relative_to(base.parent))
+
+print(zip_path)
