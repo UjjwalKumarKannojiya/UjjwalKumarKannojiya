@@ -53,7 +53,15 @@
 
 ## `// latest_projects`
 
-<a href="https://github.com/UjjwalKumarKannojiya/UjjwalKumarKannojiya"><img width="48%" src="https://github-readme-stats.vercel.app/api/pin/?username=UjjwalKumarKannojiya&repo=UjjwalKumarKannojiya&theme=github_dark&hide_border=true&bg_color=0D1117&title_color=58A6FF&text_color=E6EDF3&icon_color=A371F7" /></a>
+<a href="https://github.com/UjjwalKumarKannojiya/AI-Powered-Cyberattacks-Defense-"><img width="48%" src="https://github-readme-stats.vercel.app/api/pin/?username=UjjwalKumarKannojiya&repo=AI-Powered-Cyberattacks-Defense-&theme=github_dark&hide_border=true&bg_color=0D1117&title_color=58A6FF&text_color=E6EDF3&icon_color=A371F7" /></a>
+<a href="https://github.com/UjjwalKumarKannojiya/cognos-project"><img width="48%" src="https://github-readme-stats.vercel.app/api/pin/?username=UjjwalKumarKannojiya&repo=cognos-project&theme=github_dark&hide_border=true&bg_color=0D1117&title_color=58A6FF&text_color=E6EDF3&icon_color=A371F7" /></a>
+<br/>
+<a href="https://github.com/UjjwalKumarKannojiya/nosql-and-mongo-db"><img width="48%" src="https://github-readme-stats.vercel.app/api/pin/?username=UjjwalKumarKannojiya&repo=nosql-and-mongo-db&theme=github_dark&hide_border=true&bg_color=0D1117&title_color=58A6FF&text_color=E6EDF3&icon_color=A371F7" /></a>
+<a href="https://github.com/UjjwalKumarKannojiya/poseguard"><img width="48%" src="https://github-readme-stats.vercel.app/api/pin/?username=UjjwalKumarKannojiya&repo=poseguard&theme=github_dark&hide_border=true&bg_color=0D1117&title_color=58A6FF&text_color=E6EDF3&icon_color=A371F7" /></a>
+<br/>
+<a href="https://github.com/UjjwalKumarKannojiya/house-prediction"><img width="48%" src="https://github-readme-stats.vercel.app/api/pin/?username=UjjwalKumarKannojiya&repo=house-prediction&theme=github_dark&hide_border=true&bg_color=0D1117&title_color=58A6FF&text_color=E6EDF3&icon_color=A371F7" /></a>
+<a href="https://github.com/UjjwalKumarKannojiya/Ujjwal.github.io"><img width="48%" src="https://github-readme-stats.vercel.app/api/pin/?username=UjjwalKumarKannojiya&repo=Ujjwal.github.io&theme=github_dark&hide_border=true&bg_color=0D1117&title_color=58A6FF&text_color=E6EDF3&icon_color=A371F7" /></a>
+<br/>
 
 </div>
 
