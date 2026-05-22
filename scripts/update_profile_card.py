@@ -571,6 +571,7 @@ SVG_TEMPLATE = """<svg width="860" height="1140" viewBox="0 0 860 1140" fill="no
       <circle cx="18" cy="17" r="2.8" fill="none" stroke="#8B949E" stroke-width="1.4"/>
       <circle cx="24" cy="11" r="1.6" fill="#8B949E"/>
       <text x="38" y="22" class="muted">Instagram</text>
+      <animate attributeName="opacity" values="0.90;1;0.90" dur="4.5s" repeatCount="indefinite"/>
     </g>
 
     <g transform="translate(156 314)">
@@ -578,6 +579,7 @@ SVG_TEMPLATE = """<svg width="860" height="1140" viewBox="0 0 860 1140" fill="no
       <rect x="14" y="10" width="16" height="16" rx="2" fill="#8B949E"/>
       <text x="18" y="22" style="font-weight:700;font-size:13px;fill:#161B22;font-family:monospace;">in</text>
       <text x="42" y="22" class="muted">LinkedIn</text>
+      <animate attributeName="opacity" values="0.90;1;0.90" dur="4.8s" repeatCount="indefinite"/>
     </g>
 
     <g transform="translate(270 314)">
@@ -585,6 +587,7 @@ SVG_TEMPLATE = """<svg width="860" height="1140" viewBox="0 0 860 1140" fill="no
       <path d="M14 12h16v12H14z" fill="none" stroke="#8B949E" stroke-width="1.3"/>
       <path d="M14 13l8 6 8-6" fill="none" stroke="#8B949E" stroke-width="1.3"/>
       <text x="42" y="22" class="muted">Email</text>
+      <animate attributeName="opacity" values="0.90;1;0.90" dur="5s" repeatCount="indefinite"/>
     </g>
 
     <text x="32" y="392" class="section">// METRICS</text>
@@ -618,6 +621,7 @@ SVG_TEMPLATE = """<svg width="860" height="1140" viewBox="0 0 860 1140" fill="no
     <g transform="translate(32 556)">
       <rect width="796" height="142" rx="8" fill="#161B22" stroke="#21262D"/>
       <text x="22" y="31" class="muted">live activity from GitHub</text>
+      <animate attributeName="opacity" values="0.94;1;0.94" dur="5s" repeatCount="indefinite"/>
     </g>
 
     __CONTRIBUTION_GRID__
@@ -627,6 +631,7 @@ SVG_TEMPLATE = """<svg width="860" height="1140" viewBox="0 0 860 1140" fill="no
       <circle cx="20" cy="22" r="3" fill="#58A6FF"/>
       <text x="34" y="26" class="muted">top languages</text>
       __LANGUAGE_BARS__
+      <animate attributeName="opacity" values="0.94;1;0.94" dur="5.3s" repeatCount="indefinite"/>
     </g>
 
     <g transform="translate(440 732)">
@@ -634,6 +639,7 @@ SVG_TEMPLATE = """<svg width="860" height="1140" viewBox="0 0 860 1140" fill="no
       <circle cx="20" cy="22" r="3" fill="#A371F7"/>
       <text x="34" y="26" class="muted">latest projects</text>
       __PROJECT_ROWS__
+      <animate attributeName="opacity" values="0.94;1;0.94" dur="5.6s" repeatCount="indefinite"/>
     </g>
 
     <text x="32" y="902" class="section">// TECH STACK</text>
