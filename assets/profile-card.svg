@@ -31,22 +31,6 @@
       .quoteText { font: italic 13px Inter, Segoe UI, Arial, sans-serif; fill: #8B949E; }
       .quoteAttr { font: 700 11px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; fill: #A371F7; }
 
-      @keyframes heroBreathe {
-        0%, 100% { opacity: 0.96; }
-        50% { opacity: 1; }
-      }
-
-      @keyframes avatarGlow {
-        0%, 100% { opacity: 0.92; }
-        50% { opacity: 1; }
-      }
-
-      @keyframes flowDash {
-        0% { stroke-dashoffset: 0; opacity: 0.22; }
-        50% { opacity: 0.70; }
-        100% { stroke-dashoffset: -260; opacity: 0.22; }
-      }
-
       @keyframes typing {
         0% { clip-path: inset(0 100% 0 0); }
         50% { clip-path: inset(0 0 0 0); }
@@ -59,42 +43,15 @@
         50%, 100% { opacity: 0; }
       }
 
-      @keyframes pulseCell {
-        0%, 100% { opacity: 0.82; }
-        50% { opacity: 1; }
-      }
-
-      @keyframes metricFloat {
-        0%, 100% { opacity: 0.96; }
-        50% { opacity: 1; }
-      }
-
-      @keyframes barGrow {
-        0% { transform: scaleX(0.35); }
-        100% { transform: scaleX(1); }
-      }
-
       @keyframes wipe {
         0% { transform: translateX(-820px); opacity: 0.95; }
         24% { transform: translateX(820px); opacity: 0.95; }
         25%, 100% { transform: translateX(820px); opacity: 0; }
       }
 
-      @keyframes softPulse {
-        0%, 100% { opacity: 0.90; }
-        50% { opacity: 1; }
-      }
-
-      .heroBreathe { animation: heroBreathe 5.8s ease-in-out infinite; }
-      .avatarGroup { animation: avatarGlow 3.8s ease-in-out infinite; }
-      .flowLine { animation: flowDash 8s linear infinite; }
       .typingText { animation: typing 3s steps(30) infinite; }
       .cursor { animation: blink .7s step-end infinite; }
-      .pulseCell { animation: pulseCell 3.8s ease-in-out infinite; }
-      .metricCard { animation: metricFloat 5s ease-in-out infinite; }
-      .barFill { transform-box: fill-box; transform-origin: left; animation: barGrow 1.2s ease-out both; }
       .wipeBlock { animation: wipe 4s ease-in-out infinite; }
-      .softPulse { animation: softPulse 4.4s ease-in-out infinite; }
     </style>
   </defs>
 
@@ -112,12 +69,8 @@
       <animate attributeName="cy" values="1040;1028;1040" dur="8s" repeatCount="indefinite"/>
     </circle>
 
-    <path class="flowLine" d="M420 42 C520 18 650 18 826 52"
-          fill="none" stroke="#58A6FF" stroke-width="1.2"
-          stroke-dasharray="8 16" opacity="0.22"/>
-
-    <g transform="translate(32 40)" class="heroBreathe">
-      <g class="avatarGroup">
+    <g transform="translate(32 40)">
+      <g>
         <circle cx="45" cy="45" r="45" fill="url(#avatarGrad)">
           <animate attributeName="r" values="45;48;45" dur="4s" repeatCount="indefinite"/>
         </circle>
@@ -133,6 +86,8 @@
       <text x="122" y="116" class="muted">}</text>
       <text x="122" y="150" class="body">Full-stack developer &amp; UI/UX enthusiast crafting</text>
       <text x="122" y="172" class="body"><tspan fill="#58A6FF" font-weight="700">scalable products</tspan> at the intersection of code and design.</text>
+
+      <animate attributeName="opacity" values="0.96;1;0.96" dur="5.8s" repeatCount="indefinite"/>
     </g>
 
     <line x1="32" y1="250" x2="828" y2="250" stroke="#21262D"/>
@@ -163,20 +118,26 @@
 
     <text x="32" y="392" class="section">// METRICS</text>
 
-    <g transform="translate(32 414)" class="metricCard">
-      <rect width="252" height="76" rx="8" fill="#161B22" stroke="#21262D"/>
-      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#58A6FF">80</text>
+    <g transform="translate(32 414)">
+      <rect width="252" height="76" rx="8" fill="#161B22" stroke="#21262D">
+        <animate attributeName="opacity" values="0.96;1;0.96" dur="5s" repeatCount="indefinite"/>
+      </rect>
+      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#58A6FF">81</text>
       <text x="126" y="58" text-anchor="middle" class="metricLabel">contributions</text>
     </g>
 
-    <g transform="translate(304 414)" class="metricCard">
-      <rect width="252" height="76" rx="8" fill="#161B22" stroke="#21262D"/>
+    <g transform="translate(304 414)">
+      <rect width="252" height="76" rx="8" fill="#161B22" stroke="#21262D">
+        <animate attributeName="opacity" values="0.96;1;0.96" dur="5s" repeatCount="indefinite"/>
+      </rect>
       <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#A371F7">7</text>
       <text x="126" y="58" text-anchor="middle" class="metricLabel">projects</text>
     </g>
 
-    <g transform="translate(576 414)" class="metricCard">
-      <rect width="252" height="76" rx="8" fill="#161B22" stroke="#21262D"/>
+    <g transform="translate(576 414)">
+      <rect width="252" height="76" rx="8" fill="#161B22" stroke="#21262D">
+        <animate attributeName="opacity" values="0.96;1;0.96" dur="5s" repeatCount="indefinite"/>
+      </rect>
       <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#3FB950">5</text>
       <text x="126" y="58" text-anchor="middle" class="metricLabel">detected tech</text>
     </g>
@@ -190,1488 +151,1859 @@
 
     
                 <rect x="54" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.00s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.00s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="54" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.03s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.03s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="54" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.06s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.06s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="54" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.09s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.09s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="54" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.12s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.12s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="54" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.15s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.15s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="54" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.18s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.18s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="68" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.02s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.02s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="68" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.05s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.05s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="68" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.08s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.08s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="68" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.11s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.11s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="68" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.14s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.14s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="68" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.17s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.17s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="68" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.20s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.20s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="82" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.04s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.04s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="82" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.07s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.07s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="82" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.10s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.10s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="82" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.13s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.13s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="82" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.16s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.16s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="82" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.19s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.19s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="82" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.22s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.22s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="96" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.05s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.05s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="96" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.08s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.08s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="96" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.11s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.11s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="96" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.14s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.14s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="96" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.17s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.17s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="96" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.20s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.20s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="96" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.23s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.23s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="110" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.07s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.07s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="110" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.10s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.10s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="110" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.13s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.13s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="110" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.16s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.16s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="110" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.19s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.19s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="110" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.22s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.22s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="110" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.25s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.25s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="124" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.09s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.09s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="124" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.12s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.12s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="124" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.15s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.15s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="124" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.18s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.18s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="124" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.21s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.21s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="124" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.24s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.24s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="124" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.27s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.27s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="138" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.11s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.11s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="138" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.14s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.14s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="138" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.17s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.17s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="138" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.20s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.20s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="138" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.23s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.23s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="138" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.26s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.26s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="138" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.29s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.29s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="152" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.13s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.13s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="152" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.16s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.16s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="152" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.19s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.19s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="152" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.22s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.22s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="152" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.25s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.25s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="152" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.28s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.28s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="152" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.31s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.31s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="166" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.14s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.14s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="166" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.17s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.17s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="166" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.20s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.20s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="166" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.23s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.23s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="166" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.26s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.26s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="166" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.29s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.29s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="166" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.32s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.32s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="180" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.16s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.16s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="180" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.19s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.19s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="180" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.22s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.22s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="180" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.25s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.25s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="180" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.28s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.28s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="180" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.31s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.31s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="180" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.34s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.34s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="194" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.18s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.18s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="194" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.21s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.21s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="194" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.24s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.24s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="194" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.27s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.27s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="194" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.30s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.30s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="194" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.33s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.33s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="194" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.36s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.36s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="208" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.20s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.20s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="208" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.23s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.23s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="208" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.26s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.26s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="208" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.29s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.29s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="208" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.32s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.32s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="208" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.35s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.35s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="208" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.38s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.38s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="222" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.22s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.22s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="222" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.25s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.25s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="222" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.28s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.28s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="222" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.31s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.31s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="222" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.34s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.34s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="222" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.37s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.37s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="222" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.40s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.40s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="236" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.23s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.23s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="236" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.26s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.26s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="236" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.29s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.29s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="236" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.32s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.32s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="236" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.35s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.35s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="236" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.38s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.38s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="236" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.41s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.41s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="250" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.25s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.25s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="250" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.28s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.28s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="250" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.31s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.31s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="250" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.34s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.34s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="250" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.37s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.37s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="250" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.40s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.40s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="250" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.43s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.43s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="264" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.27s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.27s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="264" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.30s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.30s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="264" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.33s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.33s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="264" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.36s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.36s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="264" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.39s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.39s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="264" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.42s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.42s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="264" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.45s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.45s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="278" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.29s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.29s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="278" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.32s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.32s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="278" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.35s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.35s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="278" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.38s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.38s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="278" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.41s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.41s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="278" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.44s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.44s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="278" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.47s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.47s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="292" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.31s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.31s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="292" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.34s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.34s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="292" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.37s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.37s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="292" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.40s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.40s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="292" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.43s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.43s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="292" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.46s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.46s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="292" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.49s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.49s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="306" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.32s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.32s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="306" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.35s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.35s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="306" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.38s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.38s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="306" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.41s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.41s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="306" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.44s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.44s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="306" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.47s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.47s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="306" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.50s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.50s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="320" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.34s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.34s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="320" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.37s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.37s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="320" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.40s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.40s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="320" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.43s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.43s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="320" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.46s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.46s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="320" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.49s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.49s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="320" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.52s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.52s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="334" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.36s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.36s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="334" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.39s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.39s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="334" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.42s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.42s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="334" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.45s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.45s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="334" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.48s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.48s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="334" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.51s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.51s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="334" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.54s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.54s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="348" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.38s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.38s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="348" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.41s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.41s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="348" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.44s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.44s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="348" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.47s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.47s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="348" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.50s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.50s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="348" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.53s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.53s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="348" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.56s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.56s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="362" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.40s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.40s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="362" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.43s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.43s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="362" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.46s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.46s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="362" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.49s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.49s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="362" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.52s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.52s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="362" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.55s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.55s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="362" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.58s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.58s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="376" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.41s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.41s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="376" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.44s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.44s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="376" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.47s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.47s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="376" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.50s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.50s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="376" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.53s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.53s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="376" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.56s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.56s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="376" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.59s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.59s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="390" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.43s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.43s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="390" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.46s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.46s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="390" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.49s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.49s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="390" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.52s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.52s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="390" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.55s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.55s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="390" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.58s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.58s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="390" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.61s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.61s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="404" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.45s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.45s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="404" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.48s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.48s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="404" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.51s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.51s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="404" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.54s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.54s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="404" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.57s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.57s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="404" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.60s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.60s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="404" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.63s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.63s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="418" y="610" width="11" height="11" rx="2"
-                      fill="#0E4429" stroke="#26A641" class="pulseCell"
-                      style="animation-delay:0.47s"/>
+                      fill="#0E4429" stroke="#26A641">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.47s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="418" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.50s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.50s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="418" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.53s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.53s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="418" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.56s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.56s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="418" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.59s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.59s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="418" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.62s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.62s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="418" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.65s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.65s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="432" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.49s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.49s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="432" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.52s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.52s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="432" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.55s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.55s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="432" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.58s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.58s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="432" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.61s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.61s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="432" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.64s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.64s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="432" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.67s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.67s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="446" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.50s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.50s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="446" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.53s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.53s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="446" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.56s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.56s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="446" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.59s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.59s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="446" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.62s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.62s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="446" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.65s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.65s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="446" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.68s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.68s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="460" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.52s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.52s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="460" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.55s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.55s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="460" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.58s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.58s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="460" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.61s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.61s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="460" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.64s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.64s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="460" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.67s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.67s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="460" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.70s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.70s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="474" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.54s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.54s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="474" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.57s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.57s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="474" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.60s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.60s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="474" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.63s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.63s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="474" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.66s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.66s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="474" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.69s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.69s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="474" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.72s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.72s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="488" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.56s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.56s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="488" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.59s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.59s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="488" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.62s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.62s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="488" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.65s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.65s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="488" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.68s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.68s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="488" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.71s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.71s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="488" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.74s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.74s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="502" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.58s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.58s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="502" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.61s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.61s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="502" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.64s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.64s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="502" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.67s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.67s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="502" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.70s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.70s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="502" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.73s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.73s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="502" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.76s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.76s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="516" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.59s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.59s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="516" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.62s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.62s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="516" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.65s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.65s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="516" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.68s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.68s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="516" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.71s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.71s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="516" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.74s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.74s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="516" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.77s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.77s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="530" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.61s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.61s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="530" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.64s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.64s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="530" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.67s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.67s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="530" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.70s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.70s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="530" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.73s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.73s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="530" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.76s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.76s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="530" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.79s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.79s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="544" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.63s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.63s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="544" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.66s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.66s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="544" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.69s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.69s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="544" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.72s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.72s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="544" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.75s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.75s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="544" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.78s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.78s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="544" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.81s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.81s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="558" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.65s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.65s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="558" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.68s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.68s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="558" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.71s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.71s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="558" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.74s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.74s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="558" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.77s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.77s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="558" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.80s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.80s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="558" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.83s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.83s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="572" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.67s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.67s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="572" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.70s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.70s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="572" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.73s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.73s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="572" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.76s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.76s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="572" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.79s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.79s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="572" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.82s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.82s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="572" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.85s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.85s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="586" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.68s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.68s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="586" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.71s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.71s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="586" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.74s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.74s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="586" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.77s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.77s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="586" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.80s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.80s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="586" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.83s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.83s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="586" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.86s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.86s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="600" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.70s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.70s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="600" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.73s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.73s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="600" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.76s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.76s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="600" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.79s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.79s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="600" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.82s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.82s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="600" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.85s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.85s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="600" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.88s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.88s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="614" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.72s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.72s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="614" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.75s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.75s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="614" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.78s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.78s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="614" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.81s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.81s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="614" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.84s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.84s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="614" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.87s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.87s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="614" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.90s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.90s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="628" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.74s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.74s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="628" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.77s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.77s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="628" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.80s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.80s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="628" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.83s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.83s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="628" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.86s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.86s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="628" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.89s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.89s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="628" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.92s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.92s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="642" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.76s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.76s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="642" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.79s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.79s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="642" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.82s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.82s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="642" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.85s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.85s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="642" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.88s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.88s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="642" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.91s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.91s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="642" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.94s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.94s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="656" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.77s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.77s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="656" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.80s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.80s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="656" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.83s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.83s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="656" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.86s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.86s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="656" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.89s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.89s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="656" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.92s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.92s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="656" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.95s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.95s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="670" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.79s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.79s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="670" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.82s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.82s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="670" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.85s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.85s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="670" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.88s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.88s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="670" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.91s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.91s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="670" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.94s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.94s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="670" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.97s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.97s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="684" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.81s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.81s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="684" y="624" width="11" height="11" rx="2"
-                      fill="#0E4429" stroke="#26A641" class="pulseCell"
-                      style="animation-delay:0.84s"/>
+                      fill="#0E4429" stroke="#26A641">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.84s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="684" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.87s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.87s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="684" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.90s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.90s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="684" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.93s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.93s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="684" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.96s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.96s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="684" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.99s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.99s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="698" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.83s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.83s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="698" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.86s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.86s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="698" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.89s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.89s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="698" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.92s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.92s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="698" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.95s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.95s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="698" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.98s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.98s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="698" y="694" width="11" height="11" rx="2"
-                      fill="#0E4429" stroke="#26A641" class="pulseCell"
-                      style="animation-delay:1.01s"/>
+                      fill="#0E4429" stroke="#26A641">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="1.01s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="712" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.85s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.85s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="712" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.88s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.88s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="712" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.91s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.91s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="712" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.94s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.94s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="712" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.97s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.97s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="712" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:1.00s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="1.00s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="712" y="694" width="11" height="11" rx="2"
-                      fill="#006D32" stroke="#26A641" class="pulseCell"
-                      style="animation-delay:1.03s"/>
+                      fill="#006D32" stroke="#26A641">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="1.03s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="726" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.86s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.86s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="726" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.89s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.89s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="726" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.92s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.92s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="726" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.95s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.95s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="726" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.98s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.98s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="726" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:1.01s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="1.01s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="726" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:1.04s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="1.04s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="740" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.88s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.88s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="740" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.91s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.91s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="740" y="638" width="11" height="11" rx="2"
-                      fill="#006D32" stroke="#26A641" class="pulseCell"
-                      style="animation-delay:0.94s"/>
+                      fill="#006D32" stroke="#26A641">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.94s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="740" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.97s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.97s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="740" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:1.00s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="1.00s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="740" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:1.03s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="1.03s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="740" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:1.06s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="1.06s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="754" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.90s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.90s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="754" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.93s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.93s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="754" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.96s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.96s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="754" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.99s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.99s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="754" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:1.02s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="1.02s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="754" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:1.05s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="1.05s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="754" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:1.08s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="1.08s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="768" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.92s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.92s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="768" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.95s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.95s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="768" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.98s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.98s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="768" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:1.01s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="1.01s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="768" y="666" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:1.04s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="1.04s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="768" y="680" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:1.07s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="1.07s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="768" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:1.10s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="1.10s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="782" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.94s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.94s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="782" y="624" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:0.97s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.97s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="782" y="638" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:1.00s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="1.00s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="782" y="652" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:1.03s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="1.03s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="782" y="666" width="11" height="11" rx="2"
-                      fill="#26A641" stroke="#39D353" class="pulseCell"
-                      style="animation-delay:1.06s"/>
+                      fill="#26A641" stroke="#39D353">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="1.06s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="782" y="680" width="11" height="11" rx="2"
-                      fill="#39D353" stroke="#39D353" class="pulseCell"
-                      style="animation-delay:1.09s"/>
+                      fill="#39D353" stroke="#39D353">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="1.09s" repeatCount="indefinite"/>
+                </rect>
 
                 <rect x="782" y="694" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D" class="pulseCell"
-                      style="animation-delay:1.12s"/>
+                      fill="#161B22" stroke="#21262D">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="1.12s" repeatCount="indefinite"/>
+                </rect>
 
     <g transform="translate(32 732)">
       <rect width="388" height="124" rx="8" fill="#161B22" stroke="#21262D"/>
@@ -1680,22 +2012,30 @@
       
             <text x="18" y="54" class="barLabel">Jupyter N…</text>
             <rect x="104" y="46" width="204" height="6" rx="3" fill="#21262D"/>
-            <rect x="104" y="46" width="182" height="6" rx="3" fill="#DA5B0B" class="barFill"/>
+            <rect x="104" y="46" width="182" height="6" rx="3" fill="#DA5B0B">
+              <animate attributeName="width" values="0;182" dur="1.2s" fill="freeze"/>
+            </rect>
             <text x="340" y="54" class="barPct">89%</text>
 
             <text x="18" y="76" class="barLabel">HTML</text>
             <rect x="104" y="68" width="204" height="6" rx="3" fill="#21262D"/>
-            <rect x="104" y="68" width="12" height="6" rx="3" fill="#e34c26" class="barFill"/>
+            <rect x="104" y="68" width="12" height="6" rx="3" fill="#e34c26">
+              <animate attributeName="width" values="0;12" dur="1.2s" fill="freeze"/>
+            </rect>
             <text x="340" y="76" class="barPct">6%</text>
 
             <text x="18" y="98" class="barLabel">CSS</text>
             <rect x="104" y="90" width="204" height="6" rx="3" fill="#21262D"/>
-            <rect x="104" y="90" width="12" height="6" rx="3" fill="#663399" class="barFill"/>
+            <rect x="104" y="90" width="12" height="6" rx="3" fill="#663399">
+              <animate attributeName="width" values="0;12" dur="1.2s" fill="freeze"/>
+            </rect>
             <text x="340" y="98" class="barPct">6%</text>
 
             <text x="18" y="120" class="barLabel">Python</text>
             <rect x="104" y="112" width="204" height="6" rx="3" fill="#21262D"/>
-            <rect x="104" y="112" width="12" height="6" rx="3" fill="#3572A5" class="barFill"/>
+            <rect x="104" y="112" width="12" height="6" rx="3" fill="#3572A5">
+              <animate attributeName="width" values="0;12" dur="1.2s" fill="freeze"/>
+            </rect>
             <text x="340" y="120" class="barPct">6%</text>
     </g>
 
@@ -1704,22 +2044,30 @@
       <circle cx="20" cy="22" r="3" fill="#A371F7"/>
       <text x="34" y="26" class="muted">latest projects</text>
       
-            <circle cx="22" cy="48" r="3" fill="#58A6FF" class="softPulse"/>
+            <circle cx="22" cy="48" r="3" fill="#58A6FF">
+              <animate attributeName="opacity" values="0.65;1;0.65" dur="4s" repeatCount="indefinite"/>
+            </circle>
             <text x="34" y="52" class="barLabel">AI-Powered-Cyberattacks-…</text>
             <text x="250" y="52" class="barPct">Code</text>
             <text x="330" y="52" class="barPct">★ 0 ⑂ 0</text>
 
-            <circle cx="22" cy="69" r="3" fill="#58A6FF" class="softPulse"/>
+            <circle cx="22" cy="69" r="3" fill="#58A6FF">
+              <animate attributeName="opacity" values="0.65;1;0.65" dur="4s" repeatCount="indefinite"/>
+            </circle>
             <text x="34" y="73" class="barLabel">cognos-project</text>
             <text x="250" y="73" class="barPct">Code</text>
             <text x="330" y="73" class="barPct">★ 0 ⑂ 0</text>
 
-            <circle cx="22" cy="90" r="3" fill="#58A6FF" class="softPulse"/>
+            <circle cx="22" cy="90" r="3" fill="#58A6FF">
+              <animate attributeName="opacity" values="0.65;1;0.65" dur="4s" repeatCount="indefinite"/>
+            </circle>
             <text x="34" y="94" class="barLabel">nosql-and-mongo-db</text>
             <text x="250" y="94" class="barPct">Code</text>
             <text x="330" y="94" class="barPct">★ 0 ⑂ 0</text>
 
-            <circle cx="22" cy="111" r="3" fill="#DA5B0B" class="softPulse"/>
+            <circle cx="22" cy="111" r="3" fill="#DA5B0B">
+              <animate attributeName="opacity" values="0.65;1;0.65" dur="4s" repeatCount="indefinite"/>
+            </circle>
             <text x="34" y="115" class="barLabel">poseguard</text>
             <text x="250" y="115" class="barPct">Jupyter N…</text>
             <text x="330" y="115" class="barPct">★ 0 ⑂ 0</text>
@@ -1728,210 +2076,262 @@
     <text x="32" y="902" class="section">// TECH STACK</text>
 
     
-    <g transform="translate(32 924)" class="softPulse">
+    <g transform="translate(32 924)">
       <rect width="66" height="24" rx="12"
             fill="#58A6FF" fill-opacity="0.10"
-            stroke="#58A6FF" stroke-opacity="0.30"/>
+            stroke="#58A6FF" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
       <text x="33.0" y="16" text-anchor="middle"
             class="pill" fill="#58A6FF">Python</text>
     </g>
 
-    <g transform="translate(106 924)" class="softPulse">
+    <g transform="translate(106 924)">
       <rect width="94" height="24" rx="12"
             fill="#58A6FF" fill-opacity="0.10"
-            stroke="#58A6FF" stroke-opacity="0.30"/>
+            stroke="#58A6FF" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
       <text x="47.0" y="16" text-anchor="middle"
             class="pill" fill="#58A6FF">JavaScript</text>
     </g>
 
-    <g transform="translate(208 924)" class="softPulse">
+    <g transform="translate(208 924)">
       <rect width="94" height="24" rx="12"
             fill="#58A6FF" fill-opacity="0.10"
-            stroke="#58A6FF" stroke-opacity="0.30"/>
+            stroke="#58A6FF" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
       <text x="47.0" y="16" text-anchor="middle"
             class="pill" fill="#58A6FF">TypeScript</text>
     </g>
 
-    <g transform="translate(310 924)" class="softPulse">
+    <g transform="translate(310 924)">
       <rect width="54" height="24" rx="12"
             fill="#58A6FF" fill-opacity="0.10"
-            stroke="#58A6FF" stroke-opacity="0.30"/>
+            stroke="#58A6FF" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
       <text x="27.0" y="16" text-anchor="middle"
             class="pill" fill="#58A6FF">Java</text>
     </g>
 
-    <g transform="translate(372 924)" class="softPulse">
+    <g transform="translate(372 924)">
       <rect width="54" height="24" rx="12"
             fill="#58A6FF" fill-opacity="0.10"
-            stroke="#58A6FF" stroke-opacity="0.30"/>
+            stroke="#58A6FF" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
       <text x="27.0" y="16" text-anchor="middle"
             class="pill" fill="#58A6FF">C</text>
     </g>
 
-    <g transform="translate(434 924)" class="softPulse">
+    <g transform="translate(434 924)">
       <rect width="54" height="24" rx="12"
             fill="#58A6FF" fill-opacity="0.10"
-            stroke="#58A6FF" stroke-opacity="0.30"/>
+            stroke="#58A6FF" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
       <text x="27.0" y="16" text-anchor="middle"
             class="pill" fill="#58A6FF">R</text>
     </g>
 
-    <g transform="translate(496 924)" class="softPulse">
+    <g transform="translate(496 924)">
       <rect width="59" height="24" rx="12"
             fill="#A371F7" fill-opacity="0.10"
-            stroke="#A371F7" stroke-opacity="0.30"/>
+            stroke="#A371F7" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
       <text x="29.5" y="16" text-anchor="middle"
             class="pill" fill="#A371F7">React</text>
     </g>
 
-    <g transform="translate(563 924)" class="softPulse">
+    <g transform="translate(563 924)">
       <rect width="73" height="24" rx="12"
             fill="#A371F7" fill-opacity="0.10"
-            stroke="#A371F7" stroke-opacity="0.30"/>
+            stroke="#A371F7" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
       <text x="36.5" y="16" text-anchor="middle"
             class="pill" fill="#A371F7">Next.js</text>
     </g>
 
-    <g transform="translate(644 924)" class="softPulse">
+    <g transform="translate(644 924)">
       <rect width="73" height="24" rx="12"
             fill="#A371F7" fill-opacity="0.10"
-            stroke="#A371F7" stroke-opacity="0.30"/>
+            stroke="#A371F7" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
       <text x="36.5" y="16" text-anchor="middle"
             class="pill" fill="#A371F7">Node.js</text>
     </g>
 
-    <g transform="translate(725 924)" class="softPulse">
+    <g transform="translate(725 924)">
       <rect width="101" height="24" rx="12"
             fill="#A371F7" fill-opacity="0.10"
-            stroke="#A371F7" stroke-opacity="0.30"/>
+            stroke="#A371F7" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
       <text x="50.5" y="16" text-anchor="middle"
             class="pill" fill="#A371F7">TailwindCSS</text>
     </g>
 
-    <g transform="translate(32 958)" class="softPulse">
+    <g transform="translate(32 958)">
       <rect width="87" height="24" rx="12"
             fill="#A371F7" fill-opacity="0.10"
-            stroke="#A371F7" stroke-opacity="0.30"/>
+            stroke="#A371F7" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
       <text x="43.5" y="16" text-anchor="middle"
             class="pill" fill="#A371F7">Bootstrap</text>
     </g>
 
-    <g transform="translate(127 958)" class="softPulse">
+    <g transform="translate(127 958)">
       <rect width="54" height="24" rx="12"
             fill="#A371F7" fill-opacity="0.10"
-            stroke="#A371F7" stroke-opacity="0.30"/>
+            stroke="#A371F7" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
       <text x="27.0" y="16" text-anchor="middle"
             class="pill" fill="#A371F7">Vite</text>
     </g>
 
-    <g transform="translate(189 958)" class="softPulse">
+    <g transform="translate(189 958)">
       <rect width="94" height="24" rx="12"
             fill="#3FB950" fill-opacity="0.10"
-            stroke="#3FB950" stroke-opacity="0.30"/>
+            stroke="#3FB950" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
       <text x="47.0" y="16" text-anchor="middle"
             class="pill" fill="#3FB950">TensorFlow</text>
     </g>
 
-    <g transform="translate(291 958)" class="softPulse">
+    <g transform="translate(291 958)">
       <rect width="73" height="24" rx="12"
             fill="#3FB950" fill-opacity="0.10"
-            stroke="#3FB950" stroke-opacity="0.30"/>
+            stroke="#3FB950" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
       <text x="36.5" y="16" text-anchor="middle"
             class="pill" fill="#3FB950">PyTorch</text>
     </g>
 
-    <g transform="translate(372 958)" class="softPulse">
+    <g transform="translate(372 958)">
       <rect width="108" height="24" rx="12"
             fill="#3FB950" fill-opacity="0.10"
-            stroke="#3FB950" stroke-opacity="0.30"/>
+            stroke="#3FB950" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
       <text x="54.0" y="16" text-anchor="middle"
             class="pill" fill="#3FB950">scikit-learn</text>
     </g>
 
-    <g transform="translate(488 958)" class="softPulse">
+    <g transform="translate(488 958)">
       <rect width="59" height="24" rx="12"
             fill="#3FB950" fill-opacity="0.10"
-            stroke="#3FB950" stroke-opacity="0.30"/>
+            stroke="#3FB950" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
       <text x="29.5" y="16" text-anchor="middle"
             class="pill" fill="#3FB950">NumPy</text>
     </g>
 
-    <g transform="translate(555 958)" class="softPulse">
+    <g transform="translate(555 958)">
       <rect width="66" height="24" rx="12"
             fill="#3FB950" fill-opacity="0.10"
-            stroke="#3FB950" stroke-opacity="0.30"/>
+            stroke="#3FB950" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
       <text x="33.0" y="16" text-anchor="middle"
             class="pill" fill="#3FB950">Pandas</text>
     </g>
 
-    <g transform="translate(629 958)" class="softPulse">
+    <g transform="translate(629 958)">
       <rect width="73" height="24" rx="12"
             fill="#D2992A" fill-opacity="0.10"
-            stroke="#D2992A" stroke-opacity="0.30"/>
+            stroke="#D2992A" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
       <text x="36.5" y="16" text-anchor="middle"
             class="pill" fill="#D2992A">MongoDB</text>
     </g>
 
-    <g transform="translate(710 958)" class="softPulse">
+    <g transform="translate(710 958)">
       <rect width="59" height="24" rx="12"
             fill="#D2992A" fill-opacity="0.10"
-            stroke="#D2992A" stroke-opacity="0.30"/>
+            stroke="#D2992A" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
       <text x="29.5" y="16" text-anchor="middle"
             class="pill" fill="#D2992A">MySQL</text>
     </g>
 
-    <g transform="translate(32 992)" class="softPulse">
+    <g transform="translate(32 992)">
       <rect width="54" height="24" rx="12"
             fill="#D2992A" fill-opacity="0.10"
-            stroke="#D2992A" stroke-opacity="0.30"/>
+            stroke="#D2992A" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
       <text x="27.0" y="16" text-anchor="middle"
             class="pill" fill="#D2992A">AWS</text>
     </g>
 
-    <g transform="translate(94 992)" class="softPulse">
+    <g transform="translate(94 992)">
       <rect width="59" height="24" rx="12"
             fill="#D2992A" fill-opacity="0.10"
-            stroke="#D2992A" stroke-opacity="0.30"/>
+            stroke="#D2992A" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
       <text x="29.5" y="16" text-anchor="middle"
             class="pill" fill="#D2992A">Azure</text>
     </g>
 
-    <g transform="translate(161 992)" class="softPulse">
+    <g transform="translate(161 992)">
       <rect width="115" height="24" rx="12"
             fill="#D2992A" fill-opacity="0.10"
-            stroke="#D2992A" stroke-opacity="0.30"/>
+            stroke="#D2992A" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
       <text x="57.5" y="16" text-anchor="middle"
             class="pill" fill="#D2992A">Apache Hadoop</text>
     </g>
 
-    <g transform="translate(284 992)" class="softPulse">
+    <g transform="translate(284 992)">
       <rect width="59" height="24" rx="12"
             fill="#F85149" fill-opacity="0.10"
-            stroke="#F85149" stroke-opacity="0.30"/>
+            stroke="#F85149" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
       <text x="29.5" y="16" text-anchor="middle"
             class="pill" fill="#F85149">Figma</text>
     </g>
 
-    <g transform="translate(351 992)" class="softPulse">
+    <g transform="translate(351 992)">
       <rect width="80" height="24" rx="12"
             fill="#F85149" fill-opacity="0.10"
-            stroke="#F85149" stroke-opacity="0.30"/>
+            stroke="#F85149" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
       <text x="40.0" y="16" text-anchor="middle"
             class="pill" fill="#F85149">Adobe PS</text>
     </g>
 
-    <g transform="translate(439 992)" class="softPulse">
+    <g transform="translate(439 992)">
       <rect width="108" height="24" rx="12"
             fill="#F85149" fill-opacity="0.10"
-            stroke="#F85149" stroke-opacity="0.30"/>
+            stroke="#F85149" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
       <text x="54.0" y="16" text-anchor="middle"
             class="pill" fill="#F85149">Premiere Pro</text>
     </g>
 
-    <g transform="translate(555 992)" class="softPulse">
+    <g transform="translate(555 992)">
       <rect width="80" height="24" rx="12"
             fill="#F85149" fill-opacity="0.10"
-            stroke="#F85149" stroke-opacity="0.30"/>
+            stroke="#F85149" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
       <text x="40.0" y="16" text-anchor="middle"
             class="pill" fill="#F85149">Power BI</text>
     </g>
