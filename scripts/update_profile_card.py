@@ -47,7 +47,6 @@ query($login: String!) {
   user(login: $login) {
     login
     name
-    followers { totalCount }
     repositories(
       first: 100,
       privacy: PUBLIC,
@@ -193,7 +192,6 @@ def fallback_user(config: Dict[str, Any], username: str) -> Dict[str, Any]:
     return {
         "login": username,
         "name": config["profile"].get("fallback_name", username),
-        "followers": {"totalCount": 0},
         "repositories": {"totalCount": 0, "nodes": []},
         "contributionsCollection": {
             "contributionCalendar": {
@@ -316,14 +314,14 @@ def language_stats(user: Dict[str, Any]) -> List[Tuple[str, int, str]]:
     return result
 
 
-def projects_svg(user: Dict[str, Any]) -> str:
+def latest_projects_svg(user: Dict[str, Any]) -> str:
     latest = get_repos(user)[:4]
 
     if not latest:
         return '''
         <text x="18" y="54" class="barLabel">No public projects found</text>
         <rect x="18" y="66" width="300" height="6" rx="3" fill="#21262D"/>
-        <rect x="18" y="66" width="90" height="6" rx="3" fill="#A371F7" class="barFill"/>'''
+        <rect x="18" y="66" width="90" height="6" rx="3" fill="#A371F7"/>'''
 
     rows = []
 
@@ -337,7 +335,9 @@ def projects_svg(user: Dict[str, Any]) -> str:
 
         rows.append(
             f'''
-            <circle cx="22" cy="{y - 4}" r="3" fill="{esc(lang_color)}" class="softPulse"/>
+            <circle cx="22" cy="{y - 4}" r="3" fill="{esc(lang_color)}">
+              <animate attributeName="opacity" values="0.65;1;0.65" dur="4s" repeatCount="indefinite"/>
+            </circle>
             <text x="34" y="{y}" class="barLabel">{esc(name)}</text>
             <text x="250" y="{y}" class="barPct">{esc(short(lang, 10))}</text>
             <text x="330" y="{y}" class="barPct">★ {stars} ⑂ {forks}</text>'''
@@ -395,8 +395,9 @@ def contribution_grid_svg(user: Dict[str, Any]) -> str:
             cells.append(
                 f'''
                 <rect x="{x}" y="{y}" width="11" height="11" rx="2"
-                      fill="{fill}" stroke="{stroke}" class="pulseCell"
-                      style="animation-delay:{delay:.2f}s"/>'''
+                      fill="{fill}" stroke="{stroke}">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="{delay:.2f}s" repeatCount="indefinite"/>
+                </rect>'''
             )
 
     return "\n".join(cells)
@@ -413,7 +414,9 @@ def bar_rows_svg(stats: List[Tuple[str, int, str]], x: int, y: int) -> str:
             f'''
             <text x="{x}" y="{yy + 8}" class="barLabel">{esc(short(label, 10))}</text>
             <rect x="{x + 86}" y="{yy}" width="204" height="6" rx="3" fill="#21262D"/>
-            <rect x="{x + 86}" y="{yy}" width="{bar_width}" height="6" rx="3" fill="{esc(color)}" class="barFill"/>
+            <rect x="{x + 86}" y="{yy}" width="{bar_width}" height="6" rx="3" fill="{esc(color)}">
+              <animate attributeName="width" values="0;{bar_width}" dur="1.2s" fill="freeze"/>
+            </rect>
             <text x="{x + 322}" y="{yy + 8}" class="barPct">{percent}%</text>'''
         )
 
@@ -433,10 +436,12 @@ def pill_svg(label: str, group: str, x: int, y: int) -> Tuple[str, int]:
     width = max(54, len(label) * 7 + 24)
 
     svg = f'''
-    <g transform="translate({x} {y})" class="softPulse">
+    <g transform="translate({x} {y})">
       <rect width="{width}" height="24" rx="12"
             fill="{color}" fill-opacity="0.10"
-            stroke="{color}" stroke-opacity="0.30"/>
+            stroke="{color}" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
       <text x="{width / 2:.1f}" y="16" text-anchor="middle"
             class="pill" fill="{color}">{esc(label)}</text>
     </g>'''
@@ -497,22 +502,6 @@ SVG_TEMPLATE = """<svg width="860" height="1140" viewBox="0 0 860 1140" fill="no
       .quoteText { font: italic 13px Inter, Segoe UI, Arial, sans-serif; fill: #8B949E; }
       .quoteAttr { font: 700 11px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; fill: #A371F7; }
 
-      @keyframes heroBreathe {
-        0%, 100% { opacity: 0.96; }
-        50% { opacity: 1; }
-      }
-
-      @keyframes avatarGlow {
-        0%, 100% { opacity: 0.92; }
-        50% { opacity: 1; }
-      }
-
-      @keyframes flowDash {
-        0% { stroke-dashoffset: 0; opacity: 0.22; }
-        50% { opacity: 0.70; }
-        100% { stroke-dashoffset: -260; opacity: 0.22; }
-      }
-
       @keyframes typing {
         0% { clip-path: inset(0 100% 0 0); }
         50% { clip-path: inset(0 0 0 0); }
@@ -525,42 +514,15 @@ SVG_TEMPLATE = """<svg width="860" height="1140" viewBox="0 0 860 1140" fill="no
         50%, 100% { opacity: 0; }
       }
 
-      @keyframes pulseCell {
-        0%, 100% { opacity: 0.82; }
-        50% { opacity: 1; }
-      }
-
-      @keyframes metricFloat {
-        0%, 100% { opacity: 0.96; }
-        50% { opacity: 1; }
-      }
-
-      @keyframes barGrow {
-        0% { transform: scaleX(0.35); }
-        100% { transform: scaleX(1); }
-      }
-
       @keyframes wipe {
         0% { transform: translateX(-820px); opacity: 0.95; }
         24% { transform: translateX(820px); opacity: 0.95; }
         25%, 100% { transform: translateX(820px); opacity: 0; }
       }
 
-      @keyframes softPulse {
-        0%, 100% { opacity: 0.90; }
-        50% { opacity: 1; }
-      }
-
-      .heroBreathe { animation: heroBreathe 5.8s ease-in-out infinite; }
-      .avatarGroup { animation: avatarGlow 3.8s ease-in-out infinite; }
-      .flowLine { animation: flowDash 8s linear infinite; }
       .typingText { animation: typing 3s steps(30) infinite; }
       .cursor { animation: blink .7s step-end infinite; }
-      .pulseCell { animation: pulseCell 3.8s ease-in-out infinite; }
-      .metricCard { animation: metricFloat 5s ease-in-out infinite; }
-      .barFill { transform-box: fill-box; transform-origin: left; animation: barGrow 1.2s ease-out both; }
       .wipeBlock { animation: wipe 4s ease-in-out infinite; }
-      .softPulse { animation: softPulse 4.4s ease-in-out infinite; }
     </style>
   </defs>
 
@@ -578,12 +540,8 @@ SVG_TEMPLATE = """<svg width="860" height="1140" viewBox="0 0 860 1140" fill="no
       <animate attributeName="cy" values="1040;1028;1040" dur="8s" repeatCount="indefinite"/>
     </circle>
 
-    <path class="flowLine" d="M420 42 C520 18 650 18 826 52"
-          fill="none" stroke="#58A6FF" stroke-width="1.2"
-          stroke-dasharray="8 16" opacity="0.22"/>
-
-    <g transform="translate(32 40)" class="heroBreathe">
-      <g class="avatarGroup">
+    <g transform="translate(32 40)">
+      <g>
         <circle cx="45" cy="45" r="45" fill="url(#avatarGrad)">
           <animate attributeName="r" values="45;48;45" dur="4s" repeatCount="indefinite"/>
         </circle>
@@ -599,6 +557,8 @@ SVG_TEMPLATE = """<svg width="860" height="1140" viewBox="0 0 860 1140" fill="no
       <text x="122" y="116" class="muted">}</text>
       <text x="122" y="150" class="body">__HEADLINE__</text>
       <text x="122" y="172" class="body"><tspan fill="#58A6FF" font-weight="700">__HIGHLIGHT__</tspan> __TAGLINE__</text>
+
+      <animate attributeName="opacity" values="0.96;1;0.96" dur="5.8s" repeatCount="indefinite"/>
     </g>
 
     <line x1="32" y1="250" x2="828" y2="250" stroke="#21262D"/>
@@ -629,20 +589,26 @@ SVG_TEMPLATE = """<svg width="860" height="1140" viewBox="0 0 860 1140" fill="no
 
     <text x="32" y="392" class="section">// METRICS</text>
 
-    <g transform="translate(32 414)" class="metricCard">
-      <rect width="252" height="76" rx="8" fill="#161B22" stroke="#21262D"/>
+    <g transform="translate(32 414)">
+      <rect width="252" height="76" rx="8" fill="#161B22" stroke="#21262D">
+        <animate attributeName="opacity" values="0.96;1;0.96" dur="5s" repeatCount="indefinite"/>
+      </rect>
       <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#58A6FF">__CONTRIBUTIONS__</text>
       <text x="126" y="58" text-anchor="middle" class="metricLabel">contributions</text>
     </g>
 
-    <g transform="translate(304 414)" class="metricCard">
-      <rect width="252" height="76" rx="8" fill="#161B22" stroke="#21262D"/>
+    <g transform="translate(304 414)">
+      <rect width="252" height="76" rx="8" fill="#161B22" stroke="#21262D">
+        <animate attributeName="opacity" values="0.96;1;0.96" dur="5s" repeatCount="indefinite"/>
+      </rect>
       <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#A371F7">__PROJECTS__</text>
       <text x="126" y="58" text-anchor="middle" class="metricLabel">projects</text>
     </g>
 
-    <g transform="translate(576 414)" class="metricCard">
-      <rect width="252" height="76" rx="8" fill="#161B22" stroke="#21262D"/>
+    <g transform="translate(576 414)">
+      <rect width="252" height="76" rx="8" fill="#161B22" stroke="#21262D">
+        <animate attributeName="opacity" values="0.96;1;0.96" dur="5s" repeatCount="indefinite"/>
+      </rect>
       <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#3FB950">__TECH_COUNT__</text>
       <text x="126" y="58" text-anchor="middle" class="metricLabel">detected tech</text>
     </g>
@@ -737,7 +703,7 @@ def generate_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
         "__TECH_COUNT__": esc(metric_number(tech_count)),
         "__CONTRIBUTION_GRID__": contribution_grid_svg(user),
         "__LANGUAGE_BARS__": bar_rows_svg(language_stats(user), 18, 46),
-        "__PROJECT_ROWS__": projects_svg(user),
+        "__PROJECT_ROWS__": latest_projects_svg(user),
         "__TECH_PILLS__": tech_pills_svg(user, config),
         "__OPEN_STATUS__": esc(short(config["profile"].get("open_status"), 30)),
     }
