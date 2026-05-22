@@ -32,29 +32,19 @@
       .quoteAttr { font: 700 11px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; fill: #A371F7; }
 
       @keyframes heroBreathe {
-        0%, 100% { transform: translateY(0px) scale(1); }
-        50% { transform: translateY(-6px) scale(1.015); }
+        0%, 100% { opacity: 0.96; }
+        50% { opacity: 1; }
+      }
+
+      @keyframes avatarGlow {
+        0%, 100% { opacity: 0.92; }
+        50% { opacity: 1; }
       }
 
       @keyframes flowDash {
-        0% { stroke-dashoffset: 0; opacity: .35; }
-        50% { opacity: .9; }
-        100% { stroke-dashoffset: -260; opacity: .35; }
-      }
-
-      @keyframes orbFloatA {
-        0%, 100% { transform: translate(0px, 0px); opacity: .75; }
-        50% { transform: translate(-18px, 12px); opacity: 1; }
-      }
-
-      @keyframes orbFloatB {
-        0%, 100% { transform: translate(0px, 0px); opacity: .75; }
-        50% { transform: translate(18px, -10px); opacity: 1; }
-      }
-
-      @keyframes avatarPulse {
-        0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px rgba(88,166,255,.2)); }
-        50% { transform: scale(1.045); filter: drop-shadow(0 0 14px rgba(88,166,255,.55)); }
+        0% { stroke-dashoffset: 0; opacity: 0.30; }
+        50% { opacity: 0.90; }
+        100% { stroke-dashoffset: -260; opacity: 0.30; }
       }
 
       @keyframes typing {
@@ -70,13 +60,13 @@
       }
 
       @keyframes pulseCell {
-        0%, 100% { opacity: 0.88; }
+        0%, 100% { opacity: 0.82; }
         50% { opacity: 1; }
       }
 
       @keyframes metricFloat {
-        0%, 100% { transform: translateY(0px); opacity: 0.96; }
-        50% { transform: translateY(-3px); opacity: 1; }
+        0%, 100% { opacity: 0.96; }
+        50% { opacity: 1; }
       }
 
       @keyframes barGrow {
@@ -90,17 +80,21 @@
         25%, 100% { transform: translateX(820px); opacity: 0; }
       }
 
-      .heroGroup { transform-box: fill-box; transform-origin: center; animation: heroBreathe 6s ease-in-out infinite; }
-      .avatarGroup { transform-box: fill-box; transform-origin: center; animation: avatarPulse 4s ease-in-out infinite; }
-      .flowLine { animation: flowDash 9s linear infinite; }
-      .orbA { transform-box: fill-box; animation: orbFloatA 7s ease-in-out infinite; }
-      .orbB { transform-box: fill-box; animation: orbFloatB 8s ease-in-out infinite; }
+      @keyframes softPulse {
+        0%, 100% { opacity: 0.90; }
+        50% { opacity: 1; }
+      }
+
+      .heroBreathe { animation: heroBreathe 5.8s ease-in-out infinite; }
+      .avatarGroup { animation: avatarGlow 3.8s ease-in-out infinite; }
+      .flowLine { animation: flowDash 8s linear infinite; }
       .typingText { animation: typing 3s steps(30) infinite; }
       .cursor { animation: blink .7s step-end infinite; }
       .pulseCell { animation: pulseCell 3.8s ease-in-out infinite; }
       .metricCard { animation: metricFloat 5s ease-in-out infinite; }
       .barFill { transform-box: fill-box; transform-origin: left; animation: barGrow 1.2s ease-out both; }
       .wipeBlock { animation: wipe 4s ease-in-out infinite; }
+      .softPulse { animation: softPulse 4.4s ease-in-out infinite; }
     </style>
   </defs>
 
@@ -108,17 +102,28 @@
     <rect width="860" height="1140" rx="12" fill="#0D1117"/>
     <rect x="0.5" y="0.5" width="859" height="1139" rx="11.5" stroke="#21262D"/>
 
-    <circle class="orbA" cx="825" cy="-20" r="150" fill="url(#blueGlow)"/>
-    <circle class="orbB" cx="-18" cy="1040" r="125" fill="url(#purpleGlow)"/>
+    <circle cx="825" cy="-20" r="150" fill="url(#blueGlow)">
+      <animate attributeName="cx" values="825;810;825" dur="7s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="-20;-10;-20" dur="7s" repeatCount="indefinite"/>
+    </circle>
+
+    <circle cx="-18" cy="1040" r="125" fill="url(#purpleGlow)">
+      <animate attributeName="cx" values="-18;2;-18" dur="8s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="1040;1028;1040" dur="8s" repeatCount="indefinite"/>
+    </circle>
 
     <path class="flowLine" d="M34 72 C170 24 282 112 420 70 C560 28 700 26 826 74"
           fill="none" stroke="#58A6FF" stroke-width="1.4"
           stroke-dasharray="8 16" opacity="0.45"/>
 
-    <g class="heroGroup" transform="translate(32 40)">
+    <g transform="translate(32 40)" class="heroBreathe">
       <g class="avatarGroup">
-        <circle cx="45" cy="45" r="45" fill="url(#avatarGrad)"/>
-        <circle cx="45" cy="45" r="43.5" stroke="#21262D" stroke-width="3"/>
+        <circle cx="45" cy="45" r="45" fill="url(#avatarGrad)">
+          <animate attributeName="r" values="45;48;45" dur="4s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="45" cy="45" r="43.5" stroke="#21262D" stroke-width="3" fill="none">
+          <animate attributeName="r" values="43.5;46.5;43.5" dur="4s" repeatCount="indefinite"/>
+        </circle>
         <text x="45" y="58" text-anchor="middle" style="font-weight:800;font-size:32px;fill:#0D1117;font-family:Inter,Segoe UI,Arial,sans-serif;">UK</text>
       </g>
 
@@ -160,13 +165,13 @@
 
     <g transform="translate(32 414)" class="metricCard">
       <rect width="252" height="76" rx="8" fill="#161B22" stroke="#21262D"/>
-      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#58A6FF">78</text>
+      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#58A6FF">79</text>
       <text x="126" y="58" text-anchor="middle" class="metricLabel">contributions</text>
     </g>
 
     <g transform="translate(304 414)" class="metricCard">
       <rect width="252" height="76" rx="8" fill="#161B22" stroke="#21262D"/>
-      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#A371F7">8</text>
+      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#A371F7">7</text>
       <text x="126" y="58" text-anchor="middle" class="metricLabel">projects</text>
     </g>
 
@@ -1675,55 +1680,55 @@
       
             <text x="18" y="54" class="barLabel">Jupyter N…</text>
             <rect x="104" y="46" width="204" height="6" rx="3" fill="#21262D"/>
-            <rect x="104" y="46" width="204" height="6" rx="3" fill="#DA5B0B" class="barFill"/>
-            <text x="340" y="54" class="barPct">100%</text>
+            <rect x="104" y="46" width="182" height="6" rx="3" fill="#DA5B0B" class="barFill"/>
+            <text x="340" y="54" class="barPct">89%</text>
 
             <text x="18" y="76" class="barLabel">HTML</text>
             <rect x="104" y="68" width="204" height="6" rx="3" fill="#21262D"/>
-            <rect x="104" y="68" width="20" height="6" rx="3" fill="#e34c26" class="barFill"/>
-            <text x="340" y="76" class="barPct">10%</text>
+            <rect x="104" y="68" width="12" height="6" rx="3" fill="#e34c26" class="barFill"/>
+            <text x="340" y="76" class="barPct">6%</text>
 
             <text x="18" y="98" class="barLabel">CSS</text>
             <rect x="104" y="90" width="204" height="6" rx="3" fill="#21262D"/>
-            <rect x="104" y="90" width="20" height="6" rx="3" fill="#663399" class="barFill"/>
-            <text x="340" y="98" class="barPct">10%</text>
+            <rect x="104" y="90" width="12" height="6" rx="3" fill="#663399" class="barFill"/>
+            <text x="340" y="98" class="barPct">6%</text>
 
             <text x="18" y="120" class="barLabel">Python</text>
             <rect x="104" y="112" width="204" height="6" rx="3" fill="#21262D"/>
-            <rect x="104" y="112" width="20" height="6" rx="3" fill="#3572A5" class="barFill"/>
-            <text x="340" y="120" class="barPct">10%</text>
+            <rect x="104" y="112" width="12" height="6" rx="3" fill="#3572A5" class="barFill"/>
+            <text x="340" y="120" class="barPct">6%</text>
     </g>
 
     <g transform="translate(440 732)">
       <rect width="388" height="124" rx="8" fill="#161B22" stroke="#21262D"/>
       <circle cx="20" cy="22" r="3" fill="#A371F7"/>
-      <text x="34" y="26" class="muted">focus areas</text>
+      <text x="34" y="26" class="muted">latest projects</text>
       
-            <text x="18" y="54" class="barLabel">Frontend</text>
-            <rect x="104" y="46" width="204" height="6" rx="3" fill="#21262D"/>
-            <rect x="104" y="46" width="204" height="6" rx="3" fill="#58A6FF" class="barFill"/>
-            <text x="340" y="54" class="barPct">100%</text>
+            <circle cx="22" cy="48" r="3" fill="#58A6FF" class="softPulse"/>
+            <text x="34" y="52" class="barLabel">AI-Powered-Cyberattacks-…</text>
+            <text x="250" y="52" class="barPct">Code</text>
+            <text x="330" y="52" class="barPct">★ 0 ⑂ 0</text>
 
-            <text x="18" y="76" class="barLabel">Backend</text>
-            <rect x="104" y="68" width="204" height="6" rx="3" fill="#21262D"/>
-            <rect x="104" y="68" width="43" height="6" rx="3" fill="#3FB950" class="barFill"/>
-            <text x="340" y="76" class="barPct">21%</text>
+            <circle cx="22" cy="69" r="3" fill="#58A6FF" class="softPulse"/>
+            <text x="34" y="73" class="barLabel">cognos-project</text>
+            <text x="250" y="73" class="barPct">Code</text>
+            <text x="330" y="73" class="barPct">★ 0 ⑂ 0</text>
 
-            <text x="18" y="98" class="barLabel">ML/AI</text>
-            <rect x="104" y="90" width="204" height="6" rx="3" fill="#21262D"/>
-            <rect x="104" y="90" width="29" height="6" rx="3" fill="#A371F7" class="barFill"/>
-            <text x="340" y="98" class="barPct">14%</text>
+            <circle cx="22" cy="90" r="3" fill="#58A6FF" class="softPulse"/>
+            <text x="34" y="94" class="barLabel">nosql-and-mongo-db</text>
+            <text x="250" y="94" class="barPct">Code</text>
+            <text x="330" y="94" class="barPct">★ 0 ⑂ 0</text>
 
-            <text x="18" y="120" class="barLabel">UI/UX</text>
-            <rect x="104" y="112" width="204" height="6" rx="3" fill="#21262D"/>
-            <rect x="104" y="112" width="24" height="6" rx="3" fill="#D2992A" class="barFill"/>
-            <text x="340" y="120" class="barPct">12%</text>
+            <circle cx="22" cy="111" r="3" fill="#DA5B0B" class="softPulse"/>
+            <text x="34" y="115" class="barLabel">poseguard</text>
+            <text x="250" y="115" class="barPct">Jupyter N…</text>
+            <text x="330" y="115" class="barPct">★ 0 ⑂ 0</text>
     </g>
 
     <text x="32" y="902" class="section">// TECH STACK</text>
 
     
-    <g transform="translate(32 924)">
+    <g transform="translate(32 924)" class="softPulse">
       <rect width="66" height="24" rx="12"
             fill="#58A6FF" fill-opacity="0.10"
             stroke="#58A6FF" stroke-opacity="0.30"/>
@@ -1731,7 +1736,7 @@
             class="pill" fill="#58A6FF">Python</text>
     </g>
 
-    <g transform="translate(106 924)">
+    <g transform="translate(106 924)" class="softPulse">
       <rect width="94" height="24" rx="12"
             fill="#58A6FF" fill-opacity="0.10"
             stroke="#58A6FF" stroke-opacity="0.30"/>
@@ -1739,7 +1744,7 @@
             class="pill" fill="#58A6FF">JavaScript</text>
     </g>
 
-    <g transform="translate(208 924)">
+    <g transform="translate(208 924)" class="softPulse">
       <rect width="94" height="24" rx="12"
             fill="#58A6FF" fill-opacity="0.10"
             stroke="#58A6FF" stroke-opacity="0.30"/>
@@ -1747,7 +1752,7 @@
             class="pill" fill="#58A6FF">TypeScript</text>
     </g>
 
-    <g transform="translate(310 924)">
+    <g transform="translate(310 924)" class="softPulse">
       <rect width="54" height="24" rx="12"
             fill="#58A6FF" fill-opacity="0.10"
             stroke="#58A6FF" stroke-opacity="0.30"/>
@@ -1755,7 +1760,7 @@
             class="pill" fill="#58A6FF">Java</text>
     </g>
 
-    <g transform="translate(372 924)">
+    <g transform="translate(372 924)" class="softPulse">
       <rect width="54" height="24" rx="12"
             fill="#58A6FF" fill-opacity="0.10"
             stroke="#58A6FF" stroke-opacity="0.30"/>
@@ -1763,7 +1768,7 @@
             class="pill" fill="#58A6FF">C</text>
     </g>
 
-    <g transform="translate(434 924)">
+    <g transform="translate(434 924)" class="softPulse">
       <rect width="54" height="24" rx="12"
             fill="#58A6FF" fill-opacity="0.10"
             stroke="#58A6FF" stroke-opacity="0.30"/>
@@ -1771,7 +1776,7 @@
             class="pill" fill="#58A6FF">R</text>
     </g>
 
-    <g transform="translate(496 924)">
+    <g transform="translate(496 924)" class="softPulse">
       <rect width="59" height="24" rx="12"
             fill="#A371F7" fill-opacity="0.10"
             stroke="#A371F7" stroke-opacity="0.30"/>
@@ -1779,7 +1784,7 @@
             class="pill" fill="#A371F7">React</text>
     </g>
 
-    <g transform="translate(563 924)">
+    <g transform="translate(563 924)" class="softPulse">
       <rect width="73" height="24" rx="12"
             fill="#A371F7" fill-opacity="0.10"
             stroke="#A371F7" stroke-opacity="0.30"/>
@@ -1787,7 +1792,7 @@
             class="pill" fill="#A371F7">Next.js</text>
     </g>
 
-    <g transform="translate(644 924)">
+    <g transform="translate(644 924)" class="softPulse">
       <rect width="73" height="24" rx="12"
             fill="#A371F7" fill-opacity="0.10"
             stroke="#A371F7" stroke-opacity="0.30"/>
@@ -1795,7 +1800,7 @@
             class="pill" fill="#A371F7">Node.js</text>
     </g>
 
-    <g transform="translate(725 924)">
+    <g transform="translate(725 924)" class="softPulse">
       <rect width="101" height="24" rx="12"
             fill="#A371F7" fill-opacity="0.10"
             stroke="#A371F7" stroke-opacity="0.30"/>
@@ -1803,7 +1808,7 @@
             class="pill" fill="#A371F7">TailwindCSS</text>
     </g>
 
-    <g transform="translate(32 958)">
+    <g transform="translate(32 958)" class="softPulse">
       <rect width="87" height="24" rx="12"
             fill="#A371F7" fill-opacity="0.10"
             stroke="#A371F7" stroke-opacity="0.30"/>
@@ -1811,7 +1816,7 @@
             class="pill" fill="#A371F7">Bootstrap</text>
     </g>
 
-    <g transform="translate(127 958)">
+    <g transform="translate(127 958)" class="softPulse">
       <rect width="54" height="24" rx="12"
             fill="#A371F7" fill-opacity="0.10"
             stroke="#A371F7" stroke-opacity="0.30"/>
@@ -1819,7 +1824,7 @@
             class="pill" fill="#A371F7">Vite</text>
     </g>
 
-    <g transform="translate(189 958)">
+    <g transform="translate(189 958)" class="softPulse">
       <rect width="94" height="24" rx="12"
             fill="#3FB950" fill-opacity="0.10"
             stroke="#3FB950" stroke-opacity="0.30"/>
@@ -1827,7 +1832,7 @@
             class="pill" fill="#3FB950">TensorFlow</text>
     </g>
 
-    <g transform="translate(291 958)">
+    <g transform="translate(291 958)" class="softPulse">
       <rect width="73" height="24" rx="12"
             fill="#3FB950" fill-opacity="0.10"
             stroke="#3FB950" stroke-opacity="0.30"/>
@@ -1835,7 +1840,7 @@
             class="pill" fill="#3FB950">PyTorch</text>
     </g>
 
-    <g transform="translate(372 958)">
+    <g transform="translate(372 958)" class="softPulse">
       <rect width="108" height="24" rx="12"
             fill="#3FB950" fill-opacity="0.10"
             stroke="#3FB950" stroke-opacity="0.30"/>
@@ -1843,7 +1848,7 @@
             class="pill" fill="#3FB950">scikit-learn</text>
     </g>
 
-    <g transform="translate(488 958)">
+    <g transform="translate(488 958)" class="softPulse">
       <rect width="59" height="24" rx="12"
             fill="#3FB950" fill-opacity="0.10"
             stroke="#3FB950" stroke-opacity="0.30"/>
@@ -1851,7 +1856,7 @@
             class="pill" fill="#3FB950">NumPy</text>
     </g>
 
-    <g transform="translate(555 958)">
+    <g transform="translate(555 958)" class="softPulse">
       <rect width="66" height="24" rx="12"
             fill="#3FB950" fill-opacity="0.10"
             stroke="#3FB950" stroke-opacity="0.30"/>
@@ -1859,7 +1864,7 @@
             class="pill" fill="#3FB950">Pandas</text>
     </g>
 
-    <g transform="translate(629 958)">
+    <g transform="translate(629 958)" class="softPulse">
       <rect width="73" height="24" rx="12"
             fill="#D2992A" fill-opacity="0.10"
             stroke="#D2992A" stroke-opacity="0.30"/>
@@ -1867,7 +1872,7 @@
             class="pill" fill="#D2992A">MongoDB</text>
     </g>
 
-    <g transform="translate(710 958)">
+    <g transform="translate(710 958)" class="softPulse">
       <rect width="59" height="24" rx="12"
             fill="#D2992A" fill-opacity="0.10"
             stroke="#D2992A" stroke-opacity="0.30"/>
@@ -1875,7 +1880,7 @@
             class="pill" fill="#D2992A">MySQL</text>
     </g>
 
-    <g transform="translate(32 992)">
+    <g transform="translate(32 992)" class="softPulse">
       <rect width="54" height="24" rx="12"
             fill="#D2992A" fill-opacity="0.10"
             stroke="#D2992A" stroke-opacity="0.30"/>
@@ -1883,7 +1888,7 @@
             class="pill" fill="#D2992A">AWS</text>
     </g>
 
-    <g transform="translate(94 992)">
+    <g transform="translate(94 992)" class="softPulse">
       <rect width="59" height="24" rx="12"
             fill="#D2992A" fill-opacity="0.10"
             stroke="#D2992A" stroke-opacity="0.30"/>
@@ -1891,7 +1896,7 @@
             class="pill" fill="#D2992A">Azure</text>
     </g>
 
-    <g transform="translate(161 992)">
+    <g transform="translate(161 992)" class="softPulse">
       <rect width="115" height="24" rx="12"
             fill="#D2992A" fill-opacity="0.10"
             stroke="#D2992A" stroke-opacity="0.30"/>
@@ -1899,7 +1904,7 @@
             class="pill" fill="#D2992A">Apache Hadoop</text>
     </g>
 
-    <g transform="translate(284 992)">
+    <g transform="translate(284 992)" class="softPulse">
       <rect width="59" height="24" rx="12"
             fill="#F85149" fill-opacity="0.10"
             stroke="#F85149" stroke-opacity="0.30"/>
@@ -1907,7 +1912,7 @@
             class="pill" fill="#F85149">Figma</text>
     </g>
 
-    <g transform="translate(351 992)">
+    <g transform="translate(351 992)" class="softPulse">
       <rect width="80" height="24" rx="12"
             fill="#F85149" fill-opacity="0.10"
             stroke="#F85149" stroke-opacity="0.30"/>
@@ -1915,7 +1920,7 @@
             class="pill" fill="#F85149">Adobe PS</text>
     </g>
 
-    <g transform="translate(439 992)">
+    <g transform="translate(439 992)" class="softPulse">
       <rect width="108" height="24" rx="12"
             fill="#F85149" fill-opacity="0.10"
             stroke="#F85149" stroke-opacity="0.30"/>
@@ -1923,7 +1928,7 @@
             class="pill" fill="#F85149">Premiere Pro</text>
     </g>
 
-    <g transform="translate(555 992)">
+    <g transform="translate(555 992)" class="softPulse">
       <rect width="80" height="24" rx="12"
             fill="#F85149" fill-opacity="0.10"
             stroke="#F85149" stroke-opacity="0.30"/>
