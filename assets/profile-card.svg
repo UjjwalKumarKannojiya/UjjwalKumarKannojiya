@@ -125,7 +125,7 @@
       <rect width="252" height="76" rx="8" fill="#161B22" stroke="#21262D">
         <animate attributeName="opacity" values="0.96;1;0.96" dur="5s" repeatCount="indefinite"/>
       </rect>
-      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#58A6FF">82</text>
+      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#58A6FF">94</text>
       <text x="126" y="58" text-anchor="middle" class="metricLabel">contributions</text>
     </g>
 
@@ -133,7 +133,7 @@
       <rect width="252" height="76" rx="8" fill="#161B22" stroke="#21262D">
         <animate attributeName="opacity" values="0.96;1;0.96" dur="5s" repeatCount="indefinite"/>
       </rect>
-      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#A371F7">7</text>
+      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#A371F7">8</text>
       <text x="126" y="58" text-anchor="middle" class="metricLabel">projects</text>
     </g>
 
@@ -141,7 +141,7 @@
       <rect width="252" height="76" rx="8" fill="#161B22" stroke="#21262D">
         <animate attributeName="opacity" values="0.96;1;0.96" dur="5s" repeatCount="indefinite"/>
       </rect>
-      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#3FB950">5</text>
+      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#3FB950">6</text>
       <text x="126" y="58" text-anchor="middle" class="metricLabel">detected tech</text>
     </g>
 
@@ -1695,7 +1695,7 @@
                 </rect>
 
                 <rect x="670" y="610" width="11" height="11" rx="2"
-                      fill="#161B22" stroke="#21262D">
+                      fill="#006D32" stroke="#26A641">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.79s" repeatCount="indefinite"/>
                 </rect>
 
@@ -2016,28 +2016,28 @@
       
             <text x="18" y="54" class="barLabel">Jupyter N…</text>
             <rect x="104" y="46" width="204" height="6" rx="3" fill="#21262D"/>
-            <rect x="104" y="46" width="182" height="6" rx="3" fill="#DA5B0B">
-              <animate attributeName="width" values="0;182" dur="1.2s" fill="freeze"/>
+            <rect x="104" y="46" width="167" height="6" rx="3" fill="#DA5B0B">
+              <animate attributeName="width" values="0;167" dur="1.2s" fill="freeze"/>
             </rect>
-            <text x="340" y="54" class="barPct">89%</text>
+            <text x="340" y="54" class="barPct">82%</text>
 
-            <text x="18" y="76" class="barLabel">HTML</text>
+            <text x="18" y="76" class="barLabel">TypeScript</text>
             <rect x="104" y="68" width="204" height="6" rx="3" fill="#21262D"/>
-            <rect x="104" y="68" width="12" height="6" rx="3" fill="#e34c26">
+            <rect x="104" y="68" width="12" height="6" rx="3" fill="#3178c6">
               <animate attributeName="width" values="0;12" dur="1.2s" fill="freeze"/>
             </rect>
             <text x="340" y="76" class="barPct">6%</text>
 
-            <text x="18" y="98" class="barLabel">CSS</text>
+            <text x="18" y="98" class="barLabel">HTML</text>
             <rect x="104" y="90" width="204" height="6" rx="3" fill="#21262D"/>
-            <rect x="104" y="90" width="12" height="6" rx="3" fill="#663399">
+            <rect x="104" y="90" width="12" height="6" rx="3" fill="#e34c26">
               <animate attributeName="width" values="0;12" dur="1.2s" fill="freeze"/>
             </rect>
             <text x="340" y="98" class="barPct">6%</text>
 
-            <text x="18" y="120" class="barLabel">Python</text>
+            <text x="18" y="120" class="barLabel">CSS</text>
             <rect x="104" y="112" width="204" height="6" rx="3" fill="#21262D"/>
-            <rect x="104" y="112" width="12" height="6" rx="3" fill="#3572A5">
+            <rect x="104" y="112" width="12" height="6" rx="3" fill="#663399">
               <animate attributeName="width" values="0;12" dur="1.2s" fill="freeze"/>
             </rect>
             <text x="340" y="120" class="barPct">6%</text>
@@ -2049,32 +2049,32 @@
       <circle cx="20" cy="22" r="3" fill="#A371F7"/>
       <text x="34" y="26" class="muted">latest projects</text>
       
-            <circle cx="22" cy="48" r="3" fill="#58A6FF">
+            <circle cx="22" cy="48" r="3" fill="#3178c6">
               <animate attributeName="opacity" values="0.65;1;0.65" dur="4s" repeatCount="indefinite"/>
             </circle>
-            <text x="34" y="52" class="barLabel">AI-Powered-Cyberattacks-…</text>
-            <text x="250" y="52" class="barPct">Code</text>
+            <text x="34" y="52" class="barLabel">Anonymous-Feedback</text>
+            <text x="250" y="52" class="barPct">TypeScript</text>
             <text x="330" y="52" class="barPct">★ 0 ⑂ 0</text>
 
             <circle cx="22" cy="69" r="3" fill="#58A6FF">
               <animate attributeName="opacity" values="0.65;1;0.65" dur="4s" repeatCount="indefinite"/>
             </circle>
-            <text x="34" y="73" class="barLabel">cognos-project</text>
+            <text x="34" y="73" class="barLabel">AI-Powered-Cyberattacks-…</text>
             <text x="250" y="73" class="barPct">Code</text>
             <text x="330" y="73" class="barPct">★ 0 ⑂ 0</text>
 
             <circle cx="22" cy="90" r="3" fill="#58A6FF">
               <animate attributeName="opacity" values="0.65;1;0.65" dur="4s" repeatCount="indefinite"/>
             </circle>
-            <text x="34" y="94" class="barLabel">nosql-and-mongo-db</text>
+            <text x="34" y="94" class="barLabel">cognos-project</text>
             <text x="250" y="94" class="barPct">Code</text>
             <text x="330" y="94" class="barPct">★ 0 ⑂ 0</text>
 
-            <circle cx="22" cy="111" r="3" fill="#DA5B0B">
+            <circle cx="22" cy="111" r="3" fill="#58A6FF">
               <animate attributeName="opacity" values="0.65;1;0.65" dur="4s" repeatCount="indefinite"/>
             </circle>
-            <text x="34" y="115" class="barLabel">poseguard</text>
-            <text x="250" y="115" class="barPct">Jupyter N…</text>
+            <text x="34" y="115" class="barLabel">nosql-and-mongo-db</text>
+            <text x="250" y="115" class="barPct">Code</text>
             <text x="330" y="115" class="barPct">★ 0 ⑂ 0</text>
       <animate attributeName="opacity" values="0.94;1;0.94" dur="5.6s" repeatCount="indefinite"/>
     </g>
