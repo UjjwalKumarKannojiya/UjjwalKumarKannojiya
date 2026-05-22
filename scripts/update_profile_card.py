@@ -508,9 +508,9 @@ SVG_TEMPLATE = """<svg width="860" height="1140" viewBox="0 0 860 1140" fill="no
       }
 
       @keyframes flowDash {
-        0% { stroke-dashoffset: 0; opacity: 0.30; }
-        50% { opacity: 0.90; }
-        100% { stroke-dashoffset: -260; opacity: 0.30; }
+        0% { stroke-dashoffset: 0; opacity: 0.22; }
+        50% { opacity: 0.70; }
+        100% { stroke-dashoffset: -260; opacity: 0.22; }
       }
 
       @keyframes typing {
@@ -578,9 +578,9 @@ SVG_TEMPLATE = """<svg width="860" height="1140" viewBox="0 0 860 1140" fill="no
       <animate attributeName="cy" values="1040;1028;1040" dur="8s" repeatCount="indefinite"/>
     </circle>
 
-    <path class="flowLine" d="M34 72 C170 24 282 112 420 70 C560 28 700 26 826 74"
-          fill="none" stroke="#58A6FF" stroke-width="1.4"
-          stroke-dasharray="8 16" opacity="0.45"/>
+    <path class="flowLine" d="M420 42 C520 18 650 18 826 52"
+          fill="none" stroke="#58A6FF" stroke-width="1.2"
+          stroke-dasharray="8 16" opacity="0.22"/>
 
     <g transform="translate(32 40)" class="heroBreathe">
       <g class="avatarGroup">
