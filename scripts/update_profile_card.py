@@ -1,108 +1,4 @@
-from pathlib import Path
-import zipfile, shutil, json, textwrap
-
-base = Path("/mnt/data/fixed_dynamic_profile_final")
-if base.exists():
-    shutil.rmtree(base)
-
-(base / "scripts").mkdir(parents=True)
-(base / "assets").mkdir(parents=True)
-(base / ".github" / "workflows").mkdir(parents=True)
-
-config = {
-    "profile": {
-        "fallback_name": "Ujjwal Kumar Kannojiya",
-        "fallback_username": "UjjwalKumarKannojiya",
-        "headline": "Full-stack developer & UI/UX enthusiast crafting",
-        "highlight": "scalable products",
-        "tagline_suffix": "at the intersection of code and design.",
-        "open_status": "open to opportunities"
-    },
-    "socials": [
-        {"label": "Instagram", "url": "https://instagram.com/ni.mi.sh.___"},
-        {"label": "LinkedIn", "url": "https://www.linkedin.com/in/ujjwal-kannojiya-78744723a/"},
-        {"label": "Email", "url": "mailto:nk875002@gmail.com"}
-    ],
-    "tech_groups": {
-        "blue": ["Python", "JavaScript", "TypeScript", "Java", "C", "R"],
-        "purple": ["React", "Next.js", "Node.js", "TailwindCSS", "Bootstrap", "Vite"],
-        "green": ["TensorFlow", "PyTorch", "scikit-learn", "NumPy", "Pandas"],
-        "orange": ["MongoDB", "MySQL", "AWS", "Azure", "Apache Hadoop"],
-        "red": ["Figma", "Adobe PS", "Premiere Pro", "Power BI"]
-    }
-}
-(base / "profile_config.json").write_text(json.dumps(config, indent=2), encoding="utf-8")
-
-workflow = """name: Update Profile Card
-
-on:
-  workflow_dispatch:
-  schedule:
-    - cron: "0 */6 * * *"
-  push:
-    branches:
-      - main
-      - master
-    paths:
-      - "profile_config.json"
-      - "scripts/update_profile_card.py"
-      - ".github/workflows/update-profile-card.yml"
-
-permissions:
-  contents: write
-
-jobs:
-  update-profile-card:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Generate dynamic profile card
-        run: python scripts/update_profile_card.py
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PROFILE_USERNAME: ${{ github.repository_owner }}
-
-      - name: Commit updated profile files
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add README.md assets/profile-card.svg profile_config.json scripts/update_profile_card.py
-          if git diff --cached --quiet; then
-            echo "No changes to commit."
-          else
-            git commit -m "Update dynamic profile card"
-            git push
-          fi
-"""
-(base / ".github" / "workflows" / "update-profile-card.yml").write_text(workflow, encoding="utf-8")
-(base / "WORKFLOW_CODE_COPY_PASTE.txt").write_text(workflow, encoding="utf-8")
-
-readme = """<div align="center">
-
-<img src="./assets/profile-card.svg" width="100%" alt="Ujjwal Kumar Kannojiya GitHub profile" />
-
-<br/>
-<br/>
-
-<a href="https://instagram.com/ni.mi.sh.___"><img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram" /></a>
-<a href="https://www.linkedin.com/in/ujjwal-kannojiya-78744723a/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
-<a href="mailto:nk875002@gmail.com"><img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" /></a>
-
-</div>
-"""
-(base / "README.md").write_text(readme, encoding="utf-8")
-
-script = r'''#!/usr/bin/env python3
+#!/usr/bin/env python3
 from __future__ import annotations
 
 import html
@@ -260,7 +156,12 @@ def load_config() -> Dict[str, Any]:
 
 
 def request_github(username: str, token: str) -> Dict[str, Any]:
-    body = json.dumps({"query": GRAPHQL_QUERY, "variables": {"login": username}}).encode("utf-8")
+    body = json.dumps(
+        {
+            "query": GRAPHQL_QUERY,
+            "variables": {"login": username},
+        }
+    ).encode("utf-8")
 
     req = urllib.request.Request(
         "https://api.github.com/graphql",
@@ -282,11 +183,11 @@ def request_github(username: str, token: str) -> Dict[str, Any]:
     user = (payload.get("data") or {}).get("user")
     if not user:
         raise RuntimeError(f"GitHub user not found: {username}")
+
     return user
 
 
 def fallback_user(config: Dict[str, Any], username: str) -> Dict[str, Any]:
-    # Local preview only. GitHub Actions uses live GitHub data.
     demo_levels = [0, 0, 1, 1, 2, 2, 1, 3, 3, 2, 1, 0, 1, 2, 3, 4, 4, 3]
     days = [{"contributionCount": demo_levels[i % len(demo_levels)]} for i in range(371)]
     weeks = [{"contributionDays": days[i : i + 7]} for i in range(0, 371, 7)]
@@ -295,14 +196,25 @@ def fallback_user(config: Dict[str, Any], username: str) -> Dict[str, Any]:
         "login": username,
         "name": config["profile"].get("fallback_name", username),
         "repositories": {"totalCount": 0, "nodes": []},
-        "contributionsCollection": {"contributionCalendar": {"totalContributions": 0, "weeks": weeks}},
+        "contributionsCollection": {
+            "contributionCalendar": {
+                "totalContributions": 0,
+                "weeks": weeks,
+            }
+        },
     }
 
 
 def get_repos(user: Dict[str, Any]) -> List[Dict[str, Any]]:
     login = user.get("login", "")
     all_repos = ((user.get("repositories") or {}).get("nodes")) or []
-    visible = [repo for repo in all_repos if not repo.get("isFork") and repo.get("name") != login]
+
+    visible = [
+        repo
+        for repo in all_repos
+        if not repo.get("isFork") and repo.get("name") != login
+    ]
+
     return visible or [repo for repo in all_repos if not repo.get("isFork")] or all_repos
 
 
@@ -314,10 +226,12 @@ def normalize_stack_name(name: str) -> str:
 def repo_topics(repo: Dict[str, Any]) -> set[str]:
     topic_nodes = ((repo.get("repositoryTopics") or {}).get("nodes")) or []
     topics = set()
+
     for node in topic_nodes:
         raw = (((node or {}).get("topic") or {}).get("name")) or ""
         if raw:
             topics.add(raw.strip().lower())
+
     return topics
 
 
@@ -345,6 +259,7 @@ def detected_stack(user: Dict[str, Any]) -> set[str]:
 def ordered_tech_groups(user: Dict[str, Any], config: Dict[str, Any]) -> Dict[str, List[str]]:
     found = detected_stack(user)
     groups = config.get("tech_groups") or DEFAULT_CONFIG["tech_groups"]
+
     return {
         color: sorted(items, key=lambda item: (item not in found, items.index(item)))
         for color, items in groups.items()
@@ -372,8 +287,10 @@ def language_stats(user: Dict[str, Any]) -> List[Tuple[str, int, str]]:
         for repo in get_repos(user):
             lang = ((repo.get("primaryLanguage") or {}).get("name")) or ""
             color = ((repo.get("primaryLanguage") or {}).get("color")) or "#58A6FF"
+
             if not lang:
                 continue
+
             sizes[lang] = sizes.get(lang, 0) + 1
             colors[lang] = color
 
@@ -387,6 +304,7 @@ def language_stats(user: Dict[str, Any]) -> List[Tuple[str, int, str]]:
 
     total_size = sum(sizes.values()) or 1
     result = []
+
     for lang, size in sorted(sizes.items(), key=lambda item: item[1], reverse=True)[:4]:
         percent = max(3, round((size / total_size) * 100))
         result.append((lang, percent, colors.get(lang, "#58A6FF")))
@@ -404,6 +322,7 @@ def latest_projects_svg(user: Dict[str, Any]) -> str:
         <rect x="18" y="66" width="90" height="6" rx="3" fill="#A371F7"/>'''
 
     rows = []
+
     for index, repo in enumerate(latest):
         y = 52 + index * 21
         name = short(repo.get("name", "project"), 25)
@@ -432,6 +351,7 @@ def contribution_levels(user: Dict[str, Any]) -> List[int]:
     for week in weeks[-53:]:
         for day in (week.get("contributionDays") or [])[:7]:
             count = int(day.get("contributionCount") or 0)
+
             if count == 0:
                 level = 0
             elif count < 3:
@@ -442,6 +362,7 @@ def contribution_levels(user: Dict[str, Any]) -> List[int]:
                 level = 3
             else:
                 level = 4
+
             levels.append(level)
 
     return levels
@@ -464,6 +385,7 @@ def contribution_grid_svg(user: Dict[str, Any]) -> str:
             data_index = week_index * 7 + day_index
             level = levels[data_index] if data_index < len(levels) else 0
             fill, stroke = colors[level]
+
             x = 54 + week_index * 14
             y = 610 + day_index * 14
             delay = (week_index * 0.018 + day_index * 0.03) % 2.4
@@ -484,12 +406,13 @@ def bar_rows_svg(stats: List[Tuple[str, int, str]], x: int, y: int) -> str:
 
     for index, (label, percent, color) in enumerate(stats[:4]):
         yy = y + index * 22
-        bar_width = round(204 * percent / 100)
+        max_width = 194
+        bar_width = round(max_width * percent / 100)
 
         rows.append(
             f'''
             <text x="{x}" y="{yy + 8}" class="barLabel">{esc(short(label, 12))}</text>
-            <rect x="{x + 96}" y="{yy}" width="194" height="6" rx="3" fill="#21262D"/>
+            <rect x="{x + 96}" y="{yy}" width="{max_width}" height="6" rx="3" fill="#21262D"/>
             <rect x="{x + 96}" y="{yy}" width="{bar_width}" height="6" rx="3" fill="{esc(color)}">
               <animate attributeName="width" values="0;{bar_width}" dur="1.2s" fill="freeze"/>
             </rect>
@@ -533,10 +456,12 @@ def tech_pills_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
     for group in ["blue", "purple", "green", "orange", "red"]:
         for label in groups.get(group, []):
             item, width = pill_svg(label, group, x, y)
+
             if x + width > 828:
                 x = 32
                 y += 34
                 item, width = pill_svg(label, group, x, y)
+
             parts.append(item)
             x += width + 8
 
@@ -757,7 +682,10 @@ def generate_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
     second_line = " ".join(name_parts[2:]) if len(name_parts) > 2 else username
 
     repo_total = len(get_repos(user))
-    contribution_total = int((((user.get("contributionsCollection") or {}).get("contributionCalendar") or {}).get("totalContributions")) or 0)
+    contribution_total = int(
+        (((user.get("contributionsCollection") or {}).get("contributionCalendar") or {}).get("totalContributions"))
+        or 0
+    )
 
     found_stack = detected_stack(user)
     tech_count = len(found_stack)
@@ -801,7 +729,9 @@ def generate_readme(config: Dict[str, Any]) -> str:
         label = item.get("label", "Link")
         url = item.get("url", "#")
         badge = badge_map.get(label, f"{label}-161B22?style=for-the-badge")
-        links.append(f'<a href="{url}"><img src="https://img.shields.io/badge/{badge}" alt="{esc(label)}" /></a>')
+        links.append(
+            f'<a href="{url}"><img src="https://img.shields.io/badge/{badge}" alt="{esc(label)}" /></a>'
+        )
 
     return (
         '<div align="center">\n\n'
@@ -815,7 +745,12 @@ def generate_readme(config: Dict[str, Any]) -> str:
 def main() -> int:
     config = load_config()
 
-    username = os.getenv("PROFILE_USERNAME") or os.getenv("GITHUB_REPOSITORY_OWNER") or config["profile"].get("fallback_username")
+    username = (
+        os.getenv("PROFILE_USERNAME")
+        or os.getenv("GITHUB_REPOSITORY_OWNER")
+        or config["profile"].get("fallback_username")
+    )
+
     token = os.getenv("GITHUB_TOKEN", "")
 
     try:
@@ -836,37 +771,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-'''
-
-(base / "scripts" / "update_profile_card.py").write_text(script, encoding="utf-8")
-
-setup = """Use these files:
-
-1. Replace scripts/update_profile_card.py with the included file.
-2. Replace .github/workflows/update-profile-card.yml with the included workflow.
-3. Keep README.md and profile_config.json.
-
-Important:
-Settings -> Actions -> General -> Workflow permissions -> Read and write permissions
-
-Run:
-Actions -> Update Profile Card -> Run workflow
-
-If GitHub still shows old SVG:
-Refresh with Ctrl + F5 or add ?v=2 to the README image once.
-"""
-(base / "SETUP.md").write_text(setup, encoding="utf-8")
-
-# create initial preview svg and readme with fallback by executing the script locally
-import subprocess
-subprocess.run(["python", str(base / "scripts" / "update_profile_card.py")], cwd=base, check=True)
-
-zip_path = Path("/mnt/data/fixed_dynamic_profile_final.zip")
-if zip_path.exists():
-    zip_path.unlink()
-
-with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as z:
-    for p in base.rglob("*"):
-        z.write(p, p.relative_to(base.parent))
-
-print(zip_path)
