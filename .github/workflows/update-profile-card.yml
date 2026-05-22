@@ -3,18 +3,18 @@ name: Update Profile Card
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 */6 * * *"
+    - cron: "*/30 * * * *"
   push:
     branches:
       - main
       - master
-    paths:
-      - "profile_config.json"
-      - "scripts/update_profile_card.py"
-      - ".github/workflows/update-profile-card.yml"
 
 permissions:
   contents: write
+
+concurrency:
+  group: update-profile-card
+  cancel-in-progress: true
 
 jobs:
   update-profile-card:
@@ -23,13 +23,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Generate profile card
+      - name: Generate dynamic profile card
         run: python scripts/update_profile_card.py
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -41,8 +43,8 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md assets/profile-card.svg profile_config.json scripts/update_profile_card.py
           if git diff --cached --quiet; then
-            echo "No changes."
+            echo "No changes to commit."
           else
-            git commit -m "Update profile card"
+            git commit -m "Update dynamic profile card"
             git push
           fi
