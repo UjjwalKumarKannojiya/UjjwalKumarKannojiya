@@ -130,30 +130,6 @@ NORMALIZE = {
 }
 
 
-FOCUS_KEYWORDS = {
-    "Frontend": {
-        "langs": {"JavaScript", "TypeScript", "HTML5", "CSS3"},
-        "topics": {"react", "nextjs", "next-js", "next", "tailwind", "tailwindcss", "frontend", "ui", "web", "vite", "bootstrap"},
-        "color": "#58A6FF",
-    },
-    "ML/AI": {
-        "langs": {"Python", "R"},
-        "topics": {"ai", "ml", "machine-learning", "deep-learning", "data-science", "tensorflow", "pytorch", "numpy", "pandas", "sklearn", "scikit-learn"},
-        "color": "#A371F7",
-    },
-    "Backend": {
-        "langs": {"JavaScript", "TypeScript", "Python", "Java"},
-        "topics": {"backend", "api", "server", "node", "nodejs", "express", "flask", "django", "mongodb", "mysql", "database", "auth"},
-        "color": "#3FB950",
-    },
-    "UI/UX": {
-        "langs": set(),
-        "topics": {"ui", "ux", "ui-ux", "design", "figma", "portfolio", "frontend", "css", "tailwind", "responsive-design"},
-        "color": "#D2992A",
-    },
-}
-
-
 def esc(value: Any) -> str:
     return html.escape(str(value if value is not None else ""), quote=True)
 
@@ -178,7 +154,12 @@ def load_config() -> Dict[str, Any]:
 
 
 def request_github(username: str, token: str) -> Dict[str, Any]:
-    body = json.dumps({"query": GRAPHQL_QUERY, "variables": {"login": username}}).encode("utf-8")
+    body = json.dumps(
+        {
+            "query": GRAPHQL_QUERY,
+            "variables": {"login": username},
+        }
+    ).encode("utf-8")
 
     req = urllib.request.Request(
         "https://api.github.com/graphql",
@@ -214,14 +195,25 @@ def fallback_user(config: Dict[str, Any], username: str) -> Dict[str, Any]:
         "name": config["profile"].get("fallback_name", username),
         "followers": {"totalCount": 0},
         "repositories": {"totalCount": 0, "nodes": []},
-        "contributionsCollection": {"contributionCalendar": {"totalContributions": 0, "weeks": weeks}},
+        "contributionsCollection": {
+            "contributionCalendar": {
+                "totalContributions": 0,
+                "weeks": weeks,
+            }
+        },
     }
 
 
 def get_repos(user: Dict[str, Any]) -> List[Dict[str, Any]]:
     login = user.get("login", "")
     all_repos = ((user.get("repositories") or {}).get("nodes")) or []
-    visible = [repo for repo in all_repos if not repo.get("isFork") and repo.get("name") != login]
+
+    visible = [
+        repo
+        for repo in all_repos
+        if not repo.get("isFork") and repo.get("name") != login
+    ]
+
     return visible or [repo for repo in all_repos if not repo.get("isFork")] or all_repos
 
 
@@ -233,10 +225,12 @@ def normalize_stack_name(name: str) -> str:
 def repo_topics(repo: Dict[str, Any]) -> set[str]:
     topic_nodes = ((repo.get("repositoryTopics") or {}).get("nodes")) or []
     topics = set()
+
     for node in topic_nodes:
         raw = (((node or {}).get("topic") or {}).get("name")) or ""
         if raw:
             topics.add(raw.strip().lower())
+
     return topics
 
 
@@ -244,14 +238,14 @@ def detected_stack(user: Dict[str, Any]) -> set[str]:
     found = set()
 
     for repo in get_repos(user):
-        lang = normalize_stack_name(((repo.get("primaryLanguage") or {}).get("name")) or "")
-        if lang:
-            found.add(lang)
+        primary = normalize_stack_name(((repo.get("primaryLanguage") or {}).get("name")) or "")
+        if primary:
+            found.add(primary)
 
         for edge in ((repo.get("languages") or {}).get("edges") or []):
-            lang_name = normalize_stack_name((((edge or {}).get("node") or {}).get("name")) or "")
-            if lang_name:
-                found.add(lang_name)
+            lang = normalize_stack_name((((edge or {}).get("node") or {}).get("name")) or "")
+            if lang:
+                found.add(lang)
 
         for topic in repo_topics(repo):
             normalized = normalize_stack_name(topic)
@@ -309,11 +303,11 @@ def language_stats(user: Dict[str, Any]) -> List[Tuple[str, int, str]]:
     if not sizes:
         return fallback
 
-    max_size = max(sizes.values()) or 1
+    total_size = sum(sizes.values()) or 1
     result = []
 
     for lang, size in sorted(sizes.items(), key=lambda item: item[1], reverse=True)[:4]:
-        percent = max(10, round((size / max_size) * 100))
+        percent = max(6, round((size / total_size) * 100))
         result.append((lang, percent, colors.get(lang, "#58A6FF")))
 
     while len(result) < 4:
@@ -322,56 +316,34 @@ def language_stats(user: Dict[str, Any]) -> List[Tuple[str, int, str]]:
     return result
 
 
-def focus_stats(user: Dict[str, Any]) -> List[Tuple[str, int, str]]:
-    scores = {name: 0 for name in FOCUS_KEYWORDS}
+def projects_svg(user: Dict[str, Any]) -> str:
+    latest = get_repos(user)[:4]
 
-    for repo in get_repos(user):
-        topics = repo_topics(repo)
-        lang_edges = ((repo.get("languages") or {}).get("edges")) or []
-        repo_langs = set()
+    if not latest:
+        return '''
+        <text x="18" y="54" class="barLabel">No public projects found</text>
+        <rect x="18" y="66" width="300" height="6" rx="3" fill="#21262D"/>
+        <rect x="18" y="66" width="90" height="6" rx="3" fill="#A371F7" class="barFill"/>'''
 
-        for edge in lang_edges:
-            lang = normalize_stack_name((((edge or {}).get("node") or {}).get("name")) or "")
-            size = int((edge or {}).get("size") or 0)
+    rows = []
 
-            if not lang:
-                continue
+    for index, repo in enumerate(latest):
+        y = 52 + index * 21
+        name = short(repo.get("name", "project"), 25)
+        stars = int(repo.get("stargazerCount") or 0)
+        forks = int(repo.get("forkCount") or 0)
+        lang = ((repo.get("primaryLanguage") or {}).get("name")) or "Code"
+        lang_color = ((repo.get("primaryLanguage") or {}).get("color")) or "#58A6FF"
 
-            repo_langs.add(lang)
+        rows.append(
+            f'''
+            <circle cx="22" cy="{y - 4}" r="3" fill="{esc(lang_color)}" class="softPulse"/>
+            <text x="34" y="{y}" class="barLabel">{esc(name)}</text>
+            <text x="250" y="{y}" class="barPct">{esc(short(lang, 10))}</text>
+            <text x="330" y="{y}" class="barPct">★ {stars} ⑂ {forks}</text>'''
+        )
 
-            for focus_name, rules in FOCUS_KEYWORDS.items():
-                if lang in rules["langs"]:
-                    scores[focus_name] += max(1, size // 1000)
-
-        if not repo_langs:
-            primary = normalize_stack_name(((repo.get("primaryLanguage") or {}).get("name")) or "")
-            if primary:
-                for focus_name, rules in FOCUS_KEYWORDS.items():
-                    if primary in rules["langs"]:
-                        scores[focus_name] += 5
-
-        for topic in topics:
-            for focus_name, rules in FOCUS_KEYWORDS.items():
-                if topic in rules["topics"]:
-                    scores[focus_name] += 12
-
-    if not any(scores.values()):
-        return [
-            ("Frontend", 80, "#58A6FF"),
-            ("ML/AI", 65, "#A371F7"),
-            ("Backend", 55, "#3FB950"),
-            ("UI/UX", 70, "#D2992A"),
-        ]
-
-    max_score = max(scores.values()) or 1
-    result = []
-
-    for focus_name, score in sorted(scores.items(), key=lambda item: item[1], reverse=True)[:4]:
-        rules = FOCUS_KEYWORDS[focus_name]
-        percent = max(12, round((score / max_score) * 100))
-        result.append((focus_name, percent, rules["color"]))
-
-    return result
+    return "\n".join(rows)
 
 
 def contribution_levels(user: Dict[str, Any]) -> List[int]:
@@ -415,6 +387,7 @@ def contribution_grid_svg(user: Dict[str, Any]) -> str:
             data_index = week_index * 7 + day_index
             level = levels[data_index] if data_index < len(levels) else 0
             fill, stroke = colors[level]
+
             x = 54 + week_index * 14
             y = 610 + day_index * 14
             delay = (week_index * 0.018 + day_index * 0.03) % 2.4
@@ -460,7 +433,7 @@ def pill_svg(label: str, group: str, x: int, y: int) -> Tuple[str, int]:
     width = max(54, len(label) * 7 + 24)
 
     svg = f'''
-    <g transform="translate({x} {y})">
+    <g transform="translate({x} {y})" class="softPulse">
       <rect width="{width}" height="24" rx="12"
             fill="{color}" fill-opacity="0.10"
             stroke="{color}" stroke-opacity="0.30"/>
@@ -525,29 +498,19 @@ SVG_TEMPLATE = """<svg width="860" height="1140" viewBox="0 0 860 1140" fill="no
       .quoteAttr { font: 700 11px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; fill: #A371F7; }
 
       @keyframes heroBreathe {
-        0%, 100% { transform: translateY(0px) scale(1); }
-        50% { transform: translateY(-6px) scale(1.015); }
+        0%, 100% { opacity: 0.96; }
+        50% { opacity: 1; }
+      }
+
+      @keyframes avatarGlow {
+        0%, 100% { opacity: 0.92; }
+        50% { opacity: 1; }
       }
 
       @keyframes flowDash {
-        0% { stroke-dashoffset: 0; opacity: .35; }
-        50% { opacity: .9; }
-        100% { stroke-dashoffset: -260; opacity: .35; }
-      }
-
-      @keyframes orbFloatA {
-        0%, 100% { transform: translate(0px, 0px); opacity: .75; }
-        50% { transform: translate(-18px, 12px); opacity: 1; }
-      }
-
-      @keyframes orbFloatB {
-        0%, 100% { transform: translate(0px, 0px); opacity: .75; }
-        50% { transform: translate(18px, -10px); opacity: 1; }
-      }
-
-      @keyframes avatarPulse {
-        0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px rgba(88,166,255,.2)); }
-        50% { transform: scale(1.045); filter: drop-shadow(0 0 14px rgba(88,166,255,.55)); }
+        0% { stroke-dashoffset: 0; opacity: 0.30; }
+        50% { opacity: 0.90; }
+        100% { stroke-dashoffset: -260; opacity: 0.30; }
       }
 
       @keyframes typing {
@@ -563,13 +526,13 @@ SVG_TEMPLATE = """<svg width="860" height="1140" viewBox="0 0 860 1140" fill="no
       }
 
       @keyframes pulseCell {
-        0%, 100% { opacity: 0.88; }
+        0%, 100% { opacity: 0.82; }
         50% { opacity: 1; }
       }
 
       @keyframes metricFloat {
-        0%, 100% { transform: translateY(0px); opacity: 0.96; }
-        50% { transform: translateY(-3px); opacity: 1; }
+        0%, 100% { opacity: 0.96; }
+        50% { opacity: 1; }
       }
 
       @keyframes barGrow {
@@ -583,17 +546,21 @@ SVG_TEMPLATE = """<svg width="860" height="1140" viewBox="0 0 860 1140" fill="no
         25%, 100% { transform: translateX(820px); opacity: 0; }
       }
 
-      .heroGroup { transform-box: fill-box; transform-origin: center; animation: heroBreathe 6s ease-in-out infinite; }
-      .avatarGroup { transform-box: fill-box; transform-origin: center; animation: avatarPulse 4s ease-in-out infinite; }
-      .flowLine { animation: flowDash 9s linear infinite; }
-      .orbA { transform-box: fill-box; animation: orbFloatA 7s ease-in-out infinite; }
-      .orbB { transform-box: fill-box; animation: orbFloatB 8s ease-in-out infinite; }
+      @keyframes softPulse {
+        0%, 100% { opacity: 0.90; }
+        50% { opacity: 1; }
+      }
+
+      .heroBreathe { animation: heroBreathe 5.8s ease-in-out infinite; }
+      .avatarGroup { animation: avatarGlow 3.8s ease-in-out infinite; }
+      .flowLine { animation: flowDash 8s linear infinite; }
       .typingText { animation: typing 3s steps(30) infinite; }
       .cursor { animation: blink .7s step-end infinite; }
       .pulseCell { animation: pulseCell 3.8s ease-in-out infinite; }
       .metricCard { animation: metricFloat 5s ease-in-out infinite; }
       .barFill { transform-box: fill-box; transform-origin: left; animation: barGrow 1.2s ease-out both; }
       .wipeBlock { animation: wipe 4s ease-in-out infinite; }
+      .softPulse { animation: softPulse 4.4s ease-in-out infinite; }
     </style>
   </defs>
 
@@ -601,17 +568,28 @@ SVG_TEMPLATE = """<svg width="860" height="1140" viewBox="0 0 860 1140" fill="no
     <rect width="860" height="1140" rx="12" fill="#0D1117"/>
     <rect x="0.5" y="0.5" width="859" height="1139" rx="11.5" stroke="#21262D"/>
 
-    <circle class="orbA" cx="825" cy="-20" r="150" fill="url(#blueGlow)"/>
-    <circle class="orbB" cx="-18" cy="1040" r="125" fill="url(#purpleGlow)"/>
+    <circle cx="825" cy="-20" r="150" fill="url(#blueGlow)">
+      <animate attributeName="cx" values="825;810;825" dur="7s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="-20;-10;-20" dur="7s" repeatCount="indefinite"/>
+    </circle>
+
+    <circle cx="-18" cy="1040" r="125" fill="url(#purpleGlow)">
+      <animate attributeName="cx" values="-18;2;-18" dur="8s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="1040;1028;1040" dur="8s" repeatCount="indefinite"/>
+    </circle>
 
     <path class="flowLine" d="M34 72 C170 24 282 112 420 70 C560 28 700 26 826 74"
           fill="none" stroke="#58A6FF" stroke-width="1.4"
           stroke-dasharray="8 16" opacity="0.45"/>
 
-    <g class="heroGroup" transform="translate(32 40)">
+    <g transform="translate(32 40)" class="heroBreathe">
       <g class="avatarGroup">
-        <circle cx="45" cy="45" r="45" fill="url(#avatarGrad)"/>
-        <circle cx="45" cy="45" r="43.5" stroke="#21262D" stroke-width="3"/>
+        <circle cx="45" cy="45" r="45" fill="url(#avatarGrad)">
+          <animate attributeName="r" values="45;48;45" dur="4s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="45" cy="45" r="43.5" stroke="#21262D" stroke-width="3" fill="none">
+          <animate attributeName="r" values="43.5;46.5;43.5" dur="4s" repeatCount="indefinite"/>
+        </circle>
         <text x="45" y="58" text-anchor="middle" style="font-weight:800;font-size:32px;fill:#0D1117;font-family:Inter,Segoe UI,Arial,sans-serif;">UK</text>
       </g>
 
@@ -688,8 +666,8 @@ SVG_TEMPLATE = """<svg width="860" height="1140" viewBox="0 0 860 1140" fill="no
     <g transform="translate(440 732)">
       <rect width="388" height="124" rx="8" fill="#161B22" stroke="#21262D"/>
       <circle cx="20" cy="22" r="3" fill="#A371F7"/>
-      <text x="34" y="26" class="muted">focus areas</text>
-      __FOCUS_BARS__
+      <text x="34" y="26" class="muted">latest projects</text>
+      __PROJECT_ROWS__
     </g>
 
     <text x="32" y="902" class="section">// TECH STACK</text>
@@ -735,14 +713,17 @@ def generate_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
     first_line = " ".join(name_parts[:2]) if len(name_parts) >= 2 else full_name
     second_line = " ".join(name_parts[2:]) if len(name_parts) > 2 else username
 
-    repo_total = int((user.get("repositories") or {}).get("totalCount") or 0)
+    repo_total = len(get_repos(user))
     contribution_total = int(
         (((user.get("contributionsCollection") or {}).get("contributionCalendar") or {}).get("totalContributions"))
         or 0
     )
 
     found_stack = detected_stack(user)
-    tech_count = len(found_stack) or sum(len(items) for items in (config.get("tech_groups") or {}).values())
+    tech_count = len(found_stack)
+
+    if tech_count == 0:
+        tech_count = sum(len(items) for items in (config.get("tech_groups") or {}).values())
 
     replacements = {
         "__FULL_NAME__": esc(full_name),
@@ -756,7 +737,7 @@ def generate_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
         "__TECH_COUNT__": esc(metric_number(tech_count)),
         "__CONTRIBUTION_GRID__": contribution_grid_svg(user),
         "__LANGUAGE_BARS__": bar_rows_svg(language_stats(user), 18, 46),
-        "__FOCUS_BARS__": bar_rows_svg(focus_stats(user), 18, 46),
+        "__PROJECT_ROWS__": projects_svg(user),
         "__TECH_PILLS__": tech_pills_svg(user, config),
         "__OPEN_STATUS__": esc(short(config["profile"].get("open_status"), 30)),
     }
@@ -781,7 +762,10 @@ def generate_readme(config: Dict[str, Any]) -> str:
         label = item.get("label", "Link")
         url = item.get("url", "#")
         badge = badge_map.get(label, f"{label}-161B22?style=for-the-badge")
-        links.append(f'<a href="{url}"><img src="https://img.shields.io/badge/{badge}" alt="{esc(label)}" /></a>')
+
+        links.append(
+            f'<a href="{url}"><img src="https://img.shields.io/badge/{badge}" alt="{esc(label)}" /></a>'
+        )
 
     return (
         '<div align="center">\n\n'
@@ -795,7 +779,12 @@ def generate_readme(config: Dict[str, Any]) -> str:
 def main() -> int:
     config = load_config()
 
-    username = os.getenv("PROFILE_USERNAME") or os.getenv("GITHUB_REPOSITORY_OWNER") or config["profile"].get("fallback_username")
+    username = (
+        os.getenv("PROFILE_USERNAME")
+        or os.getenv("GITHUB_REPOSITORY_OWNER")
+        or config["profile"].get("fallback_username")
+    )
+
     token = os.getenv("GITHUB_TOKEN", "")
 
     try:
@@ -807,6 +796,7 @@ def main() -> int:
         user = fallback_user(config, username)
 
     ASSETS_DIR.mkdir(parents=True, exist_ok=True)
+
     SVG_PATH.write_text(generate_svg(user, config), encoding="utf-8")
     README_PATH.write_text(generate_readme(config), encoding="utf-8")
 
