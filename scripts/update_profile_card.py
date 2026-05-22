@@ -156,12 +156,7 @@ def load_config() -> Dict[str, Any]:
 
 
 def request_github(username: str, token: str) -> Dict[str, Any]:
-    body = json.dumps(
-        {
-            "query": GRAPHQL_QUERY,
-            "variables": {"login": username},
-        }
-    ).encode("utf-8")
+    body = json.dumps({"query": GRAPHQL_QUERY, "variables": {"login": username}}).encode("utf-8")
 
     req = urllib.request.Request(
         "https://api.github.com/graphql",
@@ -208,13 +203,7 @@ def fallback_user(config: Dict[str, Any], username: str) -> Dict[str, Any]:
 def get_repos(user: Dict[str, Any]) -> List[Dict[str, Any]]:
     login = user.get("login", "")
     all_repos = ((user.get("repositories") or {}).get("nodes")) or []
-
-    visible = [
-        repo
-        for repo in all_repos
-        if not repo.get("isFork") and repo.get("name") != login
-    ]
-
+    visible = [repo for repo in all_repos if not repo.get("isFork") and repo.get("name") != login]
     return visible or [repo for repo in all_repos if not repo.get("isFork")] or all_repos
 
 
@@ -259,7 +248,6 @@ def detected_stack(user: Dict[str, Any]) -> set[str]:
 def ordered_tech_groups(user: Dict[str, Any], config: Dict[str, Any]) -> Dict[str, List[str]]:
     found = detected_stack(user)
     groups = config.get("tech_groups") or DEFAULT_CONFIG["tech_groups"]
-
     return {
         color: sorted(items, key=lambda item: (item not in found, items.index(item)))
         for color, items in groups.items()
@@ -380,19 +368,25 @@ def contribution_grid_svg(user: Dict[str, Any]) -> str:
     levels = contribution_levels(user)
     cells = []
 
+    cell = 10
+    x_step = 14
+    y_step = 13
+    start_x = 54
+    start_y = 604
+
     for week_index in range(53):
         for day_index in range(7):
             data_index = week_index * 7 + day_index
             level = levels[data_index] if data_index < len(levels) else 0
             fill, stroke = colors[level]
 
-            x = 54 + week_index * 14
-            y = 610 + day_index * 14
+            x = start_x + week_index * x_step
+            y = start_y + day_index * y_step
             delay = (week_index * 0.018 + day_index * 0.03) % 2.4
 
             cells.append(
                 f'''
-                <rect x="{x}" y="{y}" width="11" height="11" rx="2"
+                <rect x="{x}" y="{y}" width="{cell}" height="{cell}" rx="2"
                       fill="{fill}" stroke="{stroke}">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="{delay:.2f}s" repeatCount="indefinite"/>
                 </rect>'''
