@@ -117,7 +117,7 @@
       <rect width="252" height="76" rx="8" fill="#161B22" stroke="#21262D">
         <animate attributeName="opacity" values="0.96;1;0.96" dur="5s" repeatCount="indefinite"/>
       </rect>
-      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#58A6FF">107</text>
+      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#58A6FF">111</text>
       <text x="126" y="58" text-anchor="middle" class="metricLabel">contributions</text>
     </g>
 
@@ -125,7 +125,7 @@
       <rect width="252" height="76" rx="8" fill="#161B22" stroke="#21262D">
         <animate attributeName="opacity" values="0.96;1;0.96" dur="5s" repeatCount="indefinite"/>
       </rect>
-      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#A371F7">10</text>
+      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#A371F7">11</text>
       <text x="126" y="58" text-anchor="middle" class="metricLabel">projects</text>
     </g>
 
@@ -133,7 +133,7 @@
       <rect width="252" height="76" rx="8" fill="#161B22" stroke="#21262D">
         <animate attributeName="opacity" values="0.96;1;0.96" dur="5s" repeatCount="indefinite"/>
       </rect>
-      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#3FB950">7</text>
+      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#3FB950">24</text>
       <text x="126" y="58" text-anchor="middle" class="metricLabel">detected tech</text>
     </g>
 
@@ -1987,7 +1987,7 @@
                 </rect>
 
                 <rect x="782" y="656" width="10" height="10" rx="2"
-                      fill="#161B22" stroke="#21262D">
+                      fill="#006D32" stroke="#26A641">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="1.06s" repeatCount="indefinite"/>
                 </rect>
 
@@ -2008,24 +2008,24 @@
       
             <text x="18" y="54" class="barLabel">Jupyter Not…</text>
             <rect x="114" y="46" width="194" height="6" rx="3" fill="#21262D"/>
-            <rect x="114" y="46" width="130" height="6" rx="3" fill="#DA5B0B">
-              <animate attributeName="width" values="0;130" dur="1.2s" fill="freeze"/>
+            <rect x="114" y="46" width="126" height="6" rx="3" fill="#DA5B0B">
+              <animate attributeName="width" values="0;126" dur="1.2s" fill="freeze"/>
             </rect>
-            <text x="340" y="54" class="barPct">67%</text>
+            <text x="340" y="54" class="barPct">65%</text>
 
             <text x="18" y="76" class="barLabel">TypeScript</text>
             <rect x="114" y="68" width="194" height="6" rx="3" fill="#21262D"/>
-            <rect x="114" y="68" width="33" height="6" rx="3" fill="#3178c6">
-              <animate attributeName="width" values="0;33" dur="1.2s" fill="freeze"/>
+            <rect x="114" y="68" width="37" height="6" rx="3" fill="#3178c6">
+              <animate attributeName="width" values="0;37" dur="1.2s" fill="freeze"/>
             </rect>
-            <text x="340" y="76" class="barPct">17%</text>
+            <text x="340" y="76" class="barPct">19%</text>
 
             <text x="18" y="98" class="barLabel">JavaScript</text>
             <rect x="114" y="90" width="194" height="6" rx="3" fill="#21262D"/>
-            <rect x="114" y="90" width="14" height="6" rx="3" fill="#f1e05a">
-              <animate attributeName="width" values="0;14" dur="1.2s" fill="freeze"/>
+            <rect x="114" y="90" width="12" height="6" rx="3" fill="#f1e05a">
+              <animate attributeName="width" values="0;12" dur="1.2s" fill="freeze"/>
             </rect>
-            <text x="340" y="98" class="barPct">7%</text>
+            <text x="340" y="98" class="barPct">6%</text>
 
             <text x="18" y="120" class="barLabel">HTML</text>
             <rect x="114" y="112" width="194" height="6" rx="3" fill="#21262D"/>
@@ -2044,29 +2044,29 @@
             <circle cx="22" cy="48" r="3" fill="#3178c6">
               <animate attributeName="opacity" values="0.65;1;0.65" dur="4s" repeatCount="indefinite"/>
             </circle>
-            <text x="34" y="52" class="barLabel">Devquery</text>
+            <text x="34" y="52" class="barLabel">ByteClaw-</text>
             <text x="250" y="52" class="barPct">TypeScript</text>
             <text x="330" y="52" class="barPct">★ 0 ⑂ 0</text>
 
-            <circle cx="22" cy="69" r="3" fill="#f1e05a">
+            <circle cx="22" cy="69" r="3" fill="#3178c6">
               <animate attributeName="opacity" values="0.65;1;0.65" dur="4s" repeatCount="indefinite"/>
             </circle>
-            <text x="34" y="73" class="barLabel">smart-parking-system</text>
-            <text x="250" y="73" class="barPct">JavaScript</text>
+            <text x="34" y="73" class="barLabel">Devquery</text>
+            <text x="250" y="73" class="barPct">TypeScript</text>
             <text x="330" y="73" class="barPct">★ 0 ⑂ 0</text>
 
-            <circle cx="22" cy="90" r="3" fill="#3178c6">
+            <circle cx="22" cy="90" r="3" fill="#f1e05a">
               <animate attributeName="opacity" values="0.65;1;0.65" dur="4s" repeatCount="indefinite"/>
             </circle>
-            <text x="34" y="94" class="barLabel">Anonymous-Feedback</text>
-            <text x="250" y="94" class="barPct">TypeScript</text>
+            <text x="34" y="94" class="barLabel">smart-parking-system</text>
+            <text x="250" y="94" class="barPct">JavaScript</text>
             <text x="330" y="94" class="barPct">★ 0 ⑂ 0</text>
 
-            <circle cx="22" cy="111" r="3" fill="#58A6FF">
+            <circle cx="22" cy="111" r="3" fill="#3178c6">
               <animate attributeName="opacity" values="0.65;1;0.65" dur="4s" repeatCount="indefinite"/>
             </circle>
-            <text x="34" y="115" class="barLabel">AI-Powered-Cyberattacks-…</text>
-            <text x="250" y="115" class="barPct">Code</text>
+            <text x="34" y="115" class="barLabel">Anonymous-Feedback</text>
+            <text x="250" y="115" class="barPct">TypeScript</text>
             <text x="330" y="115" class="barPct">★ 0 ⑂ 0</text>
       <animate attributeName="opacity" values="0.94;1;0.94" dur="5.6s" repeatCount="indefinite"/>
     </g>
@@ -2135,6 +2135,56 @@
     </g>
 
     <g transform="translate(496 924)">
+      <rect width="54" height="24" rx="12"
+            fill="#58A6FF" fill-opacity="0.10"
+            stroke="#58A6FF" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
+      <text x="27.0" y="16" text-anchor="middle"
+            class="pill" fill="#58A6FF">CSS3</text>
+    </g>
+
+    <g transform="translate(558 924)">
+      <rect width="59" height="24" rx="12"
+            fill="#58A6FF" fill-opacity="0.10"
+            stroke="#58A6FF" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
+      <text x="29.5" y="16" text-anchor="middle"
+            class="pill" fill="#58A6FF">Flask</text>
+    </g>
+
+    <g transform="translate(625 924)">
+      <rect width="59" height="24" rx="12"
+            fill="#58A6FF" fill-opacity="0.10"
+            stroke="#58A6FF" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
+      <text x="29.5" y="16" text-anchor="middle"
+            class="pill" fill="#58A6FF">HTML5</text>
+    </g>
+
+    <g transform="translate(692 924)">
+      <rect width="136" height="24" rx="12"
+            fill="#58A6FF" fill-opacity="0.10"
+            stroke="#58A6FF" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
+      <text x="68.0" y="16" text-anchor="middle"
+            class="pill" fill="#58A6FF">Jupyter Notebook</text>
+    </g>
+
+    <g transform="translate(32 958)">
+      <rect width="94" height="24" rx="12"
+            fill="#58A6FF" fill-opacity="0.10"
+            stroke="#58A6FF" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
+      <text x="47.0" y="16" text-anchor="middle"
+            class="pill" fill="#58A6FF">PowerShell</text>
+    </g>
+
+    <g transform="translate(134 958)">
       <rect width="59" height="24" rx="12"
             fill="#A371F7" fill-opacity="0.10"
             stroke="#A371F7" stroke-opacity="0.30">
@@ -2144,7 +2194,7 @@
             class="pill" fill="#A371F7">React</text>
     </g>
 
-    <g transform="translate(563 924)">
+    <g transform="translate(201 958)">
       <rect width="73" height="24" rx="12"
             fill="#A371F7" fill-opacity="0.10"
             stroke="#A371F7" stroke-opacity="0.30">
@@ -2154,17 +2204,7 @@
             class="pill" fill="#A371F7">Next.js</text>
     </g>
 
-    <g transform="translate(644 924)">
-      <rect width="73" height="24" rx="12"
-            fill="#A371F7" fill-opacity="0.10"
-            stroke="#A371F7" stroke-opacity="0.30">
-        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
-      </rect>
-      <text x="36.5" y="16" text-anchor="middle"
-            class="pill" fill="#A371F7">Node.js</text>
-    </g>
-
-    <g transform="translate(725 924)">
+    <g transform="translate(282 958)">
       <rect width="101" height="24" rx="12"
             fill="#A371F7" fill-opacity="0.10"
             stroke="#A371F7" stroke-opacity="0.30">
@@ -2174,7 +2214,17 @@
             class="pill" fill="#A371F7">TailwindCSS</text>
     </g>
 
-    <g transform="translate(32 958)">
+    <g transform="translate(391 958)">
+      <rect width="73" height="24" rx="12"
+            fill="#A371F7" fill-opacity="0.10"
+            stroke="#A371F7" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
+      <text x="36.5" y="16" text-anchor="middle"
+            class="pill" fill="#A371F7">Node.js</text>
+    </g>
+
+    <g transform="translate(472 958)">
       <rect width="87" height="24" rx="12"
             fill="#A371F7" fill-opacity="0.10"
             stroke="#A371F7" stroke-opacity="0.30">
@@ -2184,7 +2234,7 @@
             class="pill" fill="#A371F7">Bootstrap</text>
     </g>
 
-    <g transform="translate(127 958)">
+    <g transform="translate(567 958)">
       <rect width="54" height="24" rx="12"
             fill="#A371F7" fill-opacity="0.10"
             stroke="#A371F7" stroke-opacity="0.30">
@@ -2194,7 +2244,47 @@
             class="pill" fill="#A371F7">Vite</text>
     </g>
 
-    <g transform="translate(189 958)">
+    <g transform="translate(629 958)">
+      <rect width="101" height="24" rx="12"
+            fill="#A371F7" fill-opacity="0.10"
+            stroke="#A371F7" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
+      <text x="50.5" y="16" text-anchor="middle"
+            class="pill" fill="#A371F7">NextAuth.js</text>
+    </g>
+
+    <g transform="translate(738 958)">
+      <rect width="80" height="24" rx="12"
+            fill="#A371F7" fill-opacity="0.10"
+            stroke="#A371F7" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
+      <text x="40.0" y="16" text-anchor="middle"
+            class="pill" fill="#A371F7">Radix UI</text>
+    </g>
+
+    <g transform="translate(32 992)">
+      <rect width="129" height="24" rx="12"
+            fill="#A371F7" fill-opacity="0.10"
+            stroke="#A371F7" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
+      <text x="64.5" y="16" text-anchor="middle"
+            class="pill" fill="#A371F7">React Hook Form</text>
+    </g>
+
+    <g transform="translate(169 992)">
+      <rect width="54" height="24" rx="12"
+            fill="#A371F7" fill-opacity="0.10"
+            stroke="#A371F7" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
+      <text x="27.0" y="16" text-anchor="middle"
+            class="pill" fill="#A371F7">Zod</text>
+    </g>
+
+    <g transform="translate(231 992)">
       <rect width="94" height="24" rx="12"
             fill="#3FB950" fill-opacity="0.10"
             stroke="#3FB950" stroke-opacity="0.30">
@@ -2204,27 +2294,7 @@
             class="pill" fill="#3FB950">TensorFlow</text>
     </g>
 
-    <g transform="translate(291 958)">
-      <rect width="73" height="24" rx="12"
-            fill="#3FB950" fill-opacity="0.10"
-            stroke="#3FB950" stroke-opacity="0.30">
-        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
-      </rect>
-      <text x="36.5" y="16" text-anchor="middle"
-            class="pill" fill="#3FB950">PyTorch</text>
-    </g>
-
-    <g transform="translate(372 958)">
-      <rect width="108" height="24" rx="12"
-            fill="#3FB950" fill-opacity="0.10"
-            stroke="#3FB950" stroke-opacity="0.30">
-        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
-      </rect>
-      <text x="54.0" y="16" text-anchor="middle"
-            class="pill" fill="#3FB950">scikit-learn</text>
-    </g>
-
-    <g transform="translate(488 958)">
+    <g transform="translate(333 992)">
       <rect width="59" height="24" rx="12"
             fill="#3FB950" fill-opacity="0.10"
             stroke="#3FB950" stroke-opacity="0.30">
@@ -2234,7 +2304,27 @@
             class="pill" fill="#3FB950">NumPy</text>
     </g>
 
-    <g transform="translate(555 958)">
+    <g transform="translate(400 992)">
+      <rect width="73" height="24" rx="12"
+            fill="#3FB950" fill-opacity="0.10"
+            stroke="#3FB950" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
+      <text x="36.5" y="16" text-anchor="middle"
+            class="pill" fill="#3FB950">PyTorch</text>
+    </g>
+
+    <g transform="translate(481 992)">
+      <rect width="108" height="24" rx="12"
+            fill="#3FB950" fill-opacity="0.10"
+            stroke="#3FB950" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
+      <text x="54.0" y="16" text-anchor="middle"
+            class="pill" fill="#3FB950">scikit-learn</text>
+    </g>
+
+    <g transform="translate(597 992)">
       <rect width="66" height="24" rx="12"
             fill="#3FB950" fill-opacity="0.10"
             stroke="#3FB950" stroke-opacity="0.30">
@@ -2244,7 +2334,17 @@
             class="pill" fill="#3FB950">Pandas</text>
     </g>
 
-    <g transform="translate(629 958)">
+    <g transform="translate(671 992)">
+      <rect width="66" height="24" rx="12"
+            fill="#3FB950" fill-opacity="0.10"
+            stroke="#3FB950" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
+      <text x="33.0" y="16" text-anchor="middle"
+            class="pill" fill="#3FB950">OpenCV</text>
+    </g>
+
+    <g transform="translate(745 992)">
       <rect width="73" height="24" rx="12"
             fill="#D2992A" fill-opacity="0.10"
             stroke="#D2992A" stroke-opacity="0.30">
@@ -2254,7 +2354,7 @@
             class="pill" fill="#D2992A">MongoDB</text>
     </g>
 
-    <g transform="translate(710 958)">
+    <g transform="translate(32 1026)">
       <rect width="59" height="24" rx="12"
             fill="#D2992A" fill-opacity="0.10"
             stroke="#D2992A" stroke-opacity="0.30">
@@ -2264,7 +2364,7 @@
             class="pill" fill="#D2992A">MySQL</text>
     </g>
 
-    <g transform="translate(32 992)">
+    <g transform="translate(99 1026)">
       <rect width="54" height="24" rx="12"
             fill="#D2992A" fill-opacity="0.10"
             stroke="#D2992A" stroke-opacity="0.30">
@@ -2274,7 +2374,7 @@
             class="pill" fill="#D2992A">AWS</text>
     </g>
 
-    <g transform="translate(94 992)">
+    <g transform="translate(161 1026)">
       <rect width="59" height="24" rx="12"
             fill="#D2992A" fill-opacity="0.10"
             stroke="#D2992A" stroke-opacity="0.30">
@@ -2284,7 +2384,7 @@
             class="pill" fill="#D2992A">Azure</text>
     </g>
 
-    <g transform="translate(161 992)">
+    <g transform="translate(228 1026)">
       <rect width="115" height="24" rx="12"
             fill="#D2992A" fill-opacity="0.10"
             stroke="#D2992A" stroke-opacity="0.30">
@@ -2294,7 +2394,17 @@
             class="pill" fill="#D2992A">Apache Hadoop</text>
     </g>
 
-    <g transform="translate(284 992)">
+    <g transform="translate(351 1026)">
+      <rect width="80" height="24" rx="12"
+            fill="#D2992A" fill-opacity="0.10"
+            stroke="#D2992A" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
+      <text x="40.0" y="16" text-anchor="middle"
+            class="pill" fill="#D2992A">Mongoose</text>
+    </g>
+
+    <g transform="translate(439 1026)">
       <rect width="59" height="24" rx="12"
             fill="#F85149" fill-opacity="0.10"
             stroke="#F85149" stroke-opacity="0.30">
@@ -2304,7 +2414,7 @@
             class="pill" fill="#F85149">Figma</text>
     </g>
 
-    <g transform="translate(351 992)">
+    <g transform="translate(506 1026)">
       <rect width="80" height="24" rx="12"
             fill="#F85149" fill-opacity="0.10"
             stroke="#F85149" stroke-opacity="0.30">
@@ -2314,7 +2424,7 @@
             class="pill" fill="#F85149">Adobe PS</text>
     </g>
 
-    <g transform="translate(439 992)">
+    <g transform="translate(594 1026)">
       <rect width="108" height="24" rx="12"
             fill="#F85149" fill-opacity="0.10"
             stroke="#F85149" stroke-opacity="0.30">
@@ -2324,7 +2434,7 @@
             class="pill" fill="#F85149">Premiere Pro</text>
     </g>
 
-    <g transform="translate(555 992)">
+    <g transform="translate(710 1026)">
       <rect width="80" height="24" rx="12"
             fill="#F85149" fill-opacity="0.10"
             stroke="#F85149" stroke-opacity="0.30">
@@ -2332,6 +2442,56 @@
       </rect>
       <text x="40.0" y="16" text-anchor="middle"
             class="pill" fill="#F85149">Power BI</text>
+    </g>
+
+    <g transform="translate(32 1060)">
+      <rect width="59" height="24" rx="12"
+            fill="#F85149" fill-opacity="0.10"
+            stroke="#F85149" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
+      <text x="29.5" y="16" text-anchor="middle"
+            class="pill" fill="#F85149">Axios</text>
+    </g>
+
+    <g transform="translate(99 1060)">
+      <rect width="80" height="24" rx="12"
+            fill="#F85149" fill-opacity="0.10"
+            stroke="#F85149" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
+      <text x="40.0" y="16" text-anchor="middle"
+            class="pill" fill="#F85149">bcryptjs</text>
+    </g>
+
+    <g transform="translate(187 1060)">
+      <rect width="66" height="24" rx="12"
+            fill="#F85149" fill-opacity="0.10"
+            stroke="#F85149" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
+      <text x="33.0" y="16" text-anchor="middle"
+            class="pill" fill="#F85149">Lucide</text>
+    </g>
+
+    <g transform="translate(261 1060)">
+      <rect width="66" height="24" rx="12"
+            fill="#F85149" fill-opacity="0.10"
+            stroke="#F85149" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
+      <text x="33.0" y="16" text-anchor="middle"
+            class="pill" fill="#F85149">Resend</text>
+    </g>
+
+    <g transform="translate(335 1060)">
+      <rect width="66" height="24" rx="12"
+            fill="#F85149" fill-opacity="0.10"
+            stroke="#F85149" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
+      <text x="33.0" y="16" text-anchor="middle"
+            class="pill" fill="#F85149">Sonner</text>
     </g>
 
     <line x1="32" y1="1010" x2="828" y2="1010" stroke="#21262D"/>
