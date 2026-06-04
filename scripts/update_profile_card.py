@@ -79,6 +79,28 @@ query($login: String!) {
         }
         pyprojectToml: object(expression: "HEAD:pyproject.toml") {
           ... on Blob { text }
+
+                  bunLock: object(expression: "HEAD:bun.lock") {
+          ... on Blob { text }
+        }
+        bunLockb: object(expression: "HEAD:bun.lockb") {
+          ... on Blob { text }
+        }
+        frontendPackageJson: object(expression: "HEAD:frontend/package.json") {
+          ... on Blob { text }
+        }
+        backendPackageJson: object(expression: "HEAD:backend/package.json") {
+          ... on Blob { text }
+        }
+        finalProjectPackageJson: object(expression: "HEAD:final-project/package.json") {
+          ... on Blob { text }
+        }
+        chapter01PackageJson: object(expression: "HEAD:chapter01/package.json") {
+          ... on Blob { text }
+        }
+        chapter02PackageJson: object(expression: "HEAD:chapter02/package.json") {
+          ... on Blob { text }
+        }
         }
       }
     }
@@ -239,6 +261,43 @@ NORMALIZE = {
     "axios": "Axios",
     "bcrypt": "bcryptjs",
     "bcryptjs": "bcryptjs",
+
+        "bun": "Bun",
+    "bunjs": "Bun",
+    "bun.js": "Bun",
+    "tsx": "TSX",
+    "esmodules": "ES Modules",
+    "es-modules": "ES Modules",
+    "openrouter": "OpenRouter AI",
+    "openrouter-ai": "OpenRouter AI",
+    "openai": "OpenAI SDK",
+    "ai-sdk": "AI SDK",
+    "firecrawl": "Firecrawl",
+    "telegraf": "Telegraf",
+    "telegram-bot": "Telegram Bot",
+    "clack": "Clack Prompts",
+    "chalk": "Chalk",
+    "commander": "Commander",
+    "figlet": "Figlet",
+    "marked": "Marked",
+    "marked-terminal": "Marked Terminal",
+    "diff": "Diff",
+    "better-auth": "Better Auth",
+    "inngest": "Inngest",
+    "neon": "Neon",
+    "upstash": "Upstash Redis",
+    "upstash-redis": "Upstash Redis",
+    "aws-s3": "AWS S3",
+    "stripe": "Stripe",
+    "posthog": "PostHog",
+    "tanstack-query": "TanStack Query",
+    "react-router": "React Router",
+    "react-router-dom": "React Router",
+    "helmet": "Helmet",
+    "cors": "CORS",
+    "jwt": "JWT",
+    "jsonwebtoken": "JWT",
+    "rate-limiting": "Rate Limiting",
 }
 
 
@@ -246,27 +305,27 @@ STACK_GROUPS = {
     "blue": {
         "Python", "JavaScript", "TypeScript", "Java", "C", "C++", "C#", "R",
         "Go", "Rust", "PHP", "Ruby", "Swift", "Kotlin", "Dart", "Shell",
-        "Bash", "PowerShell", "SQL", "HTML5", "CSS3", "SCSS", "Jupyter Notebook",
+        "Bash", "PowerShell", "SQL", "HTML5", "CSS3", "SCSS", "Jupyter Notebook","Bun", "TSX", "ES Modules",
     },
     "purple": {
         "React", "Next.js", "Node.js", "Express.js", "Vue.js", "Angular",
         "Svelte", "Astro", "TailwindCSS", "Bootstrap", "Vite", "Redux",
         "React Native", "shadcn/ui", "Radix UI", "NextAuth.js", "Auth.js",
-        "Zod", "React Hook Form", "Framer Motion",
+        "Zod", "React Hook Form", "Framer Motion","React Router", "TanStack Query", "Better Auth", "Inngest", "Base UI", "React Email", "Next Themes", "Embla Carousel", "Create React App",
     },
     "green": {
         "TensorFlow", "PyTorch", "scikit-learn", "NumPy", "Pandas",
         "Matplotlib", "Seaborn", "OpenCV", "MediaPipe", "Pillow",
-        "Hugging Face", "LangChain", "Machine Learning", "AI",
+        "Hugging Face", "LangChain", "Machine Learning", "AI","OpenAI SDK", "AI SDK", "OpenRouter AI",
     },
     "orange": {
         "MongoDB", "Mongoose", "MySQL", "PostgreSQL", "Supabase", "Firebase",
         "Appwrite", "Prisma", "Drizzle ORM", "Redis", "Docker", "Kubernetes",
         "AWS", "Azure", "GCP", "Vercel", "Netlify", "Render", "Railway",
-        "Heroku", "Apache Hadoop",
+        "Heroku", "Apache Hadoop","Neon", "Upstash Redis", "AWS S3", "Stripe",
     },
     "red": {
-        "Figma", "Adobe PS", "Premiere Pro", "Power BI", "Git", "GitHub",
+        "Figma", "Adobe PS", "Premiere Pro", "Power BI", "Git", "GitHub","Clack Prompts", "Chalk", "Commander", "Figlet", "Firecrawl", "Telegraf", "Marked", "Marked Terminal", "Diff", "PostHog", "Helmet", "CORS", "JWT", "Rate Limiting", "node-cron", "Express Validator",
         "VS Code", "Postman", "Resend", "Sonner", "Lucide", "Axios", "bcryptjs",
     },
 }
@@ -320,6 +379,54 @@ PACKAGE_TO_STACK = {
     "bcryptjs": "bcryptjs",
     "bcrypt": "bcryptjs",
     "shadcn-ui": "shadcn/ui",
+        "@types/bun": "Bun",
+    "bun": "Bun",
+    "tsx": "TSX",
+
+    "@clack/core": "Clack Prompts",
+    "@clack/prompts": "Clack Prompts",
+    "@mendable/firecrawl-js": "Firecrawl",
+    "@openrouter/ai-sdk-provider": "OpenRouter AI",
+    "@ai-sdk/openai": "OpenAI SDK",
+    "openai": "OpenAI SDK",
+    "ai": "AI SDK",
+    "chalk": "Chalk",
+    "commander": "Commander",
+    "diff": "Diff",
+    "figlet": "Figlet",
+    "marked": "Marked",
+    "marked-terminal": "Marked Terminal",
+    "telegraf": "Telegraf",
+
+    "@base-ui/react": "Base UI",
+    "@react-email/components": "React Email",
+    "@react-email/render": "React Email",
+    "react-email": "React Email",
+    "next-themes": "Next Themes",
+    "usehooks-ts": "usehooks-ts",
+    "embla-carousel-react": "Embla Carousel",
+    "embla-carousel-autoplay": "Embla Carousel",
+
+    "@tanstack/react-query": "TanStack Query",
+    "better-auth": "Better Auth",
+    "inngest": "Inngest",
+    "@neondatabase/serverless": "Neon",
+    "@upstash/redis": "Upstash Redis",
+    "@upstash/ratelimit": "Upstash Redis",
+    "@aws-sdk/client-s3": "AWS S3",
+    "@aws-sdk/s3-request-presigner": "AWS S3",
+    "@stripe/stripe-js": "Stripe",
+    "stripe": "Stripe",
+    "posthog-js": "PostHog",
+
+    "react-router-dom": "React Router",
+    "jsonwebtoken": "JWT",
+    "helmet": "Helmet",
+    "cors": "CORS",
+    "express-rate-limit": "Rate Limiting",
+    "node-cron": "node-cron",
+    "express-validator": "Express Validator",
+    "react-scripts": "Create React App",
 }
 
 
@@ -482,6 +589,11 @@ def package_json_stacks(text: str) -> set[str]:
 
     try:
         package_data = json.loads(text)
+            if package_data.get("type") == "module":
+        found.add("ES Modules")
+
+    if package_data.get("bin"):
+        found.add("CLI")
     except Exception:
         return found
 
@@ -498,6 +610,11 @@ def package_json_stacks(text: str) -> set[str]:
                 found.add(stack)
 
     scripts = " ".join(str(value).lower() for value in (package_data.get("scripts") or {}).values())
+        if "bun" in scripts:
+        found.add("Bun")
+
+    if "tsx" in scripts:
+        found.add("TSX")
 
     if "next" in scripts:
         found.add("Next.js")
@@ -566,10 +683,21 @@ def detected_stack(user: Dict[str, Any]) -> set[str]:
 
         for topic in repo_topics(repo):
             add_stack(topic, from_topic=True)
+        for package_key in (
+            "packageJson",
+            "frontendPackageJson",
+            "backendPackageJson",
+            "finalProjectPackageJson",
+            "chapter01PackageJson",
+            "chapter02PackageJson",
+        ):
+            found.update(package_json_stacks(repo_blob_text(repo, package_key)))
 
-        found.update(package_json_stacks(repo_blob_text(repo, "packageJson")))
         found.update(requirements_stacks(repo_blob_text(repo, "requirementsTxt")))
         found.update(pyproject_stacks(repo_blob_text(repo, "pyprojectToml")))
+
+        if repo_blob_text(repo, "bunLock") or repo_blob_text(repo, "bunLockb"):
+            found.add("Bun")
 
     return {stack for stack in found if stack}
 
