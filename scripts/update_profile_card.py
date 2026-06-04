@@ -808,6 +808,30 @@ def pill_svg(label: str, group: str, x: int, y: int) -> Tuple[str, int]:
     return svg, width
 
 
+def tech_pill_row_count(user: Dict[str, Any], config: Dict[str, Any]) -> int:
+    """Return the exact number of tech-pill rows needed in the SVG.
+
+    GitHub renders SVG as a fixed-size image, so it will not auto-grow by
+    itself. This helper lets the generator calculate the required card height
+    before writing the SVG width/height/viewBox values.
+    """
+    groups = ordered_tech_groups(user, config)
+    x = 32
+    rows = 1
+
+    for group in ["blue", "purple", "green", "orange", "red"]:
+        for label in groups.get(group, []):
+            width = max(54, len(label) * 7 + 24)
+
+            if x + width > 828:
+                x = 32
+                rows += 1
+
+            x += width + 8
+
+    return max(1, rows)
+
+
 def tech_pills_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
     groups = ordered_tech_groups(user, config)
     x, y = 32, 924
@@ -828,7 +852,7 @@ def tech_pills_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
     return "\n".join(parts)
 
 
-SVG_TEMPLATE = """<svg width="860" height="1140" viewBox="0 0 860 1140" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="__FULL_NAME__ GitHub profile card">
+SVG_TEMPLATE = """<svg width="860" height="__SVG_HEIGHT__" viewBox="0 0 860 __SVG_HEIGHT__" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="__FULL_NAME__ GitHub profile card">
   <defs>
     <linearGradient id="avatarGrad" x1="55" y1="52" x2="145" y2="142" gradientUnits="userSpaceOnUse">
       <stop stop-color="#58A6FF"/>
@@ -846,7 +870,7 @@ SVG_TEMPLATE = """<svg width="860" height="1140" viewBox="0 0 860 1140" fill="no
     </radialGradient>
 
     <clipPath id="cardClip">
-      <rect x="0" y="0" width="860" height="1140" rx="12"/>
+      <rect x="0" y="0" width="860" height="__SVG_HEIGHT__" rx="12"/>
     </clipPath>
 
     <style>
@@ -864,17 +888,17 @@ SVG_TEMPLATE = """<svg width="860" height="1140" viewBox="0 0 860 1140" fill="no
   </defs>
 
   <g clip-path="url(#cardClip)">
-    <rect width="860" height="1140" rx="12" fill="#0D1117"/>
-    <rect x="0.5" y="0.5" width="859" height="1139" rx="11.5" stroke="#21262D"/>
+    <rect width="860" height="__SVG_HEIGHT__" rx="12" fill="#0D1117"/>
+    <rect x="0.5" y="0.5" width="859" height="__BORDER_HEIGHT__" rx="11.5" stroke="#21262D"/>
 
     <circle cx="825" cy="-20" r="150" fill="url(#blueGlow)">
       <animate attributeName="cx" values="825;810;825" dur="7s" repeatCount="indefinite"/>
       <animate attributeName="cy" values="-20;-10;-20" dur="7s" repeatCount="indefinite"/>
     </circle>
 
-    <circle cx="-18" cy="1040" r="125" fill="url(#purpleGlow)">
+    <circle cx="-18" cy="__PURPLE_GLOW_Y__" r="125" fill="url(#purpleGlow)">
       <animate attributeName="cx" values="-18;2;-18" dur="8s" repeatCount="indefinite"/>
-      <animate attributeName="cy" values="1040;1028;1040" dur="8s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="__PURPLE_GLOW_Y__;__PURPLE_GLOW_Y2__;__PURPLE_GLOW_Y__" dur="8s" repeatCount="indefinite"/>
     </circle>
 
     <path d="M500 44 C600 20 720 20 826 55"
@@ -997,9 +1021,9 @@ SVG_TEMPLATE = """<svg width="860" height="1140" viewBox="0 0 860 1140" fill="no
 
     __TECH_PILLS__
 
-    <line x1="32" y1="1010" x2="828" y2="1010" stroke="#21262D"/>
+    <line x1="32" y1="__QUOTE_LINE_Y__" x2="828" y2="__QUOTE_LINE_Y__" stroke="#21262D"/>
 
-    <g transform="translate(32 1024)">
+    <g transform="translate(32 __QUOTE_Y__)">
       <rect x="0" y="0" width="796" height="42" rx="0 6 6 0" fill="#161B22"/>
       <rect x="0" y="0" width="3" height="42" fill="#A371F7"/>
 
@@ -1021,7 +1045,7 @@ SVG_TEMPLATE = """<svg width="860" height="1140" viewBox="0 0 860 1140" fill="no
       </rect>
     </g>
 
-    <g transform="translate(32 1092)">
+    <g transform="translate(32 __FOOTER_Y__)">
       <text class="muted">building the future, one commit at a time...</text>
       <rect x="304" y="-13" width="2" height="17" fill="#58A6FF">
         <animate attributeName="opacity" values="1;0;1" dur=".7s" repeatCount="indefinite"/>
@@ -1052,6 +1076,15 @@ def generate_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
     if tech_count == 0:
         tech_count = sum(len(items) for items in (config.get("tech_groups") or {}).values())
 
+    # Dynamically extend the card when the tech stack wraps into more rows.
+    # This prevents the quote/footer from overlapping with tech pills.
+    tech_rows = tech_pill_row_count(user, config)
+    tech_bottom = 924 + ((tech_rows - 1) * 34) + 24
+    quote_line_y = tech_bottom + 28
+    quote_y = quote_line_y + 14
+    footer_y = quote_y + 68
+    svg_height = footer_y + 48
+
     replacements = {
         "__FULL_NAME__": esc(full_name),
         "__FIRST_LINE__": esc(short(first_line, 28)),
@@ -1062,6 +1095,13 @@ def generate_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
         "__CONTRIBUTIONS__": esc(metric_number(contribution_total)),
         "__PROJECTS__": esc(metric_number(repo_total)),
         "__TECH_COUNT__": esc(metric_number(tech_count)),
+        "__SVG_HEIGHT__": str(svg_height),
+        "__BORDER_HEIGHT__": str(svg_height - 1),
+        "__PURPLE_GLOW_Y__": str(max(1040, svg_height - 100)),
+        "__PURPLE_GLOW_Y2__": str(max(1028, svg_height - 112)),
+        "__QUOTE_LINE_Y__": str(quote_line_y),
+        "__QUOTE_Y__": str(quote_y),
+        "__FOOTER_Y__": str(footer_y),
         "__CONTRIBUTION_GRID__": contribution_grid_svg(user),
         "__LANGUAGE_BARS__": bar_rows_svg(language_stats(user), 18, 46),
         "__PROJECT_ROWS__": latest_projects_svg(user),
