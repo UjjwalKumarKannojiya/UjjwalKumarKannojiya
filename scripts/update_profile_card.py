@@ -71,6 +71,15 @@ query($login: String!) {
         repositoryTopics(first: 20) {
           nodes { topic { name } }
         }
+        packageJson: object(expression: "HEAD:package.json") {
+          ... on Blob { text }
+        }
+        requirementsTxt: object(expression: "HEAD:requirements.txt") {
+          ... on Blob { text }
+        }
+        pyprojectToml: object(expression: "HEAD:pyproject.toml") {
+          ... on Blob { text }
+        }
       }
     }
     contributionsCollection {
@@ -89,47 +98,264 @@ query($login: String!) {
 
 
 NORMALIZE = {
+    # Languages
     "javascript": "JavaScript",
+    "js": "JavaScript",
     "typescript": "TypeScript",
+    "ts": "TypeScript",
     "python": "Python",
     "java": "Java",
     "c": "C",
     "c++": "C++",
+    "cpp": "C++",
+    "c#": "C#",
+    "csharp": "C#",
     "r": "R",
+    "go": "Go",
+    "golang": "Go",
+    "rust": "Rust",
+    "php": "PHP",
+    "ruby": "Ruby",
+    "swift": "Swift",
+    "kotlin": "Kotlin",
+    "dart": "Dart",
+    "shell": "Shell",
+    "bash": "Bash",
+    "powershell": "PowerShell",
+    "sql": "SQL",
     "html": "HTML5",
     "html5": "HTML5",
     "css": "CSS3",
     "css3": "CSS3",
+    "scss": "SCSS",
     "jupyter notebook": "Jupyter Notebook",
+    "jupyter-notebook": "Jupyter Notebook",
+
+    # Frontend / backend frameworks
     "react": "React",
+    "reactjs": "React",
+    "react.js": "React",
     "next": "Next.js",
     "nextjs": "Next.js",
     "next.js": "Next.js",
     "node": "Node.js",
     "nodejs": "Node.js",
     "node.js": "Node.js",
+    "express": "Express.js",
+    "expressjs": "Express.js",
+    "express.js": "Express.js",
+    "vue": "Vue.js",
+    "vuejs": "Vue.js",
+    "vue.js": "Vue.js",
+    "angular": "Angular",
+    "svelte": "Svelte",
+    "astro": "Astro",
     "tailwind": "TailwindCSS",
     "tailwindcss": "TailwindCSS",
     "tailwind-css": "TailwindCSS",
     "bootstrap": "Bootstrap",
     "vite": "Vite",
+    "redux": "Redux",
+    "react-native": "React Native",
+    "shadcn": "shadcn/ui",
+    "shadcn-ui": "shadcn/ui",
+    "shadcn/ui": "shadcn/ui",
+    "radix": "Radix UI",
+    "radix-ui": "Radix UI",
+    "nextauth": "NextAuth.js",
+    "next-auth": "NextAuth.js",
+    "nextauth.js": "NextAuth.js",
+    "authjs": "Auth.js",
+    "auth.js": "Auth.js",
+    "zod": "Zod",
+    "react-hook-form": "React Hook Form",
+    "framer-motion": "Framer Motion",
+
+    # AI / data
     "tensorflow": "TensorFlow",
     "pytorch": "PyTorch",
+    "torch": "PyTorch",
     "sklearn": "scikit-learn",
     "scikit-learn": "scikit-learn",
     "numpy": "NumPy",
     "pandas": "Pandas",
+    "matplotlib": "Matplotlib",
+    "seaborn": "Seaborn",
+    "opencv": "OpenCV",
+    "opencv-python": "OpenCV",
+    "mediapipe": "MediaPipe",
+    "pillow": "Pillow",
+    "pil": "Pillow",
+    "huggingface": "Hugging Face",
+    "hugging-face": "Hugging Face",
+    "langchain": "LangChain",
+    "machine-learning": "Machine Learning",
+    "ai": "AI",
+
+    # Database / cloud / tooling
     "mongodb": "MongoDB",
     "mongo": "MongoDB",
+    "mongoose": "Mongoose",
     "mysql": "MySQL",
+    "postgres": "PostgreSQL",
+    "postgresql": "PostgreSQL",
+    "supabase": "Supabase",
+    "firebase": "Firebase",
+    "appwrite": "Appwrite",
+    "prisma": "Prisma",
+    "drizzle": "Drizzle ORM",
+    "drizzle-orm": "Drizzle ORM",
+    "redis": "Redis",
+    "docker": "Docker",
+    "kubernetes": "Kubernetes",
     "aws": "AWS",
     "azure": "Azure",
+    "gcp": "GCP",
+    "google-cloud": "GCP",
+    "vercel": "Vercel",
+    "netlify": "Netlify",
+    "render": "Render",
+    "railway": "Railway",
+    "heroku": "Heroku",
     "hadoop": "Apache Hadoop",
     "apache-hadoop": "Apache Hadoop",
+
+    # Product / design / dev tools
     "figma": "Figma",
+    "adobe-ps": "Adobe PS",
+    "photoshop": "Adobe PS",
+    "premiere-pro": "Premiere Pro",
     "powerbi": "Power BI",
     "power-bi": "Power BI",
+    "git": "Git",
+    "github": "GitHub",
+    "vscode": "VS Code",
+    "vs-code": "VS Code",
+    "postman": "Postman",
+    "resend": "Resend",
+    "sonner": "Sonner",
+    "lucide": "Lucide",
+    "lucide-react": "Lucide",
+    "axios": "Axios",
+    "bcrypt": "bcryptjs",
+    "bcryptjs": "bcryptjs",
 }
+
+
+STACK_GROUPS = {
+    "blue": {
+        "Python", "JavaScript", "TypeScript", "Java", "C", "C++", "C#", "R",
+        "Go", "Rust", "PHP", "Ruby", "Swift", "Kotlin", "Dart", "Shell",
+        "Bash", "PowerShell", "SQL", "HTML5", "CSS3", "SCSS", "Jupyter Notebook",
+    },
+    "purple": {
+        "React", "Next.js", "Node.js", "Express.js", "Vue.js", "Angular",
+        "Svelte", "Astro", "TailwindCSS", "Bootstrap", "Vite", "Redux",
+        "React Native", "shadcn/ui", "Radix UI", "NextAuth.js", "Auth.js",
+        "Zod", "React Hook Form", "Framer Motion",
+    },
+    "green": {
+        "TensorFlow", "PyTorch", "scikit-learn", "NumPy", "Pandas",
+        "Matplotlib", "Seaborn", "OpenCV", "MediaPipe", "Pillow",
+        "Hugging Face", "LangChain", "Machine Learning", "AI",
+    },
+    "orange": {
+        "MongoDB", "Mongoose", "MySQL", "PostgreSQL", "Supabase", "Firebase",
+        "Appwrite", "Prisma", "Drizzle ORM", "Redis", "Docker", "Kubernetes",
+        "AWS", "Azure", "GCP", "Vercel", "Netlify", "Render", "Railway",
+        "Heroku", "Apache Hadoop",
+    },
+    "red": {
+        "Figma", "Adobe PS", "Premiere Pro", "Power BI", "Git", "GitHub",
+        "VS Code", "Postman", "Resend", "Sonner", "Lucide", "Axios", "bcryptjs",
+    },
+}
+
+
+STACK_CATEGORY = {
+    stack: color
+    for color, stacks in STACK_GROUPS.items()
+    for stack in stacks
+}
+
+
+PACKAGE_TO_STACK = {
+    # JS / TS dependencies
+    "react": "React",
+    "react-dom": "React",
+    "next": "Next.js",
+    "typescript": "TypeScript",
+    "tailwindcss": "TailwindCSS",
+    "@tailwindcss/vite": "TailwindCSS",
+    "@tailwindcss/postcss": "TailwindCSS",
+    "bootstrap": "Bootstrap",
+    "vite": "Vite",
+    "@vitejs/plugin-react": "Vite",
+    "express": "Express.js",
+    "mongoose": "Mongoose",
+    "mongodb": "MongoDB",
+    "mysql2": "MySQL",
+    "mysql": "MySQL",
+    "pg": "PostgreSQL",
+    "postgres": "PostgreSQL",
+    "@supabase/supabase-js": "Supabase",
+    "@supabase/ssr": "Supabase",
+    "firebase": "Firebase",
+    "appwrite": "Appwrite",
+    "@prisma/client": "Prisma",
+    "prisma": "Prisma",
+    "drizzle-orm": "Drizzle ORM",
+    "redis": "Redis",
+    "next-auth": "NextAuth.js",
+    "@auth/core": "Auth.js",
+    "zod": "Zod",
+    "react-hook-form": "React Hook Form",
+    "framer-motion": "Framer Motion",
+    "redux": "Redux",
+    "@reduxjs/toolkit": "Redux",
+    "axios": "Axios",
+    "resend": "Resend",
+    "sonner": "Sonner",
+    "lucide-react": "Lucide",
+    "bcryptjs": "bcryptjs",
+    "bcrypt": "bcryptjs",
+    "shadcn-ui": "shadcn/ui",
+}
+
+
+PY_PACKAGE_TO_STACK = {
+    # Python dependencies
+    "flask": "Flask",
+    "fastapi": "FastAPI",
+    "django": "Django",
+    "numpy": "NumPy",
+    "pandas": "Pandas",
+    "scikit-learn": "scikit-learn",
+    "sklearn": "scikit-learn",
+    "tensorflow": "TensorFlow",
+    "torch": "PyTorch",
+    "pytorch": "PyTorch",
+    "matplotlib": "Matplotlib",
+    "seaborn": "Seaborn",
+    "opencv-python": "OpenCV",
+    "opencv-contrib-python": "OpenCV",
+    "mediapipe": "MediaPipe",
+    "pillow": "Pillow",
+    "pil": "Pillow",
+    "transformers": "Hugging Face",
+    "huggingface-hub": "Hugging Face",
+    "langchain": "LangChain",
+}
+
+
+KNOWN_STACK_NAMES = (
+    set(STACK_CATEGORY)
+    | set(NORMALIZE.values())
+    | set(PACKAGE_TO_STACK.values())
+    | set(PY_PACKAGE_TO_STACK.values())
+    | {tech for group in DEFAULT_CONFIG["tech_groups"].values() for tech in group}
+)
+
 
 
 def esc(value: Any) -> str:
@@ -208,8 +434,9 @@ def get_repos(user: Dict[str, Any]) -> List[Dict[str, Any]]:
 
 
 def normalize_stack_name(name: str) -> str:
-    key = str(name or "").strip().lower()
-    return NORMALIZE.get(key, str(name or "").strip())
+    clean = re.sub(r"\s+", " ", str(name or "").replace("_", "-")).strip()
+    key = clean.lower()
+    return NORMALIZE.get(key, clean)
 
 
 def repo_topics(repo: Dict[str, Any]) -> set[str]:
@@ -224,34 +451,173 @@ def repo_topics(repo: Dict[str, Any]) -> set[str]:
     return topics
 
 
-def detected_stack(user: Dict[str, Any]) -> set[str]:
+def repo_blob_text(repo: Dict[str, Any], key: str) -> str:
+    blob = repo.get(key) or {}
+    return str(blob.get("text") or "")
+
+
+def dependency_stack_name(package_name: str) -> str:
+    key = str(package_name or "").strip().lower()
+
+    if not key:
+        return ""
+
+    if key.startswith("@radix-ui/"):
+        return "Radix UI"
+
+    if key.startswith("@supabase/"):
+        return "Supabase"
+
+    if key.startswith("@vitejs/"):
+        return "Vite"
+
+    return PACKAGE_TO_STACK.get(key, "")
+
+
+def package_json_stacks(text: str) -> set[str]:
     found = set()
 
-    for repo in get_repos(user):
-        primary = normalize_stack_name(((repo.get("primaryLanguage") or {}).get("name")) or "")
-        if primary:
-            found.add(primary)
+    if not text:
+        return found
 
-        for edge in ((repo.get("languages") or {}).get("edges") or []):
-            lang = normalize_stack_name((((edge or {}).get("node") or {}).get("name")) or "")
-            if lang:
-                found.add(lang)
+    try:
+        package_data = json.loads(text)
+    except Exception:
+        return found
 
-        for topic in repo_topics(repo):
-            normalized = normalize_stack_name(topic)
-            if normalized:
-                found.add(normalized)
+    for section in ("dependencies", "devDependencies", "peerDependencies", "optionalDependencies"):
+        dependencies = package_data.get(section) or {}
+
+        if not isinstance(dependencies, dict):
+            continue
+
+        for dependency in dependencies:
+            stack = dependency_stack_name(dependency)
+
+            if stack:
+                found.add(stack)
+
+    scripts = " ".join(str(value).lower() for value in (package_data.get("scripts") or {}).values())
+
+    if "next" in scripts:
+        found.add("Next.js")
+
+    if "vite" in scripts:
+        found.add("Vite")
 
     return found
 
 
+def requirements_stacks(text: str) -> set[str]:
+    found = set()
+
+    for raw_line in str(text or "").splitlines():
+        line = raw_line.split("#", 1)[0].strip()
+
+        if not line or line.startswith(("-", "git+", "http://", "https://")):
+            continue
+
+        package_name = re.split(r"[<>=~!;\[\s]", line, maxsplit=1)[0].strip().lower()
+        stack = PY_PACKAGE_TO_STACK.get(package_name) or PACKAGE_TO_STACK.get(package_name)
+
+        if stack:
+            found.add(stack)
+
+    return found
+
+
+def pyproject_stacks(text: str) -> set[str]:
+    found = set()
+    lowered = str(text or "").lower()
+
+    if not lowered:
+        return found
+
+    for package_name, stack in {**PY_PACKAGE_TO_STACK, **PACKAGE_TO_STACK}.items():
+        pattern = rf"(^|[\"'\\s,=]){re.escape(package_name)}([<>=~!\\[\"'\\s,]|$)"
+
+        if re.search(pattern, lowered):
+            found.add(stack)
+
+    return found
+
+
+def detected_stack(user: Dict[str, Any]) -> set[str]:
+    found = set()
+
+    def add_stack(name: str, *, from_topic: bool = False) -> None:
+        stack = normalize_stack_name(name)
+
+        if not stack:
+            return
+
+        # Topics like "portfolio" or "fullstack" are not tech stacks.
+        # Only render known tech-like topics, while GitHub languages are always allowed.
+        if from_topic and stack not in KNOWN_STACK_NAMES:
+            return
+
+        found.add(stack)
+
+    for repo in get_repos(user):
+        add_stack(((repo.get("primaryLanguage") or {}).get("name")) or "")
+
+        for edge in ((repo.get("languages") or {}).get("edges") or []):
+            add_stack((((edge or {}).get("node") or {}).get("name")) or "")
+
+        for topic in repo_topics(repo):
+            add_stack(topic, from_topic=True)
+
+        found.update(package_json_stacks(repo_blob_text(repo, "packageJson")))
+        found.update(requirements_stacks(repo_blob_text(repo, "requirementsTxt")))
+        found.update(pyproject_stacks(repo_blob_text(repo, "pyprojectToml")))
+
+    return {stack for stack in found if stack}
+
+
 def ordered_tech_groups(user: Dict[str, Any], config: Dict[str, Any]) -> Dict[str, List[str]]:
     found = detected_stack(user)
-    groups = config.get("tech_groups") or DEFAULT_CONFIG["tech_groups"]
-    return {
-        color: sorted(items, key=lambda item: (item not in found, items.index(item)))
-        for color, items in groups.items()
-    }
+    found_lookup = {stack.casefold() for stack in found}
+    configured_groups = config.get("tech_groups") or DEFAULT_CONFIG["tech_groups"]
+    ordered: Dict[str, List[str]] = {}
+    already_added = set()
+
+    # Keep your existing groups and colors exactly the same.
+    # Detected items move first, but non-detected configured items still stay visible.
+    for color, items in configured_groups.items():
+        unique_items: List[str] = []
+
+        for item in items:
+            stack = normalize_stack_name(item)
+
+            if not stack:
+                continue
+
+            lookup = stack.casefold()
+
+            if lookup in already_added:
+                continue
+
+            unique_items.append(stack)
+            already_added.add(lookup)
+
+        ordered[color] = sorted(
+            unique_items,
+            key=lambda stack: (stack.casefold() not in found_lookup, unique_items.index(stack)),
+        )
+
+    # Add newly detected tech automatically, without editing profile_config.json.
+    for stack in sorted(found, key=lambda value: value.casefold()):
+        lookup = stack.casefold()
+
+        if lookup in already_added:
+            continue
+
+        color = STACK_CATEGORY.get(stack, "blue")
+        ordered.setdefault(color, []).append(stack)
+        already_added.add(lookup)
+
+    return ordered
+
 
 
 def language_stats(user: Dict[str, Any]) -> List[Tuple[str, int, str]]:
