@@ -589,15 +589,22 @@ def package_json_stacks(text: str) -> set[str]:
 
     try:
         package_data = json.loads(text)
-            if package_data.get("type") == "module":
-        found.add("ES Modules")
 
-    if package_data.get("bin"):
-        found.add("CLI")
+        if package_data.get("type") == "module":
+            found.add("ES Modules")
+
+        if package_data.get("bin"):
+            found.add("CLI")
+
     except Exception:
         return found
 
-    for section in ("dependencies", "devDependencies", "peerDependencies", "optionalDependencies"):
+    for section in (
+        "dependencies",
+        "devDependencies",
+        "peerDependencies",
+        "optionalDependencies",
+    ):
         dependencies = package_data.get(section) or {}
 
         if not isinstance(dependencies, dict):
@@ -609,8 +616,12 @@ def package_json_stacks(text: str) -> set[str]:
             if stack:
                 found.add(stack)
 
-    scripts = " ".join(str(value).lower() for value in (package_data.get("scripts") or {}).values())
-        if "bun" in scripts:
+    scripts = " ".join(
+        str(value).lower()
+        for value in (package_data.get("scripts") or {}).values()
+    )
+
+    if "bun" in scripts:
         found.add("Bun")
 
     if "tsx" in scripts:
