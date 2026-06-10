@@ -2,15 +2,15 @@
   "profile": {
     "fallback_name": "Ujjwal Kumar Kannojiya",
     "fallback_username": "UjjwalKumarKannojiya",
-    "headline": "Full-stack developer & UI/UX enthusiast crafting",
-    "highlight": "scalable products",
-    "tagline_suffix": "at the intersection of code and design.",
-    "open_status": "open to opportunities"
+    "headline": "Full-stack developer & AI SaaS builder crafting",
+    "highlight": "scalable digital products",
+    "tagline_suffix": "with clean UI, strong backend, and real-world deployment.",
+    "open_status": "open to internships and opportunities"
   },
   "socials": [
     {
-      "label": "Instagram",
-      "url": "https://instagram.com/ni.mi.sh.___"
+      "label": "GitHub",
+      "url": "https://github.com/UjjwalKumarKannojiya"
     },
     {
       "label": "LinkedIn",
@@ -28,35 +28,49 @@
       "TypeScript",
       "Java",
       "C",
-      "R"
+      "SQL",
+      "HTML5",
+      "CSS3"
     ],
     "purple": [
       "React",
       "Next.js",
       "Node.js",
+      "Express.js",
       "TailwindCSS",
       "Bootstrap",
-      "Vite"
+      "Vite",
+      "shadcn/ui"
     ],
     "green": [
-      "TensorFlow",
-      "PyTorch",
-      "scikit-learn",
+      "AI",
+      "Machine Learning",
+      "Hugging Face",
+      "OpenAI SDK",
       "NumPy",
-      "Pandas"
+      "Pandas",
+      "scikit-learn",
+      "TensorFlow"
     ],
     "orange": [
       "MongoDB",
+      "Mongoose",
+      "PostgreSQL",
       "MySQL",
-      "AWS",
-      "Azure",
-      "Apache Hadoop"
+      "Supabase",
+      "Firebase",
+      "Vercel",
+      "Render"
     ],
     "red": [
+      "Git",
+      "GitHub",
+      "VS Code",
+      "Postman",
       "Figma",
-      "Adobe PS",
-      "Premiere Pro",
-      "Power BI"
+      "Power BI",
+      "JWT",
+      "Resend"
     ]
   }
 }
