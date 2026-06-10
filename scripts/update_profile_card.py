@@ -8,7 +8,8 @@ import re
 import sys
 import urllib.request
 from pathlib import Path
-from typing import Any, Dict, List, Set, Tuple
+from typing import Any, Dict, List, Tuple
+
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS_DIR = ROOT / "assets"
@@ -16,7 +17,8 @@ SVG_PATH = ASSETS_DIR / "profile-card.svg"
 README_PATH = ROOT / "README.md"
 CONFIG_PATH = ROOT / "profile_config.json"
 
-DEFAULT_CONFIG: Dict[str, Any] = {
+
+DEFAULT_CONFIG = {
     "profile": {
         "fallback_name": "Ujjwal Kumar Kannojiya",
         "fallback_username": "UjjwalKumarKannojiya",
@@ -39,16 +41,17 @@ DEFAULT_CONFIG: Dict[str, Any] = {
     },
 }
 
+
 GRAPHQL_QUERY = """
 query($login: String!) {
   user(login: $login) {
     login
     name
     repositories(
-      first: 100
-      privacy: PUBLIC
-      ownerAffiliations: OWNER
-      orderBy: { field: PUSHED_AT, direction: DESC }
+      first: 100,
+      privacy: PUBLIC,
+      ownerAffiliations: OWNER,
+      orderBy: {field: PUSHED_AT, direction: DESC}
     ) {
       totalCount
       nodes {
@@ -59,35 +62,64 @@ query($login: String!) {
         forkCount
         pushedAt
         primaryLanguage { name color }
-        languages(first: 10, orderBy: { field: SIZE, direction: DESC }) {
-          edges { size node { name color } }
+        languages(first: 10, orderBy: {field: SIZE, direction: DESC}) {
+          edges {
+            size
+            node { name color }
+          }
         }
         repositoryTopics(first: 20) {
           nodes { topic { name } }
         }
-        packageJson: object(expression: "HEAD:package.json") { ... on Blob { text } }
-        frontendPackageJson: object(expression: "HEAD:frontend/package.json") { ... on Blob { text } }
-        backendPackageJson: object(expression: "HEAD:backend/package.json") { ... on Blob { text } }
-        finalProjectPackageJson: object(expression: "HEAD:final-project/package.json") { ... on Blob { text } }
-        chapter01PackageJson: object(expression: "HEAD:chapter01/package.json") { ... on Blob { text } }
-        chapter02PackageJson: object(expression: "HEAD:chapter02/package.json") { ... on Blob { text } }
-        requirementsTxt: object(expression: "HEAD:requirements.txt") { ... on Blob { text } }
-        pyprojectToml: object(expression: "HEAD:pyproject.toml") { ... on Blob { text } }
-        bunLock: object(expression: "HEAD:bun.lock") { ... on Blob { text } }
-        bunLockb: object(expression: "HEAD:bun.lockb") { ... on Blob { text } }
+        packageJson: object(expression: "HEAD:package.json") {
+          ... on Blob { text }
+        }
+        requirementsTxt: object(expression: "HEAD:requirements.txt") {
+          ... on Blob { text }
+        }
+        pyprojectToml: object(expression: "HEAD:pyproject.toml") {
+          ... on Blob { text }
+        }
+        bunLock: object(expression: "HEAD:bun.lock") {
+          ... on Blob { text }
+        }
+        bunLockb: object(expression: "HEAD:bun.lockb") {
+          ... on Blob { text }
+        }
+        frontendPackageJson: object(expression: "HEAD:frontend/package.json") {
+          ... on Blob { text }
+        }
+        backendPackageJson: object(expression: "HEAD:backend/package.json") {
+          ... on Blob { text }
+        }
+        finalProjectPackageJson: object(expression: "HEAD:final-project/package.json") {
+          ... on Blob { text }
+        }
+        chapter01PackageJson: object(expression: "HEAD:chapter01/package.json") {
+          ... on Blob { text }
+        }
+        chapter02PackageJson: object(expression: "HEAD:chapter02/package.json") {
+          ... on Blob { text }
+        }
       }
     }
     contributionsCollection {
       contributionCalendar {
         totalContributions
-        weeks { contributionDays { contributionCount } }
+        weeks {
+          contributionDays {
+            contributionCount
+          }
+        }
       }
     }
   }
 }
 """
 
+
 NORMALIZE = {
+    # Languages
     "javascript": "JavaScript",
     "js": "JavaScript",
     "typescript": "TypeScript",
@@ -97,13 +129,30 @@ NORMALIZE = {
     "c": "C",
     "c++": "C++",
     "cpp": "C++",
+    "c#": "C#",
+    "csharp": "C#",
     "r": "R",
+    "go": "Go",
+    "golang": "Go",
+    "rust": "Rust",
+    "php": "PHP",
+    "ruby": "Ruby",
+    "swift": "Swift",
+    "kotlin": "Kotlin",
+    "dart": "Dart",
+    "shell": "Shell",
+    "bash": "Bash",
+    "powershell": "PowerShell",
+    "sql": "SQL",
     "html": "HTML5",
     "html5": "HTML5",
     "css": "CSS3",
     "css3": "CSS3",
     "scss": "SCSS",
     "jupyter notebook": "Jupyter Notebook",
+    "jupyter-notebook": "Jupyter Notebook",
+
+    # Frontend / backend frameworks
     "react": "React",
     "reactjs": "React",
     "react.js": "React",
@@ -115,12 +164,20 @@ NORMALIZE = {
     "node.js": "Node.js",
     "express": "Express.js",
     "expressjs": "Express.js",
+    "express.js": "Express.js",
+    "vue": "Vue.js",
+    "vuejs": "Vue.js",
+    "vue.js": "Vue.js",
+    "angular": "Angular",
+    "svelte": "Svelte",
+    "astro": "Astro",
     "tailwind": "TailwindCSS",
     "tailwindcss": "TailwindCSS",
     "tailwind-css": "TailwindCSS",
     "bootstrap": "Bootstrap",
     "vite": "Vite",
     "redux": "Redux",
+    "react-native": "React Native",
     "shadcn": "shadcn/ui",
     "shadcn-ui": "shadcn/ui",
     "shadcn/ui": "shadcn/ui",
@@ -128,10 +185,14 @@ NORMALIZE = {
     "radix-ui": "Radix UI",
     "nextauth": "NextAuth.js",
     "next-auth": "NextAuth.js",
+    "nextauth.js": "NextAuth.js",
     "authjs": "Auth.js",
+    "auth.js": "Auth.js",
     "zod": "Zod",
     "react-hook-form": "React Hook Form",
     "framer-motion": "Framer Motion",
+
+    # AI / data
     "tensorflow": "TensorFlow",
     "pytorch": "PyTorch",
     "torch": "PyTorch",
@@ -144,6 +205,15 @@ NORMALIZE = {
     "opencv": "OpenCV",
     "opencv-python": "OpenCV",
     "mediapipe": "MediaPipe",
+    "pillow": "Pillow",
+    "pil": "Pillow",
+    "huggingface": "Hugging Face",
+    "hugging-face": "Hugging Face",
+    "langchain": "LangChain",
+    "machine-learning": "Machine Learning",
+    "ai": "AI",
+
+    # Database / cloud / tooling
     "mongodb": "MongoDB",
     "mongo": "MongoDB",
     "mongoose": "Mongoose",
@@ -158,21 +228,30 @@ NORMALIZE = {
     "drizzle-orm": "Drizzle ORM",
     "redis": "Redis",
     "docker": "Docker",
+    "kubernetes": "Kubernetes",
     "aws": "AWS",
     "azure": "Azure",
     "gcp": "GCP",
+    "google-cloud": "GCP",
     "vercel": "Vercel",
     "netlify": "Netlify",
+    "render": "Render",
+    "railway": "Railway",
+    "heroku": "Heroku",
     "hadoop": "Apache Hadoop",
     "apache-hadoop": "Apache Hadoop",
+
+    # Product / design / dev tools
     "figma": "Figma",
-    "photoshop": "Adobe PS",
     "adobe-ps": "Adobe PS",
+    "photoshop": "Adobe PS",
     "premiere-pro": "Premiere Pro",
     "powerbi": "Power BI",
     "power-bi": "Power BI",
     "git": "Git",
     "github": "GitHub",
+    "vscode": "VS Code",
+    "vs-code": "VS Code",
     "postman": "Postman",
     "resend": "Resend",
     "sonner": "Sonner",
@@ -182,38 +261,104 @@ NORMALIZE = {
     "bcrypt": "bcryptjs",
     "bcryptjs": "bcryptjs",
     "bun": "Bun",
+    "bunjs": "Bun",
+    "bun.js": "Bun",
     "tsx": "TSX",
+    "esmodules": "ES Modules",
+    "es-modules": "ES Modules",
+    "cli": "CLI",
+    "openrouter": "OpenRouter AI",
+    "openrouter-ai": "OpenRouter AI",
+    "openai": "OpenAI SDK",
+    "openai-sdk": "OpenAI SDK",
+    "ai-sdk": "AI SDK",
+    "firecrawl": "Firecrawl",
+    "telegraf": "Telegraf",
+    "telegram": "Telegram Bot",
+    "telegram-bot": "Telegram Bot",
+    "clack": "Clack Prompts",
+    "clack-prompts": "Clack Prompts",
+    "chalk": "Chalk",
+    "commander": "Commander",
+    "figlet": "Figlet",
+    "marked": "Marked",
+    "marked-terminal": "Marked Terminal",
+    "diff": "Diff",
+    "better-auth": "Better Auth",
+    "inngest": "Inngest",
+    "neon": "Neon",
+    "neon-postgres": "Neon",
+    "upstash": "Upstash Redis",
+    "upstash-redis": "Upstash Redis",
+    "aws-s3": "AWS S3",
+    "s3": "AWS S3",
+    "stripe": "Stripe",
+    "posthog": "PostHog",
+    "tanstack-query": "TanStack Query",
+    "react-query": "TanStack Query",
+    "react-router": "React Router",
+    "react-router-dom": "React Router",
+    "helmet": "Helmet",
+    "cors": "CORS",
+    "jwt": "JWT",
+    "jsonwebtoken": "JWT",
+    "rate-limiting": "Rate Limiting",
+    "rate-limit": "Rate Limiting",
+    "node-cron": "node-cron",
+    "express-validator": "Express Validator",
+    "base-ui": "Base UI",
+    "react-email": "React Email",
+    "embla-carousel": "Embla Carousel",
+    "create-react-app": "Create React App",
 }
+
 
 STACK_GROUPS = {
     "blue": {
-        "Python", "JavaScript", "TypeScript", "Java", "C", "C++", "R",
-        "HTML5", "CSS3", "SCSS", "Jupyter Notebook", "Bun", "TSX",
+        "Python", "JavaScript", "TypeScript", "Java", "C", "C++", "C#", "R",
+        "Go", "Rust", "PHP", "Ruby", "Swift", "Kotlin", "Dart", "Shell",
+        "Bash", "PowerShell", "SQL", "HTML5", "CSS3", "SCSS", "Jupyter Notebook",
+        "Bun", "TSX", "ES Modules",
     },
     "purple": {
-        "React", "Next.js", "Node.js", "Express.js", "TailwindCSS", "Bootstrap",
-        "Vite", "Redux", "shadcn/ui", "Radix UI", "NextAuth.js", "Auth.js",
-        "Zod", "React Hook Form", "Framer Motion", "Flask", "FastAPI", "Django",
+        "React", "Next.js", "Node.js", "Express.js", "Vue.js", "Angular",
+        "Svelte", "Astro", "TailwindCSS", "Bootstrap", "Vite", "Redux",
+        "React Native", "shadcn/ui", "Radix UI", "NextAuth.js", "Auth.js",
+        "Zod", "React Hook Form", "Framer Motion", "React Router",
+        "TanStack Query", "Better Auth", "Inngest", "Base UI", "React Email",
+        "Next Themes", "Embla Carousel", "Create React App", "Flask", "FastAPI", "Django",
     },
     "green": {
-        "TensorFlow", "PyTorch", "scikit-learn", "NumPy", "Pandas", "Matplotlib",
-        "Seaborn", "OpenCV", "MediaPipe", "Pillow", "Hugging Face", "AI",
+        "TensorFlow", "PyTorch", "scikit-learn", "NumPy", "Pandas",
+        "Matplotlib", "Seaborn", "OpenCV", "MediaPipe", "Pillow",
+        "Hugging Face", "LangChain", "Machine Learning", "AI",
+        "OpenAI SDK", "AI SDK", "OpenRouter AI",
     },
     "orange": {
         "MongoDB", "Mongoose", "MySQL", "PostgreSQL", "Supabase", "Firebase",
-        "Appwrite", "Prisma", "Drizzle ORM", "Redis", "Docker", "AWS", "Azure",
-        "GCP", "Vercel", "Netlify", "Apache Hadoop",
+        "Appwrite", "Prisma", "Drizzle ORM", "Redis", "Docker", "Kubernetes",
+        "AWS", "Azure", "GCP", "Vercel", "Netlify", "Render", "Railway",
+        "Heroku", "Apache Hadoop", "Neon", "Upstash Redis", "AWS S3", "Stripe",
     },
     "red": {
-        "Figma", "Adobe PS", "Premiere Pro", "Power BI", "Git", "GitHub", "Postman",
-        "Resend", "Sonner", "Lucide", "Axios", "bcryptjs",
+        "Figma", "Adobe PS", "Premiere Pro", "Power BI", "Git", "GitHub",
+        "VS Code", "Postman", "Resend", "Sonner", "Lucide", "Axios", "bcryptjs",
+        "CLI", "Clack Prompts", "Chalk", "Commander", "Figlet", "Firecrawl",
+        "Telegraf", "Telegram Bot", "Marked", "Marked Terminal", "Diff", "PostHog",
+        "Helmet", "CORS", "JWT", "Rate Limiting", "node-cron", "Express Validator",
     },
 }
 
-STACK_CATEGORY = {stack: group for group, stacks in STACK_GROUPS.items() for stack in stacks}
-KNOWN_STACKS = set(STACK_CATEGORY) | set(NORMALIZE.values())
+
+STACK_CATEGORY = {
+    stack: color
+    for color, stacks in STACK_GROUPS.items()
+    for stack in stacks
+}
+
 
 PACKAGE_TO_STACK = {
+    # JS / TS dependencies
     "react": "React",
     "react-dom": "React",
     "next": "Next.js",
@@ -252,9 +397,67 @@ PACKAGE_TO_STACK = {
     "lucide-react": "Lucide",
     "bcryptjs": "bcryptjs",
     "bcrypt": "bcryptjs",
+    "shadcn-ui": "shadcn/ui",
+    "shadcn": "shadcn/ui",
+
+    # Runtimes / CLIs / terminal tooling
     "@types/bun": "Bun",
     "bun": "Bun",
     "tsx": "TSX",
+    "@clack/core": "Clack Prompts",
+    "@clack/prompts": "Clack Prompts",
+    "chalk": "Chalk",
+    "commander": "Commander",
+    "diff": "Diff",
+    "figlet": "Figlet",
+    "marked": "Marked",
+    "marked-terminal": "Marked Terminal",
+
+    # AI / agents / external tools
+    "@mendable/firecrawl-js": "Firecrawl",
+    "@openrouter/ai-sdk-provider": "OpenRouter AI",
+    "@ai-sdk/openai": "OpenAI SDK",
+    "openai": "OpenAI SDK",
+    "ai": "AI SDK",
+    "telegraf": "Telegraf",
+
+    # UI / auth / app platform packages
+    "@base-ui/react": "Base UI",
+    "@react-email/components": "React Email",
+    "@react-email/render": "React Email",
+    "react-email": "React Email",
+    "next-themes": "Next Themes",
+    "usehooks-ts": "usehooks-ts",
+    "embla-carousel-react": "Embla Carousel",
+    "embla-carousel-autoplay": "Embla Carousel",
+    "@tanstack/react-query": "TanStack Query",
+    "better-auth": "Better Auth",
+    "inngest": "Inngest",
+
+    # Cloud / data / payments / analytics
+    "@neondatabase/serverless": "Neon",
+    "@upstash/redis": "Upstash Redis",
+    "@upstash/ratelimit": "Upstash Redis",
+    "@aws-sdk/client-s3": "AWS S3",
+    "@aws-sdk/s3-request-presigner": "AWS S3",
+    "@stripe/stripe-js": "Stripe",
+    "stripe": "Stripe",
+    "posthog-js": "PostHog",
+
+    # Smart Parking / classic MERN helpers
+    "react-router-dom": "React Router",
+    "jsonwebtoken": "JWT",
+    "helmet": "Helmet",
+    "cors": "CORS",
+    "express-rate-limit": "Rate Limiting",
+    "node-cron": "node-cron",
+    "express-validator": "Express Validator",
+    "react-scripts": "Create React App",
+}
+
+
+PY_PACKAGE_TO_STACK = {
+    # Python dependencies
     "flask": "Flask",
     "fastapi": "FastAPI",
     "django": "Django",
@@ -268,18 +471,24 @@ PACKAGE_TO_STACK = {
     "matplotlib": "Matplotlib",
     "seaborn": "Seaborn",
     "opencv-python": "OpenCV",
+    "opencv-contrib-python": "OpenCV",
     "mediapipe": "MediaPipe",
     "pillow": "Pillow",
+    "pil": "Pillow",
     "transformers": "Hugging Face",
+    "huggingface-hub": "Hugging Face",
+    "langchain": "LangChain",
 }
 
-PALETTE = {
-    "blue": "#58A6FF",
-    "purple": "#A371F7",
-    "green": "#3FB950",
-    "orange": "#D2992A",
-    "red": "#F85149",
-}
+
+KNOWN_STACK_NAMES = (
+    set(STACK_CATEGORY)
+    | set(NORMALIZE.values())
+    | set(PACKAGE_TO_STACK.values())
+    | set(PY_PACKAGE_TO_STACK.values())
+    | {tech for group in DEFAULT_CONFIG["tech_groups"].values() for tech in group}
+)
+
 
 
 def esc(value: Any) -> str:
@@ -290,7 +499,7 @@ def short(value: Any, limit: int) -> str:
     text = re.sub(r"\s+", " ", str(value or "")).strip()
     if len(text) <= limit:
         return text
-    return text[: max(0, limit - 1)].rstrip() + "..."
+    return text[: max(0, limit - 1)].rstrip() + "…"
 
 
 def metric_number(value: int) -> str:
@@ -299,24 +508,15 @@ def metric_number(value: int) -> str:
     return str(value)
 
 
-def deep_merge(base: Dict[str, Any], override: Dict[str, Any]) -> Dict[str, Any]:
-    result = json.loads(json.dumps(base))
-    for key, value in override.items():
-        if isinstance(value, dict) and isinstance(result.get(key), dict):
-            result[key].update(value)
-        else:
-            result[key] = value
-    return result
-
-
 def load_config() -> Dict[str, Any]:
     if CONFIG_PATH.exists():
-        return deep_merge(DEFAULT_CONFIG, json.loads(CONFIG_PATH.read_text(encoding="utf-8")))
+        return json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
     return DEFAULT_CONFIG
 
 
 def request_github(username: str, token: str) -> Dict[str, Any]:
     body = json.dumps({"query": GRAPHQL_QUERY, "variables": {"login": username}}).encode("utf-8")
+
     req = urllib.request.Request(
         "https://api.github.com/graphql",
         data=body,
@@ -344,7 +544,8 @@ def request_github(username: str, token: str) -> Dict[str, Any]:
 def fallback_user(config: Dict[str, Any], username: str) -> Dict[str, Any]:
     demo_levels = [0, 0, 1, 1, 2, 2, 1, 3, 3, 2, 1, 0, 1, 2, 3, 4, 4, 3]
     days = [{"contributionCount": demo_levels[i % len(demo_levels)]} for i in range(371)]
-    weeks = [{"contributionDays": days[i: i + 7]} for i in range(0, 371, 7)]
+    weeks = [{"contributionDays": days[i : i + 7]} for i in range(0, 371, 7)]
+
     return {
         "login": username,
         "name": config["profile"].get("fallback_name", username),
@@ -367,16 +568,19 @@ def get_repos(user: Dict[str, Any]) -> List[Dict[str, Any]]:
 
 def normalize_stack_name(name: str) -> str:
     clean = re.sub(r"\s+", " ", str(name or "").replace("_", "-")).strip()
-    return NORMALIZE.get(clean.lower(), clean)
+    key = clean.lower()
+    return NORMALIZE.get(key, clean)
 
 
-def repo_topics(repo: Dict[str, Any]) -> Set[str]:
+def repo_topics(repo: Dict[str, Any]) -> set[str]:
     topic_nodes = ((repo.get("repositoryTopics") or {}).get("nodes")) or []
-    topics: Set[str] = set()
+    topics = set()
+
     for node in topic_nodes:
         raw = (((node or {}).get("topic") or {}).get("name")) or ""
         if raw:
             topics.add(raw.strip().lower())
+
     return topics
 
 
@@ -387,24 +591,52 @@ def repo_blob_text(repo: Dict[str, Any], key: str) -> str:
 
 def dependency_stack_name(package_name: str) -> str:
     key = str(package_name or "").strip().lower()
+
     if not key:
         return ""
 
-    prefix_map = {
-        "@radix-ui/": "Radix UI",
-        "@supabase/": "Supabase",
-        "@vitejs/": "Vite",
-        "@tailwindcss/": "TailwindCSS",
-    }
-    for prefix, stack in prefix_map.items():
-        if key.startswith(prefix):
-            return stack
+    if key.startswith("@radix-ui/"):
+        return "Radix UI"
+
+    if key.startswith("@supabase/"):
+        return "Supabase"
+
+    if key.startswith("@vitejs/"):
+        return "Vite"
+
+    if key.startswith("@tailwindcss/"):
+        return "TailwindCSS"
+
+    if key.startswith("@clack/"):
+        return "Clack Prompts"
+
+    if key.startswith("@mendable/firecrawl"):
+        return "Firecrawl"
+
+    if key.startswith("@openrouter/"):
+        return "OpenRouter AI"
+
+    if key.startswith("@ai-sdk/"):
+        return "AI SDK"
+
+    if key.startswith("@tanstack/"):
+        return "TanStack Query"
+
+    if key.startswith("@upstash/"):
+        return "Upstash Redis"
+
+    if key.startswith("@aws-sdk/"):
+        return "AWS S3"
+
+    if key.startswith("@react-email/"):
+        return "React Email"
 
     return PACKAGE_TO_STACK.get(key, "")
 
 
-def package_json_stacks(text: str) -> Set[str]:
-    found: Set[str] = set()
+def package_json_stacks(text: str) -> set[str]:
+    found = set()
+
     if not text:
         return found
 
@@ -423,68 +655,86 @@ def package_json_stacks(text: str) -> Set[str]:
     if package_manager.startswith("bun"):
         found.add("Bun")
 
-    dependency_sections = ("dependencies", "devDependencies", "peerDependencies", "optionalDependencies")
-    if any(package_data.get(section) for section in dependency_sections):
+    if any(package_data.get(section) for section in ("dependencies", "devDependencies", "peerDependencies", "optionalDependencies")):
         found.add("Node.js")
 
-    for section in dependency_sections:
+    for section in ("dependencies", "devDependencies", "peerDependencies", "optionalDependencies"):
         dependencies = package_data.get(section) or {}
+
         if not isinstance(dependencies, dict):
             continue
+
         for dependency in dependencies:
             stack = dependency_stack_name(dependency)
+
             if stack:
                 found.add(stack)
 
     scripts = " ".join(str(value).lower() for value in (package_data.get("scripts") or {}).values())
+
     if "next" in scripts:
         found.add("Next.js")
+
     if "vite" in scripts:
         found.add("Vite")
+
     if "bun" in scripts:
         found.add("Bun")
+
     if "tsx" in scripts:
         found.add("TSX")
 
     return found
 
 
-def requirements_stacks(text: str) -> Set[str]:
-    found: Set[str] = set()
+def requirements_stacks(text: str) -> set[str]:
+    found = set()
+
     for raw_line in str(text or "").splitlines():
         line = raw_line.split("#", 1)[0].strip()
+
         if not line or line.startswith(("-", "git+", "http://", "https://")):
             continue
+
         package_name = re.split(r"[<>=~!;\[\s]", line, maxsplit=1)[0].strip().lower()
-        stack = PACKAGE_TO_STACK.get(package_name)
+        stack = PY_PACKAGE_TO_STACK.get(package_name) or PACKAGE_TO_STACK.get(package_name)
+
         if stack:
             found.add(stack)
+
     return found
 
 
-def pyproject_stacks(text: str) -> Set[str]:
-    found: Set[str] = set()
+def pyproject_stacks(text: str) -> set[str]:
+    found = set()
     lowered = str(text or "").lower()
+
     if not lowered:
         return found
 
-    for package_name, stack in PACKAGE_TO_STACK.items():
-        pattern = rf"(^|[\"'\s,=]){re.escape(package_name)}([<>=~!\[\"'\s,]|$)"
+    for package_name, stack in {**PY_PACKAGE_TO_STACK, **PACKAGE_TO_STACK}.items():
+        pattern = rf"(^|[\"'\\s,=]){re.escape(package_name)}([<>=~!\\[\"'\\s,]|$)"
+
         if re.search(pattern, lowered):
             found.add(stack)
 
     return found
 
 
-def detected_stack(user: Dict[str, Any]) -> Set[str]:
-    found: Set[str] = set()
+def detected_stack(user: Dict[str, Any]) -> set[str]:
+    found = set()
 
     def add_stack(name: str, *, from_topic: bool = False) -> None:
         stack = normalize_stack_name(name)
+
         if not stack:
             return
-        if from_topic and stack not in KNOWN_STACKS:
+
+        # Topics like "portfolio" or "fullstack" are not tech stacks.
+        # Only render known tech-like topics, while GitHub languages are always allowed.
+        if from_topic and stack not in KNOWN_STACK_NAMES:
             return
+
         found.add(stack)
 
     for repo in get_repos(user):
@@ -520,17 +770,24 @@ def ordered_tech_groups(user: Dict[str, Any], config: Dict[str, Any]) -> Dict[st
     found_lookup = {stack.casefold() for stack in found}
     configured_groups = config.get("tech_groups") or DEFAULT_CONFIG["tech_groups"]
     ordered: Dict[str, List[str]] = {}
-    already_added: Set[str] = set()
+    already_added = set()
 
+    # Keep your existing groups and colors exactly the same.
+    # Detected items move first, but non-detected configured items still stay visible.
     for color, items in configured_groups.items():
         unique_items: List[str] = []
+
         for item in items:
             stack = normalize_stack_name(item)
+
             if not stack:
                 continue
+
             lookup = stack.casefold()
+
             if lookup in already_added:
                 continue
+
             unique_items.append(stack)
             already_added.add(lookup)
 
@@ -539,15 +796,19 @@ def ordered_tech_groups(user: Dict[str, Any], config: Dict[str, Any]) -> Dict[st
             key=lambda stack: (stack.casefold() not in found_lookup, unique_items.index(stack)),
         )
 
+    # Add newly detected tech automatically, without editing profile_config.json.
     for stack in sorted(found, key=lambda value: value.casefold()):
         lookup = stack.casefold()
+
         if lookup in already_added:
             continue
+
         color = STACK_CATEGORY.get(stack, "blue")
         ordered.setdefault(color, []).append(stack)
         already_added.add(lookup)
 
     return ordered
+
 
 
 def language_stats(user: Dict[str, Any]) -> List[Tuple[str, int, str]]:
@@ -560,8 +821,10 @@ def language_stats(user: Dict[str, Any]) -> List[Tuple[str, int, str]]:
             lang = node.get("name") or ""
             size = int((edge or {}).get("size") or 0)
             color = node.get("color") or "#58A6FF"
+
             if not lang or size <= 0:
                 continue
+
             sizes[lang] = sizes.get(lang, 0) + size
             colors[lang] = color
 
@@ -569,8 +832,10 @@ def language_stats(user: Dict[str, Any]) -> List[Tuple[str, int, str]]:
         for repo in get_repos(user):
             lang = ((repo.get("primaryLanguage") or {}).get("name")) or ""
             color = ((repo.get("primaryLanguage") or {}).get("color")) or "#58A6FF"
+
             if not lang:
                 continue
+
             sizes[lang] = sizes.get(lang, 0) + 1
             colors[lang] = color
 
@@ -584,6 +849,7 @@ def language_stats(user: Dict[str, Any]) -> List[Tuple[str, int, str]]:
 
     total_size = sum(sizes.values()) or 1
     result = []
+
     for lang, size in sorted(sizes.items(), key=lambda item: item[1], reverse=True)[:4]:
         percent = max(3, round((size / total_size) * 100))
         result.append((lang, percent, colors.get(lang, "#58A6FF")))
@@ -593,24 +859,31 @@ def language_stats(user: Dict[str, Any]) -> List[Tuple[str, int, str]]:
 
 def latest_projects_svg(user: Dict[str, Any]) -> str:
     latest = get_repos(user)[:4]
+
     if not latest:
-        return '<text x="458" y="786" class="barLabel">No public projects found</text>'
+        return '''
+        <text x="18" y="54" class="barLabel">No public projects found</text>
+        <rect x="18" y="66" width="300" height="6" rx="3" fill="#21262D"/>
+        <rect x="18" y="66" width="90" height="6" rx="3" fill="#A371F7"/>'''
 
     rows = []
+
     for index, repo in enumerate(latest):
-        y = 784 + index * 21
+        y = 52 + index * 21
         name = short(repo.get("name", "project"), 25)
         stars = int(repo.get("stargazerCount") or 0)
         forks = int(repo.get("forkCount") or 0)
         lang = ((repo.get("primaryLanguage") or {}).get("name")) or "Code"
         lang_color = ((repo.get("primaryLanguage") or {}).get("color")) or "#58A6FF"
+
         rows.append(
-            f'<circle cx="462" cy="{y - 4}" r="3" fill="{esc(lang_color)}">'
-            f'<animate attributeName="opacity" values="0.65;1;0.65" dur="4s" repeatCount="indefinite"/>'
-            f'</circle>'
-            f'<text x="474" y="{y}" class="barLabel">{esc(name)}</text>'
-            f'<text x="690" y="{y}" class="barPct">{esc(short(lang, 10))}</text>'
-            f'<text x="770" y="{y}" class="barPct">stars {stars}  forks {forks}</text>'
+            f'''
+            <circle cx="22" cy="{y - 4}" r="3" fill="{esc(lang_color)}">
+              <animate attributeName="opacity" values="0.65;1;0.65" dur="4s" repeatCount="indefinite"/>
+            </circle>
+            <text x="34" y="{y}" class="barLabel">{esc(name)}</text>
+            <text x="250" y="{y}" class="barPct">{esc(short(lang, 10))}</text>
+            <text x="330" y="{y}" class="barPct">★ {stars} ⑂ {forks}</text>'''
         )
 
     return "\n".join(rows)
@@ -619,9 +892,11 @@ def latest_projects_svg(user: Dict[str, Any]) -> str:
 def contribution_levels(user: Dict[str, Any]) -> List[int]:
     weeks = (((user.get("contributionsCollection") or {}).get("contributionCalendar") or {}).get("weeks")) or []
     levels = []
+
     for week in weeks[-53:]:
         for day in (week.get("contributionDays") or [])[:7]:
             count = int(day.get("contributionCount") or 0)
+
             if count == 0:
                 level = 0
             elif count < 3:
@@ -632,7 +907,9 @@ def contribution_levels(user: Dict[str, Any]) -> List[int]:
                 level = 3
             else:
                 level = 4
+
             levels.append(level)
+
     return levels
 
 
@@ -644,65 +921,105 @@ def contribution_grid_svg(user: Dict[str, Any]) -> str:
         3: ("#26A641", "#39D353"),
         4: ("#39D353", "#39D353"),
     }
+
     levels = contribution_levels(user)
     cells = []
+
+    cell = 10
+    x_step = 14
+    y_step = 13
+    start_x = 54
+    start_y = 604
+
     for week_index in range(53):
         for day_index in range(7):
             data_index = week_index * 7 + day_index
             level = levels[data_index] if data_index < len(levels) else 0
             fill, stroke = colors[level]
-            x = 54 + week_index * 14
-            y = 604 + day_index * 13
+
+            x = start_x + week_index * x_step
+            y = start_y + day_index * y_step
             delay = (week_index * 0.018 + day_index * 0.03) % 2.4
+
             cells.append(
-                f'<rect x="{x}" y="{y}" width="10" height="10" rx="2" fill="{fill}" stroke="{stroke}">'
-                f'<animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="{delay:.2f}s" repeatCount="indefinite"/>'
-                f'</rect>'
+                f'''
+                <rect x="{x}" y="{y}" width="{cell}" height="{cell}" rx="2"
+                      fill="{fill}" stroke="{stroke}">
+                  <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="{delay:.2f}s" repeatCount="indefinite"/>
+                </rect>'''
             )
+
     return "\n".join(cells)
 
 
-def bar_rows_svg(stats: List[Tuple[str, int, str]]) -> str:
+def bar_rows_svg(stats: List[Tuple[str, int, str]], x: int, y: int) -> str:
     rows = []
+
     for index, (label, percent, color) in enumerate(stats[:4]):
-        y = 778 + index * 22
-        bar_width = round(194 * percent / 100)
+        yy = y + index * 22
+        max_width = 194
+        bar_width = round(max_width * percent / 100)
+
         rows.append(
-            f'<text x="50" y="{y + 8}" class="barLabel">{esc(short(label, 12))}</text>'
-            f'<rect x="146" y="{y}" width="194" height="6" rx="3" fill="#21262D"/>'
-            f'<rect x="146" y="{y}" width="{bar_width}" height="6" rx="3" fill="{esc(color)}">'
-            f'<animate attributeName="width" values="0;{bar_width}" dur="1.2s" fill="freeze"/>'
-            f'</rect>'
-            f'<text x="372" y="{y + 8}" class="barPct">{percent}%</text>'
+            f'''
+            <text x="{x}" y="{yy + 8}" class="barLabel">{esc(short(label, 12))}</text>
+            <rect x="{x + 96}" y="{yy}" width="{max_width}" height="6" rx="3" fill="#21262D"/>
+            <rect x="{x + 96}" y="{yy}" width="{bar_width}" height="6" rx="3" fill="{esc(color)}">
+              <animate attributeName="width" values="0;{bar_width}" dur="1.2s" fill="freeze"/>
+            </rect>
+            <text x="{x + 322}" y="{yy + 8}" class="barPct">{percent}%</text>'''
         )
+
     return "\n".join(rows)
 
 
 def pill_svg(label: str, group: str, x: int, y: int) -> Tuple[str, int]:
-    color = PALETTE.get(group, "#58A6FF")
+    palette = {
+        "blue": "#58A6FF",
+        "purple": "#A371F7",
+        "green": "#3FB950",
+        "orange": "#D2992A",
+        "red": "#F85149",
+    }
+
+    color = palette.get(group, "#58A6FF")
     width = max(54, len(label) * 7 + 24)
-    svg = (
-        f'<g transform="translate({x} {y})">'
-        f'<rect width="{width}" height="24" rx="12" fill="{color}" fill-opacity="0.10" stroke="{color}" stroke-opacity="0.30">'
-        f'<animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>'
-        f'</rect>'
-        f'<text x="{width / 2:.1f}" y="16" text-anchor="middle" class="pill" fill="{color}">{esc(label)}</text>'
-        f'</g>'
-    )
+
+    svg = f'''
+    <g transform="translate({x} {y})">
+      <rect width="{width}" height="24" rx="12"
+            fill="{color}" fill-opacity="0.10"
+            stroke="{color}" stroke-opacity="0.30">
+        <animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/>
+      </rect>
+      <text x="{width / 2:.1f}" y="16" text-anchor="middle"
+            class="pill" fill="{color}">{esc(label)}</text>
+    </g>'''
+
     return svg, width
 
 
 def tech_pill_row_count(user: Dict[str, Any], config: Dict[str, Any]) -> int:
+    """Return the exact number of tech-pill rows needed in the SVG.
+
+    GitHub renders SVG as a fixed-size image, so it will not auto-grow by
+    itself. This helper lets the generator calculate the required card height
+    before writing the SVG width/height/viewBox values.
+    """
     groups = ordered_tech_groups(user, config)
     x = 32
     rows = 1
+
     for group in ["blue", "purple", "green", "orange", "red"]:
         for label in groups.get(group, []):
             width = max(54, len(label) * 7 + 24)
+
             if x + width > 828:
                 x = 32
                 rows += 1
+
             x += width + 8
+
     return max(1, rows)
 
 
@@ -710,89 +1027,77 @@ def tech_pills_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
     groups = ordered_tech_groups(user, config)
     x, y = 32, 924
     parts = []
+
     for group in ["blue", "purple", "green", "orange", "red"]:
         for label in groups.get(group, []):
             item, width = pill_svg(label, group, x, y)
+
             if x + width > 828:
                 x = 32
                 y += 34
                 item, width = pill_svg(label, group, x, y)
+
             parts.append(item)
             x += width + 8
+
     return "\n".join(parts)
 
 
-def generate_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
-    username = user.get("login") or config["profile"].get("fallback_username")
-    full_name = user.get("name") or config["profile"].get("fallback_name") or username
-    name_parts = full_name.split()
-    first_line = " ".join(name_parts[:2]) if len(name_parts) >= 2 else full_name
-    second_line = " ".join(name_parts[2:]) if len(name_parts) > 2 else username
-
-    repo_total = len(get_repos(user))
-    contribution_total = int(
-        (((user.get("contributionsCollection") or {}).get("contributionCalendar") or {}).get("totalContributions"))
-        or 0
-    )
-
-    found_stack = detected_stack(user)
-    tech_count = len(found_stack)
-    if tech_count == 0:
-        tech_count = sum(len(items) for items in (config.get("tech_groups") or {}).values())
-
-    tech_rows = tech_pill_row_count(user, config)
-    tech_bottom = 924 + ((tech_rows - 1) * 34) + 24
-    quote_line_y = tech_bottom + 44
-    quote_y = quote_line_y + 14
-    footer_y = quote_y + 68
-    svg_height = footer_y + 48
-    purple_glow_y = max(1040, svg_height - 100)
-    purple_glow_y2 = max(1028, svg_height - 112)
-
-    return f'''<svg width="860" height="{svg_height}" viewBox="0 0 860 {svg_height}" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{esc(full_name)} GitHub profile card">
+SVG_TEMPLATE = """<svg width="860" height="__SVG_HEIGHT__" viewBox="0 0 860 __SVG_HEIGHT__" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="__FULL_NAME__ GitHub profile card">
   <defs>
     <linearGradient id="avatarGrad" x1="55" y1="52" x2="145" y2="142" gradientUnits="userSpaceOnUse">
       <stop stop-color="#58A6FF"/>
       <stop offset="1" stop-color="#A371F7"/>
     </linearGradient>
+
     <radialGradient id="blueGlow" cx="50%" cy="50%" r="50%">
       <stop stop-color="#58A6FF" stop-opacity="0.12"/>
       <stop offset="1" stop-color="#58A6FF" stop-opacity="0"/>
     </radialGradient>
+
     <radialGradient id="purpleGlow" cx="50%" cy="50%" r="50%">
       <stop stop-color="#A371F7" stop-opacity="0.11"/>
       <stop offset="1" stop-color="#A371F7" stop-opacity="0"/>
     </radialGradient>
-    <clipPath id="cardClip"><rect x="0" y="0" width="860" height="{svg_height}" rx="12"/></clipPath>
+
+    <clipPath id="cardClip">
+      <rect x="0" y="0" width="860" height="__SVG_HEIGHT__" rx="12"/>
+    </clipPath>
+
     <style>
-      .section {{ font: 700 11px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; fill: #58A6FF; letter-spacing: 2.2px; }}
-      .muted {{ font: 400 13px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; fill: #8B949E; }}
-      .body {{ font: 500 14px Inter, Segoe UI, Arial, sans-serif; fill: #8B949E; }}
-      .metricNum {{ font: 800 25px Inter, Segoe UI, Arial, sans-serif; }}
-      .metricLabel {{ font: 400 11px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; fill: #8B949E; }}
-      .pill {{ font: 700 12px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; letter-spacing: .3px; }}
-      .barLabel {{ font: 400 12px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; fill: #8B949E; }}
-      .barPct {{ font: 400 11px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; fill: #8B949E; }}
-      .quoteText {{ font: italic 13px Inter, Segoe UI, Arial, sans-serif; fill: #8B949E; }}
-      .quoteAttr {{ font: 700 11px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; fill: #A371F7; }}
+      .section { font: 700 11px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; fill: #58A6FF; letter-spacing: 2.2px; }
+      .muted { font: 400 13px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; fill: #8B949E; }
+      .body { font: 500 14px Inter, Segoe UI, Arial, sans-serif; fill: #8B949E; }
+      .metricNum { font: 800 25px Inter, Segoe UI, Arial, sans-serif; }
+      .metricLabel { font: 400 11px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; fill: #8B949E; }
+      .pill { font: 700 12px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; letter-spacing: .3px; }
+      .barLabel { font: 400 12px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; fill: #8B949E; }
+      .barPct { font: 400 11px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; fill: #8B949E; }
+      .quoteText { font: italic 13px Inter, Segoe UI, Arial, sans-serif; fill: #8B949E; }
+      .quoteAttr { font: 700 11px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; fill: #A371F7; }
     </style>
   </defs>
 
   <g clip-path="url(#cardClip)">
-    <rect width="860" height="{svg_height}" rx="12" fill="#0D1117"/>
-    <rect x="0.5" y="0.5" width="859" height="{svg_height - 1}" rx="11.5" stroke="#21262D"/>
+    <rect width="860" height="__SVG_HEIGHT__" rx="12" fill="#0D1117"/>
+    <rect x="0.5" y="0.5" width="859" height="__BORDER_HEIGHT__" rx="11.5" stroke="#21262D"/>
 
     <circle cx="825" cy="-20" r="150" fill="url(#blueGlow)">
       <animate attributeName="cx" values="825;810;825" dur="7s" repeatCount="indefinite"/>
       <animate attributeName="cy" values="-20;-10;-20" dur="7s" repeatCount="indefinite"/>
     </circle>
 
-    <circle cx="-18" cy="{purple_glow_y}" r="125" fill="url(#purpleGlow)">
+    <circle cx="-18" cy="__PURPLE_GLOW_Y__" r="125" fill="url(#purpleGlow)">
       <animate attributeName="cx" values="-18;2;-18" dur="8s" repeatCount="indefinite"/>
-      <animate attributeName="cy" values="{purple_glow_y};{purple_glow_y2};{purple_glow_y}" dur="8s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="__PURPLE_GLOW_Y__;__PURPLE_GLOW_Y2__;__PURPLE_GLOW_Y__" dur="8s" repeatCount="indefinite"/>
     </circle>
 
-    <path d="M500 44 C600 20 720 20 826 55" fill="none" stroke="#58A6FF" stroke-width="1.2" stroke-dasharray="8 16" opacity="0.28">
+    <path d="M500 44 C600 20 720 20 826 55"
+          fill="none"
+          stroke="#58A6FF"
+          stroke-width="1.2"
+          stroke-dasharray="8 16"
+          opacity="0.28">
       <animate attributeName="stroke-dashoffset" values="0;-260" dur="8s" repeatCount="indefinite"/>
       <animate attributeName="opacity" values="0.18;0.50;0.18" dur="8s" repeatCount="indefinite"/>
     </path>
@@ -808,19 +1113,22 @@ def generate_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
         </circle>
         <text x="45" y="58" text-anchor="middle" style="font-weight:800;font-size:32px;fill:#0D1117;font-family:Inter,Segoe UI,Arial,sans-serif;">UK</text>
       </g>
+
       <g>
         <animateTransform attributeName="transform" type="translate" values="0 0;0 -4;0 0" dur="6s" repeatCount="indefinite" additive="sum"/>
-        <text x="122" y="13" class="muted"><tspan fill="#58A6FF">const</tspan> dev = {{</text>
-        <text x="122" y="52" style="font-weight:800;font-size:32px;fill:#E6EDF3;font-family:Inter,Segoe UI,Arial,sans-serif;">{esc(short(first_line, 28))}</text>
-        <text x="122" y="88" style="font-weight:800;font-size:32px;fill:#A371F7;font-family:Inter,Segoe UI,Arial,sans-serif;">{esc(short(second_line, 28))}</text>
-        <text x="122" y="116" class="muted">}}</text>
-        <text x="122" y="150" class="body">{esc(short(config['profile'].get('headline'), 64))}</text>
-        <text x="122" y="172" class="body"><tspan fill="#58A6FF" font-weight="700">{esc(config['profile'].get('highlight'))}</tspan> {esc(short(config['profile'].get('tagline_suffix'), 50))}</text>
+        <text x="122" y="13" class="muted"><tspan fill="#58A6FF">const</tspan> dev = {</text>
+        <text x="122" y="52" style="font-weight:800;font-size:32px;fill:#E6EDF3;font-family:Inter,Segoe UI,Arial,sans-serif;">__FIRST_LINE__</text>
+        <text x="122" y="88" style="font-weight:800;font-size:32px;fill:#A371F7;font-family:Inter,Segoe UI,Arial,sans-serif;">__SECOND_LINE__</text>
+        <text x="122" y="116" class="muted">}</text>
+        <text x="122" y="150" class="body">__HEADLINE__</text>
+        <text x="122" y="172" class="body"><tspan fill="#58A6FF" font-weight="700">__HIGHLIGHT__</tspan> __TAGLINE__</text>
       </g>
+
       <animate attributeName="opacity" values="0.96;1;0.96" dur="5.8s" repeatCount="indefinite"/>
     </g>
 
     <line x1="32" y1="250" x2="828" y2="250" stroke="#21262D"/>
+
     <text x="32" y="292" class="section">// SOCIALS</text>
 
     <g transform="translate(32 314)">
@@ -831,6 +1139,7 @@ def generate_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
       <text x="38" y="22" class="muted">Instagram</text>
       <animate attributeName="opacity" values="0.90;1;0.90" dur="4.5s" repeatCount="indefinite"/>
     </g>
+
     <g transform="translate(156 314)">
       <rect width="104" height="34" rx="6" fill="#161B22" stroke="#21262D"/>
       <rect x="14" y="10" width="16" height="16" rx="2" fill="#8B949E"/>
@@ -838,6 +1147,7 @@ def generate_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
       <text x="42" y="22" class="muted">LinkedIn</text>
       <animate attributeName="opacity" values="0.90;1;0.90" dur="4.8s" repeatCount="indefinite"/>
     </g>
+
     <g transform="translate(270 314)">
       <rect width="82" height="34" rx="6" fill="#161B22" stroke="#21262D"/>
       <path d="M14 12h16v12H14z" fill="none" stroke="#8B949E" stroke-width="1.3"/>
@@ -847,78 +1157,154 @@ def generate_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
     </g>
 
     <text x="32" y="392" class="section">// METRICS</text>
+
     <g transform="translate(32 414)">
-      <rect width="252" height="76" rx="8" fill="#161B22" stroke="#21262D"><animate attributeName="opacity" values="0.96;1;0.96" dur="5s" repeatCount="indefinite"/></rect>
-      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#58A6FF">{esc(metric_number(contribution_total))}</text>
+      <rect width="252" height="76" rx="8" fill="#161B22" stroke="#21262D">
+        <animate attributeName="opacity" values="0.96;1;0.96" dur="5s" repeatCount="indefinite"/>
+      </rect>
+      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#58A6FF">__CONTRIBUTIONS__</text>
       <text x="126" y="58" text-anchor="middle" class="metricLabel">contributions</text>
     </g>
+
     <g transform="translate(304 414)">
-      <rect width="252" height="76" rx="8" fill="#161B22" stroke="#21262D"><animate attributeName="opacity" values="0.96;1;0.96" dur="5s" repeatCount="indefinite"/></rect>
-      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#A371F7">{esc(metric_number(repo_total))}</text>
+      <rect width="252" height="76" rx="8" fill="#161B22" stroke="#21262D">
+        <animate attributeName="opacity" values="0.96;1;0.96" dur="5s" repeatCount="indefinite"/>
+      </rect>
+      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#A371F7">__PROJECTS__</text>
       <text x="126" y="58" text-anchor="middle" class="metricLabel">projects</text>
     </g>
+
     <g transform="translate(576 414)">
-      <rect width="252" height="76" rx="8" fill="#161B22" stroke="#21262D"><animate attributeName="opacity" values="0.96;1;0.96" dur="5s" repeatCount="indefinite"/></rect>
-      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#3FB950">{esc(metric_number(tech_count))}</text>
+      <rect width="252" height="76" rx="8" fill="#161B22" stroke="#21262D">
+        <animate attributeName="opacity" values="0.96;1;0.96" dur="5s" repeatCount="indefinite"/>
+      </rect>
+      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#3FB950">__TECH_COUNT__</text>
       <text x="126" y="58" text-anchor="middle" class="metricLabel">detected tech</text>
     </g>
 
     <text x="32" y="536" class="section">// CONTRIBUTION GRAPH</text>
+
     <g transform="translate(32 556)">
       <rect width="796" height="142" rx="8" fill="#161B22" stroke="#21262D"/>
       <text x="22" y="31" class="muted">live activity from GitHub</text>
       <animate attributeName="opacity" values="0.94;1;0.94" dur="5s" repeatCount="indefinite"/>
     </g>
-    {contribution_grid_svg(user)}
+
+    __CONTRIBUTION_GRID__
 
     <g transform="translate(32 732)">
       <rect width="388" height="124" rx="8" fill="#161B22" stroke="#21262D"/>
       <circle cx="20" cy="22" r="3" fill="#58A6FF"/>
       <text x="34" y="26" class="muted">top languages</text>
+      __LANGUAGE_BARS__
       <animate attributeName="opacity" values="0.94;1;0.94" dur="5.3s" repeatCount="indefinite"/>
     </g>
-    {bar_rows_svg(language_stats(user))}
 
     <g transform="translate(440 732)">
       <rect width="388" height="124" rx="8" fill="#161B22" stroke="#21262D"/>
       <circle cx="20" cy="22" r="3" fill="#A371F7"/>
       <text x="34" y="26" class="muted">latest projects</text>
+      __PROJECT_ROWS__
       <animate attributeName="opacity" values="0.94;1;0.94" dur="5.6s" repeatCount="indefinite"/>
     </g>
-    {latest_projects_svg(user)}
 
     <text x="32" y="902" class="section">// TECH STACK</text>
-    {tech_pills_svg(user, config)}
 
-    <line x1="32" y1="{quote_line_y}" x2="828" y2="{quote_line_y}" stroke="#21262D"/>
-    <g transform="translate(32 {quote_y})">
+    __TECH_PILLS__
+
+    <line x1="32" y1="__QUOTE_LINE_Y__" x2="828" y2="__QUOTE_LINE_Y__" stroke="#21262D"/>
+
+    <g transform="translate(32 __QUOTE_Y__)">
       <rect x="0" y="0" width="796" height="42" rx="0 6 6 0" fill="#161B22"/>
       <rect x="0" y="0" width="3" height="42" fill="#A371F7"/>
+
       <g>
-        <text x="16" y="18" class="quoteText">&quot;Code is like humor. When you have to explain it, it&apos;s bad.&quot;</text>
-        <text x="16" y="35" class="quoteAttr">- Cory House</text>
+        <text x="16" y="18" class="quoteText">"Code is like humor. When you have to explain it, it's bad."</text>
+        <text x="16" y="35" class="quoteAttr">— Cory House</text>
         <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.34;0.44;0.90;1" dur="12s" repeatCount="indefinite"/>
       </g>
+
       <g opacity="0">
-        <text x="16" y="18" class="quoteText">&quot;First, solve the problem. Then, write the code.&quot;</text>
-        <text x="16" y="35" class="quoteAttr">- John Johnson</text>
+        <text x="16" y="18" class="quoteText">"First, solve the problem. Then, write the code."</text>
+        <text x="16" y="35" class="quoteAttr">— John Johnson</text>
         <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.28;0.38;0.66;0.76" dur="12s" repeatCount="indefinite"/>
       </g>
+
       <rect x="-820" y="0" width="820" height="42" fill="#161B22" opacity="0.92">
         <animate attributeName="x" values="-820;820;820;-820" keyTimes="0;0.24;0.25;1" dur="4s" repeatCount="indefinite"/>
         <animate attributeName="opacity" values="0.92;0.92;0;0" keyTimes="0;0.24;0.25;1" dur="4s" repeatCount="indefinite"/>
       </rect>
     </g>
 
-    <g transform="translate(32 {footer_y})">
+    <g transform="translate(32 __FOOTER_Y__)">
       <text class="muted">building the future, one commit at a time...</text>
-      <rect x="304" y="-13" width="2" height="17" fill="#58A6FF"><animate attributeName="opacity" values="1;0;1" dur=".7s" repeatCount="indefinite"/></rect>
+      <rect x="304" y="-13" width="2" height="17" fill="#58A6FF">
+        <animate attributeName="opacity" values="1;0;1" dur=".7s" repeatCount="indefinite"/>
+      </rect>
       <circle cx="650" cy="-7" r="4" fill="#3FB950"/>
-      <text x="664" y="-3" class="muted">{esc(short(config['profile'].get('open_status'), 30))}</text>
+      <text x="664" y="-3" class="muted">__OPEN_STATUS__</text>
     </g>
   </g>
-</svg>
-'''
+</svg>"""
+
+
+def generate_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
+    username = user.get("login") or config["profile"].get("fallback_username")
+    full_name = user.get("name") or config["profile"].get("fallback_name") or username
+
+    name_parts = full_name.split()
+    first_line = " ".join(name_parts[:2]) if len(name_parts) >= 2 else full_name
+    second_line = " ".join(name_parts[2:]) if len(name_parts) > 2 else username
+
+    repo_total = len(get_repos(user))
+    contribution_total = int(
+        (((user.get("contributionsCollection") or {}).get("contributionCalendar") or {}).get("totalContributions"))
+        or 0
+    )
+
+    found_stack = detected_stack(user)
+    tech_count = len(found_stack)
+    if tech_count == 0:
+        tech_count = sum(len(items) for items in (config.get("tech_groups") or {}).values())
+
+    # Dynamically extend the card when the tech stack wraps into more rows.
+    # This prevents the quote/footer from overlapping with tech pills.
+    tech_rows = tech_pill_row_count(user, config)
+    tech_bottom = 924 + ((tech_rows - 1) * 34) + 24
+    quote_line_y = tech_bottom + 44
+    quote_y = quote_line_y + 14
+    footer_y = quote_y + 68
+    svg_height = footer_y + 48
+
+    replacements = {
+        "__FULL_NAME__": esc(full_name),
+        "__FIRST_LINE__": esc(short(first_line, 28)),
+        "__SECOND_LINE__": esc(short(second_line, 28)),
+        "__HEADLINE__": esc(short(config["profile"].get("headline"), 64)),
+        "__HIGHLIGHT__": esc(config["profile"].get("highlight")),
+        "__TAGLINE__": esc(short(config["profile"].get("tagline_suffix"), 50)),
+        "__CONTRIBUTIONS__": esc(metric_number(contribution_total)),
+        "__PROJECTS__": esc(metric_number(repo_total)),
+        "__TECH_COUNT__": esc(metric_number(tech_count)),
+        "__SVG_HEIGHT__": str(svg_height),
+        "__BORDER_HEIGHT__": str(svg_height - 1),
+        "__PURPLE_GLOW_Y__": str(max(1040, svg_height - 100)),
+        "__PURPLE_GLOW_Y2__": str(max(1028, svg_height - 112)),
+        "__QUOTE_LINE_Y__": str(quote_line_y),
+        "__QUOTE_Y__": str(quote_y),
+        "__FOOTER_Y__": str(footer_y),
+        "__CONTRIBUTION_GRID__": contribution_grid_svg(user),
+        "__LANGUAGE_BARS__": bar_rows_svg(language_stats(user), 18, 46),
+        "__PROJECT_ROWS__": latest_projects_svg(user),
+        "__TECH_PILLS__": tech_pills_svg(user, config),
+        "__OPEN_STATUS__": esc(short(config["profile"].get("open_status"), 30)),
+    }
+
+    svg = SVG_TEMPLATE
+    for key, value in replacements.items():
+        svg = svg.replace(key, value)
+
+    return svg
 
 
 def generate_readme(config: Dict[str, Any]) -> str:
@@ -929,11 +1315,14 @@ def generate_readme(config: Dict[str, Any]) -> str:
     }
 
     links = []
+
     for item in config.get("socials", DEFAULT_CONFIG["socials"]):
         label = item.get("label", "Link")
         url = item.get("url", "#")
         badge = badge_map.get(label, f"{label}-161B22?style=for-the-badge")
-        links.append(f'<a href="{esc(url)}"><img src="https://img.shields.io/badge/{badge}" alt="{esc(label)}" /></a>')
+        links.append(
+            f'<a href="{url}"><img src="https://img.shields.io/badge/{badge}" alt="{esc(label)}" /></a>'
+        )
 
     return (
         '<div align="center">\n\n'
@@ -946,20 +1335,22 @@ def generate_readme(config: Dict[str, Any]) -> str:
 
 def main() -> int:
     config = load_config()
+
     username = (
         os.getenv("PROFILE_USERNAME")
         or os.getenv("GITHUB_REPOSITORY_OWNER")
         or config["profile"].get("fallback_username")
     )
+
     token = os.getenv("GITHUB_TOKEN", "")
 
     try:
         if not token:
             raise RuntimeError("GITHUB_TOKEN not found. Using local preview fallback.")
-        user = request_github(str(username), token)
+        user = request_github(username, token)
     except Exception as exc:
         print(f"Warning: {exc}", file=sys.stderr)
-        user = fallback_user(config, str(username))
+        user = fallback_user(config, username)
 
     ASSETS_DIR.mkdir(parents=True, exist_ok=True)
     SVG_PATH.write_text(generate_svg(user, config), encoding="utf-8")
