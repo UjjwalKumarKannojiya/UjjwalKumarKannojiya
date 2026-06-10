@@ -499,7 +499,7 @@ def short(value: Any, limit: int) -> str:
     text = re.sub(r"\s+", " ", str(value or "")).strip()
     if len(text) <= limit:
         return text
-    return text[: max(0, limit - 1)].rstrip() + "…"
+    return text[: max(0, limit - 1)].rstrip() + "â€¦"
 
 
 def metric_number(value: int) -> str:
@@ -883,7 +883,7 @@ def latest_projects_svg(user: Dict[str, Any]) -> str:
             </circle>
             <text x="34" y="{y}" class="barLabel">{esc(name)}</text>
             <text x="250" y="{y}" class="barPct">{esc(short(lang, 10))}</text>
-            <text x="330" y="{y}" class="barPct">★ {stars} ⑂ {forks}</text>'''
+            <text x="330" y="{y}" class="barPct">â˜… {stars} â‘‚ {forks}</text>'''
         )
 
     return "\n".join(rows)
@@ -1220,13 +1220,13 @@ SVG_TEMPLATE = """<svg width="860" height="__SVG_HEIGHT__" viewBox="0 0 860 __SV
 
       <g>
         <text x="16" y="18" class="quoteText">"Code is like humor. When you have to explain it, it's bad."</text>
-        <text x="16" y="35" class="quoteAttr">— Cory House</text>
+        <text x="16" y="35" class="quoteAttr">â€” Cory House</text>
         <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.34;0.44;0.90;1" dur="12s" repeatCount="indefinite"/>
       </g>
 
       <g opacity="0">
         <text x="16" y="18" class="quoteText">"First, solve the problem. Then, write the code."</text>
-        <text x="16" y="35" class="quoteAttr">— John Johnson</text>
+        <text x="16" y="35" class="quoteAttr">â€” John Johnson</text>
         <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.28;0.38;0.66;0.76" dur="12s" repeatCount="indefinite"/>
       </g>
 
@@ -1342,14 +1342,22 @@ def main() -> int:
         or config["profile"].get("fallback_username")
     )
 
-    token = os.getenv("GITHUB_TOKEN", "")
+    token = os.getenv("PROFILE_TOKEN") or os.getenv("GITHUB_TOKEN", "")
+    is_github_actions = os.getenv("GITHUB_ACTIONS") == "true"
 
     try:
         if not token:
-            raise RuntimeError("GITHUB_TOKEN not found. Using local preview fallback.")
+            raise RuntimeError("GitHub token not found.")
         user = request_github(username, token)
+
     except Exception as exc:
         print(f"Warning: {exc}", file=sys.stderr)
+
+        # Local preview fallback only.
+        # In GitHub Actions, stop here so broken 0-data SVG is not committed.
+        if is_github_actions:
+            return 1
+
         user = fallback_user(config, username)
 
     ASSETS_DIR.mkdir(parents=True, exist_ok=True)
@@ -1358,7 +1366,6 @@ def main() -> int:
 
     print("Profile card updated successfully.")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())
