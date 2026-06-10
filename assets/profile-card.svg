@@ -98,7 +98,7 @@
     <text x="32" y="392" class="section">// METRICS</text>
     <g transform="translate(32 414)">
       <rect width="252" height="76" rx="8" fill="#161B22" stroke="#21262D"><animate attributeName="opacity" values="0.96;1;0.96" dur="5s" repeatCount="indefinite"/></rect>
-      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#58A6FF">178</text>
+      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#58A6FF">179</text>
       <text x="126" y="58" text-anchor="middle" class="metricLabel">contributions</text>
     </g>
     <g transform="translate(304 414)">
@@ -496,7 +496,7 @@
       <text x="34" y="26" class="muted">top languages</text>
       <animate attributeName="opacity" values="0.94;1;0.94" dur="5.3s" repeatCount="indefinite"/>
     </g>
-    <text x="50" y="786" class="barLabel">Jupyter Not…</text><rect x="146" y="778" width="194" height="6" rx="3" fill="#21262D"/><rect x="146" y="778" width="97" height="6" rx="3" fill="#DA5B0B"><animate attributeName="width" values="0;97" dur="1.2s" fill="freeze"/></rect><text x="372" y="786" class="barPct">50%</text>
+    <text x="50" y="786" class="barLabel">Jupyter Not...</text><rect x="146" y="778" width="194" height="6" rx="3" fill="#21262D"/><rect x="146" y="778" width="97" height="6" rx="3" fill="#DA5B0B"><animate attributeName="width" values="0;97" dur="1.2s" fill="freeze"/></rect><text x="372" y="786" class="barPct">50%</text>
 <text x="50" y="808" class="barLabel">TypeScript</text><rect x="146" y="800" width="194" height="6" rx="3" fill="#21262D"/><rect x="146" y="800" width="66" height="6" rx="3" fill="#3178c6"><animate attributeName="width" values="0;66" dur="1.2s" fill="freeze"/></rect><text x="372" y="808" class="barPct">34%</text>
 <text x="50" y="830" class="barLabel">JavaScript</text><rect x="146" y="822" width="194" height="6" rx="3" fill="#21262D"/><rect x="146" y="822" width="16" height="6" rx="3" fill="#f1e05a"><animate attributeName="width" values="0;16" dur="1.2s" fill="freeze"/></rect><text x="372" y="830" class="barPct">8%</text>
 <text x="50" y="852" class="barLabel">HTML</text><rect x="146" y="844" width="194" height="6" rx="3" fill="#21262D"/><rect x="146" y="844" width="6" height="6" rx="3" fill="#e34c26"><animate attributeName="width" values="0;6" dur="1.2s" fill="freeze"/></rect><text x="372" y="852" class="barPct">3%</text>
@@ -507,10 +507,10 @@
       <text x="34" y="26" class="muted">latest projects</text>
       <animate attributeName="opacity" values="0.94;1;0.94" dur="5.6s" repeatCount="indefinite"/>
     </g>
-    <circle cx="462" cy="780" r="3" fill="#3178c6"><animate attributeName="opacity" values="0.65;1;0.65" dur="4s" repeatCount="indefinite"/></circle><text x="474" y="784" class="barLabel">Ai-SaaS</text><text x="690" y="784" class="barPct">TypeScript</text><text x="770" y="784" class="barPct">★ 0 ⑂ 0</text>
-<circle cx="462" cy="801" r="3" fill="#f1e05a"><animate attributeName="opacity" values="0.65;1;0.65" dur="4s" repeatCount="indefinite"/></circle><text x="474" y="805" class="barLabel">streamvault-backend</text><text x="690" y="805" class="barPct">JavaScript</text><text x="770" y="805" class="barPct">★ 0 ⑂ 0</text>
-<circle cx="462" cy="822" r="3" fill="#DA5B0B"><animate attributeName="opacity" values="0.65;1;0.65" dur="4s" repeatCount="indefinite"/></circle><text x="474" y="826" class="barLabel">poseguard</text><text x="690" y="826" class="barPct">Jupyter N…</text><text x="770" y="826" class="barPct">★ 1 ⑂ 0</text>
-<circle cx="462" cy="843" r="3" fill="#3178c6"><animate attributeName="opacity" values="0.65;1;0.65" dur="4s" repeatCount="indefinite"/></circle><text x="474" y="847" class="barLabel">Devquery</text><text x="690" y="847" class="barPct">TypeScript</text><text x="770" y="847" class="barPct">★ 1 ⑂ 0</text>
+    <circle cx="462" cy="780" r="3" fill="#3178c6"><animate attributeName="opacity" values="0.65;1;0.65" dur="4s" repeatCount="indefinite"/></circle><text x="474" y="784" class="barLabel">Ai-SaaS</text><text x="690" y="784" class="barPct">TypeScript</text><text x="770" y="784" class="barPct">stars 0  forks 0</text>
+<circle cx="462" cy="801" r="3" fill="#f1e05a"><animate attributeName="opacity" values="0.65;1;0.65" dur="4s" repeatCount="indefinite"/></circle><text x="474" y="805" class="barLabel">streamvault-backend</text><text x="690" y="805" class="barPct">JavaScript</text><text x="770" y="805" class="barPct">stars 0  forks 0</text>
+<circle cx="462" cy="822" r="3" fill="#DA5B0B"><animate attributeName="opacity" values="0.65;1;0.65" dur="4s" repeatCount="indefinite"/></circle><text x="474" y="826" class="barLabel">poseguard</text><text x="690" y="826" class="barPct">Jupyter N...</text><text x="770" y="826" class="barPct">stars 1  forks 0</text>
+<circle cx="462" cy="843" r="3" fill="#3178c6"><animate attributeName="opacity" values="0.65;1;0.65" dur="4s" repeatCount="indefinite"/></circle><text x="474" y="847" class="barLabel">Devquery</text><text x="690" y="847" class="barPct">TypeScript</text><text x="770" y="847" class="barPct">stars 1  forks 0</text>
 
     <text x="32" y="902" class="section">// TECH STACK</text>
     <g transform="translate(32 924)"><rect width="66" height="24" rx="12" fill="#58A6FF" fill-opacity="0.10" stroke="#58A6FF" stroke-opacity="0.30"><animate attributeName="opacity" values="0.90;1;0.90" dur="4.4s" repeatCount="indefinite"/></rect><text x="33.0" y="16" text-anchor="middle" class="pill" fill="#58A6FF">Python</text></g>
@@ -570,12 +570,12 @@
       <rect x="0" y="0" width="3" height="42" fill="#A371F7"/>
       <g>
         <text x="16" y="18" class="quoteText">&quot;Code is like humor. When you have to explain it, it&apos;s bad.&quot;</text>
-        <text x="16" y="35" class="quoteAttr">— Cory House</text>
+        <text x="16" y="35" class="quoteAttr">- Cory House</text>
         <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.34;0.44;0.90;1" dur="12s" repeatCount="indefinite"/>
       </g>
       <g opacity="0">
         <text x="16" y="18" class="quoteText">&quot;First, solve the problem. Then, write the code.&quot;</text>
-        <text x="16" y="35" class="quoteAttr">— John Johnson</text>
+        <text x="16" y="35" class="quoteAttr">- John Johnson</text>
         <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.28;0.38;0.66;0.76" dur="12s" repeatCount="indefinite"/>
       </g>
       <rect x="-820" y="0" width="820" height="42" fill="#161B22" opacity="0.92">
