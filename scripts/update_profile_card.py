@@ -290,7 +290,7 @@ def short(value: Any, limit: int) -> str:
     text = re.sub(r"\s+", " ", str(value or "")).strip()
     if len(text) <= limit:
         return text
-    return text[: max(0, limit - 1)].rstrip() + "…"
+    return text[: max(0, limit - 1)].rstrip() + "..."
 
 
 def metric_number(value: int) -> str:
@@ -610,7 +610,7 @@ def latest_projects_svg(user: Dict[str, Any]) -> str:
             f'</circle>'
             f'<text x="474" y="{y}" class="barLabel">{esc(name)}</text>'
             f'<text x="690" y="{y}" class="barPct">{esc(short(lang, 10))}</text>'
-            f'<text x="770" y="{y}" class="barPct">★ {stars} ⑂ {forks}</text>'
+            f'<text x="770" y="{y}" class="barPct">stars {stars}  forks {forks}</text>'
         )
 
     return "\n".join(rows)
@@ -896,12 +896,12 @@ def generate_svg(user: Dict[str, Any], config: Dict[str, Any]) -> str:
       <rect x="0" y="0" width="3" height="42" fill="#A371F7"/>
       <g>
         <text x="16" y="18" class="quoteText">&quot;Code is like humor. When you have to explain it, it&apos;s bad.&quot;</text>
-        <text x="16" y="35" class="quoteAttr">— Cory House</text>
+        <text x="16" y="35" class="quoteAttr">- Cory House</text>
         <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;0.34;0.44;0.90;1" dur="12s" repeatCount="indefinite"/>
       </g>
       <g opacity="0">
         <text x="16" y="18" class="quoteText">&quot;First, solve the problem. Then, write the code.&quot;</text>
-        <text x="16" y="35" class="quoteAttr">— John Johnson</text>
+        <text x="16" y="35" class="quoteAttr">- John Johnson</text>
         <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.28;0.38;0.66;0.76" dur="12s" repeatCount="indefinite"/>
       </g>
       <rect x="-820" y="0" width="820" height="42" fill="#161B22" opacity="0.92">
