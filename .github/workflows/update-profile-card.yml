@@ -4,22 +4,23 @@ on:
   workflow_dispatch:
 
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "0 */6 * * *"
 
   push:
     branches:
-      - main
       - master
-    paths-ignore:
+      - main
+    paths:
       - "README.md"
-      - "assets/profile-card.svg"
       - "profile_config.json"
+      - "scripts/update_profile_card.py"
+      - ".github/workflows/update-profile-card.yml"
 
 permissions:
   contents: write
 
 concurrency:
-  group: update-profile-card
+  group: update-profile-card-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -48,19 +49,19 @@ jobs:
         run: python scripts/update_profile_card.py
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PROFILE_USERNAME: ${{ github.repository_owner }}
+          PROFILE_USERNAME: UjjwalKumarKannojiya
 
-      - name: Commit updated files
+      - name: Commit updated profile files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add -A
+          git add README.md assets/profile-card.svg profile_config.json scripts/update_profile_card.py
 
           if git diff --cached --quiet; then
-            echo "No changes to commit."
+            echo "No profile changes found."
           else
-            git commit -m "chore: update dynamic profile card"
+            git commit -m "chore: update dynamic GitHub profile"
             git pull --rebase origin "${{ github.ref_name }}"
             git push origin HEAD:"${{ github.ref_name }}"
           fi
