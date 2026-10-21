@@ -117,7 +117,7 @@
       <rect width="252" height="76" rx="8" fill="#161B22" stroke="#21262D">
         <animate attributeName="opacity" values="0.96;1;0.96" dur="5s" repeatCount="indefinite"/>
       </rect>
-      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#58A6FF">227</text>
+      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#58A6FF">232</text>
       <text x="126" y="58" text-anchor="middle" class="metricLabel">contributions</text>
     </g>
 
@@ -1982,7 +1982,7 @@
                 </rect>
 
                 <rect x="782" y="643" width="10" height="10" rx="2"
-                      fill="#26A641" stroke="#39D353">
+                      fill="#39D353" stroke="#39D353">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="1.03s" repeatCount="indefinite"/>
                 </rect>
 
@@ -2029,10 +2029,10 @@
 
             <text x="18" y="120" class="barLabel">Python</text>
             <rect x="114" y="112" width="194" height="6" rx="3" fill="#21262D"/>
-            <rect x="114" y="112" width="17" height="6" rx="3" fill="#3572A5">
-              <animate attributeName="width" values="0;17" dur="1.2s" fill="freeze"/>
+            <rect x="114" y="112" width="19" height="6" rx="3" fill="#3572A5">
+              <animate attributeName="width" values="0;19" dur="1.2s" fill="freeze"/>
             </rect>
-            <text x="340" y="120" class="barPct">9%</text>
+            <text x="340" y="120" class="barPct">10%</text>
       <animate attributeName="opacity" values="0.94;1;0.94" dur="5.3s" repeatCount="indefinite"/>
     </g>
 
