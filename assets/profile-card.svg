@@ -117,7 +117,7 @@
       <rect width="252" height="76" rx="8" fill="#161B22" stroke="#21262D">
         <animate attributeName="opacity" values="0.96;1;0.96" dur="5s" repeatCount="indefinite"/>
       </rect>
-      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#58A6FF">232</text>
+      <text x="126" y="37" text-anchor="middle" class="metricNum" fill="#58A6FF">235</text>
       <text x="126" y="58" text-anchor="middle" class="metricLabel">contributions</text>
     </g>
 
@@ -1987,7 +1987,7 @@
                 </rect>
 
                 <rect x="782" y="656" width="10" height="10" rx="2"
-                      fill="#161B22" stroke="#21262D">
+                      fill="#006D32" stroke="#26A641">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="1.06s" repeatCount="indefinite"/>
                 </rect>
 
