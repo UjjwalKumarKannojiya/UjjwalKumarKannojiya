@@ -252,7 +252,7 @@
                 </rect>
 
                 <rect x="96" y="604" width="10" height="10" rx="2"
-                      fill="#161B22" stroke="#21262D">
+                      fill="#0E4429" stroke="#26A641">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.05s" repeatCount="indefinite"/>
                 </rect>
 
@@ -287,7 +287,7 @@
                 </rect>
 
                 <rect x="110" y="604" width="10" height="10" rx="2"
-                      fill="#0E4429" stroke="#26A641">
+                      fill="#161B22" stroke="#21262D">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.07s" repeatCount="indefinite"/>
                 </rect>
 
@@ -882,7 +882,7 @@
                 </rect>
 
                 <rect x="348" y="604" width="10" height="10" rx="2"
-                      fill="#161B22" stroke="#21262D">
+                      fill="#006D32" stroke="#26A641">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.38s" repeatCount="indefinite"/>
                 </rect>
 
@@ -917,12 +917,12 @@
                 </rect>
 
                 <rect x="362" y="604" width="10" height="10" rx="2"
-                      fill="#006D32" stroke="#26A641">
+                      fill="#161B22" stroke="#21262D">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.40s" repeatCount="indefinite"/>
                 </rect>
 
                 <rect x="362" y="617" width="10" height="10" rx="2"
-                      fill="#161B22" stroke="#21262D">
+                      fill="#0E4429" stroke="#26A641">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.43s" repeatCount="indefinite"/>
                 </rect>
 
@@ -957,7 +957,7 @@
                 </rect>
 
                 <rect x="376" y="617" width="10" height="10" rx="2"
-                      fill="#0E4429" stroke="#26A641">
+                      fill="#161B22" stroke="#21262D">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.44s" repeatCount="indefinite"/>
                 </rect>
 
@@ -982,7 +982,7 @@
                 </rect>
 
                 <rect x="376" y="682" width="10" height="10" rx="2"
-                      fill="#161B22" stroke="#21262D">
+                      fill="#0E4429" stroke="#26A641">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.59s" repeatCount="indefinite"/>
                 </rect>
 
@@ -1017,7 +1017,7 @@
                 </rect>
 
                 <rect x="390" y="682" width="10" height="10" rx="2"
-                      fill="#0E4429" stroke="#26A641">
+                      fill="#006D32" stroke="#26A641">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.61s" repeatCount="indefinite"/>
                 </rect>
 
@@ -1052,7 +1052,7 @@
                 </rect>
 
                 <rect x="404" y="682" width="10" height="10" rx="2"
-                      fill="#006D32" stroke="#26A641">
+                      fill="#161B22" stroke="#21262D">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.63s" repeatCount="indefinite"/>
                 </rect>
 
@@ -1067,7 +1067,7 @@
                 </rect>
 
                 <rect x="418" y="630" width="10" height="10" rx="2"
-                      fill="#161B22" stroke="#21262D">
+                      fill="#006D32" stroke="#26A641">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.53s" repeatCount="indefinite"/>
                 </rect>
 
@@ -1102,7 +1102,7 @@
                 </rect>
 
                 <rect x="432" y="630" width="10" height="10" rx="2"
-                      fill="#006D32" stroke="#26A641">
+                      fill="#161B22" stroke="#21262D">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.55s" repeatCount="indefinite"/>
                 </rect>
 
@@ -1182,17 +1182,17 @@
                 </rect>
 
                 <rect x="460" y="656" width="10" height="10" rx="2"
-                      fill="#161B22" stroke="#21262D">
+                      fill="#26A641" stroke="#39D353">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.64s" repeatCount="indefinite"/>
                 </rect>
 
                 <rect x="460" y="669" width="10" height="10" rx="2"
-                      fill="#161B22" stroke="#21262D">
+                      fill="#39D353" stroke="#39D353">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.67s" repeatCount="indefinite"/>
                 </rect>
 
                 <rect x="460" y="682" width="10" height="10" rx="2"
-                      fill="#161B22" stroke="#21262D">
+                      fill="#0E4429" stroke="#26A641">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.70s" repeatCount="indefinite"/>
                 </rect>
 
@@ -1217,22 +1217,22 @@
                 </rect>
 
                 <rect x="474" y="656" width="10" height="10" rx="2"
-                      fill="#26A641" stroke="#39D353">
+                      fill="#161B22" stroke="#21262D">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.66s" repeatCount="indefinite"/>
                 </rect>
 
                 <rect x="474" y="669" width="10" height="10" rx="2"
-                      fill="#39D353" stroke="#39D353">
+                      fill="#161B22" stroke="#21262D">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.69s" repeatCount="indefinite"/>
                 </rect>
 
                 <rect x="474" y="682" width="10" height="10" rx="2"
-                      fill="#0E4429" stroke="#26A641">
+                      fill="#161B22" stroke="#21262D">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.72s" repeatCount="indefinite"/>
                 </rect>
 
                 <rect x="488" y="604" width="10" height="10" rx="2"
-                      fill="#161B22" stroke="#21262D">
+                      fill="#0E4429" stroke="#26A641">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.56s" repeatCount="indefinite"/>
                 </rect>
 
@@ -1252,27 +1252,27 @@
                 </rect>
 
                 <rect x="488" y="656" width="10" height="10" rx="2"
-                      fill="#161B22" stroke="#21262D">
+                      fill="#006D32" stroke="#26A641">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.68s" repeatCount="indefinite"/>
                 </rect>
 
                 <rect x="488" y="669" width="10" height="10" rx="2"
-                      fill="#161B22" stroke="#21262D">
+                      fill="#006D32" stroke="#26A641">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.71s" repeatCount="indefinite"/>
                 </rect>
 
                 <rect x="488" y="682" width="10" height="10" rx="2"
-                      fill="#161B22" stroke="#21262D">
+                      fill="#0E4429" stroke="#26A641">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.74s" repeatCount="indefinite"/>
                 </rect>
 
                 <rect x="502" y="604" width="10" height="10" rx="2"
-                      fill="#0E4429" stroke="#26A641">
+                      fill="#39D353" stroke="#39D353">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.58s" repeatCount="indefinite"/>
                 </rect>
 
                 <rect x="502" y="617" width="10" height="10" rx="2"
-                      fill="#161B22" stroke="#21262D">
+                      fill="#006D32" stroke="#26A641">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.61s" repeatCount="indefinite"/>
                 </rect>
 
@@ -1282,32 +1282,32 @@
                 </rect>
 
                 <rect x="502" y="643" width="10" height="10" rx="2"
-                      fill="#161B22" stroke="#21262D">
+                      fill="#39D353" stroke="#39D353">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.67s" repeatCount="indefinite"/>
                 </rect>
 
                 <rect x="502" y="656" width="10" height="10" rx="2"
-                      fill="#006D32" stroke="#26A641">
+                      fill="#161B22" stroke="#21262D">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.70s" repeatCount="indefinite"/>
                 </rect>
 
                 <rect x="502" y="669" width="10" height="10" rx="2"
-                      fill="#006D32" stroke="#26A641">
+                      fill="#161B22" stroke="#21262D">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.73s" repeatCount="indefinite"/>
                 </rect>
 
                 <rect x="502" y="682" width="10" height="10" rx="2"
-                      fill="#0E4429" stroke="#26A641">
+                      fill="#161B22" stroke="#21262D">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.76s" repeatCount="indefinite"/>
                 </rect>
 
                 <rect x="516" y="604" width="10" height="10" rx="2"
-                      fill="#39D353" stroke="#39D353">
+                      fill="#161B22" stroke="#21262D">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.59s" repeatCount="indefinite"/>
                 </rect>
 
                 <rect x="516" y="617" width="10" height="10" rx="2"
-                      fill="#006D32" stroke="#26A641">
+                      fill="#161B22" stroke="#21262D">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.62s" repeatCount="indefinite"/>
                 </rect>
 
@@ -1317,7 +1317,7 @@
                 </rect>
 
                 <rect x="516" y="643" width="10" height="10" rx="2"
-                      fill="#39D353" stroke="#39D353">
+                      fill="#161B22" stroke="#21262D">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.68s" repeatCount="indefinite"/>
                 </rect>
 
@@ -1942,17 +1942,17 @@
                 </rect>
 
                 <rect x="768" y="630" width="10" height="10" rx="2"
-                      fill="#161B22" stroke="#21262D">
+                      fill="#39D353" stroke="#39D353">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="0.98s" repeatCount="indefinite"/>
                 </rect>
 
                 <rect x="768" y="643" width="10" height="10" rx="2"
-                      fill="#161B22" stroke="#21262D">
+                      fill="#39D353" stroke="#39D353">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="1.01s" repeatCount="indefinite"/>
                 </rect>
 
                 <rect x="768" y="656" width="10" height="10" rx="2"
-                      fill="#161B22" stroke="#21262D">
+                      fill="#006D32" stroke="#26A641">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="1.04s" repeatCount="indefinite"/>
                 </rect>
 
@@ -1977,17 +1977,17 @@
                 </rect>
 
                 <rect x="782" y="630" width="10" height="10" rx="2"
-                      fill="#39D353" stroke="#39D353">
+                      fill="#161B22" stroke="#21262D">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="1.00s" repeatCount="indefinite"/>
                 </rect>
 
                 <rect x="782" y="643" width="10" height="10" rx="2"
-                      fill="#39D353" stroke="#39D353">
+                      fill="#161B22" stroke="#21262D">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="1.03s" repeatCount="indefinite"/>
                 </rect>
 
                 <rect x="782" y="656" width="10" height="10" rx="2"
-                      fill="#006D32" stroke="#26A641">
+                      fill="#161B22" stroke="#21262D">
                   <animate attributeName="opacity" values="0.82;1;0.82" dur="3.8s" begin="1.06s" repeatCount="indefinite"/>
                 </rect>
 
